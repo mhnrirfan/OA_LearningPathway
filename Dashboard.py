@@ -331,16 +331,7 @@ with h2:
     background-color: #fafafa;
     """
     with b1:
-        st.markdown(
-            f"""
-            <div style="{box_style}">
-                <h2 style="margin:0; font-size:22px;">ℹ️ How to use this board</h2>
-                <p>Learn how to navigate pathways, follow the journey, and use the learning loop.</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        with st.popover("Open guide", use_container_width=True):
+        with st.popover("ℹ️ How to use this board", use_container_width=True):
             st.markdown("## Getting around the board")
             st.markdown("""
             - Pick a **pathway** to see every course in that track.
@@ -350,16 +341,7 @@ with h2:
             - Use **Tools We Work With** for official documentation.
             """)
     with b2:
-        st.markdown(
-            f"""
-            <div style="{box_style}">
-                <h2 style="margin:0; font-size:22px;">📄 AI Capability Guide</h2>
-                <p>Explore pathways from AI fundamentals to agents, RAG, governance and simulation.</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        with st.popover("Open guide", use_container_width=True):
+        with st.popover("📄 AI Capability Guide", use_container_width=True):
             st.markdown("## AI Capability Guide")
             st.markdown("""
             This board maps six AI pathways:
@@ -373,15 +355,7 @@ with h2:
             """)
 
     with b3:
-        st.markdown(
-            f"""
-            <div style="{box_style}">
-                <h2 style="margin:0; font-size:22px;">💬 Share feedback</h2>
-                <p>Tell us what works and what would improve the experience.</p>
-            </div>
-            """,
-            unsafe_allow_html=True)
-        with st.popover("Open feedback form", use_container_width=True):
+        with st.popover("💬 Share feedback", use_container_width=True):
             st.markdown("## Tell us what's working (or not)")
             fb = st.text_area(
                 "Your feedback",
