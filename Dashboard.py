@@ -322,51 +322,39 @@ with h1:
     st.markdown('<div class="page-title">OA AI Capability Journey</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
 with h2:
-    b1, b2, b3 = st.columns(3, gap="medium")
-    box_style = """
-    height: 180px;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    background-color: #fafafa;
-    """
+    b1, b2, b3 = st.columns(3)
     with b1:
         with st.popover("ℹ️ How to use this board", use_container_width=True):
-            st.markdown("## Getting around the board")
-            st.markdown("""
-            - Pick a **pathway** to see every course in that track.
-            - Follow the **Journey** left to right — each stage builds on the last.
-            - Use **Learn → Workshop → Sandbox → Build → Showcase → Badge**.
-            - Visit **Sandbox Labs** for hands-on practice.
-            - Use **Tools We Work With** for official documentation.
-            """)
+            st.markdown("**Getting around the board**")
+            st.markdown(
+                "- Pick a **pathway** to see every course in that track.\n"
+                "- Follow the **Journey** left to right — each stage builds on the last.\n"
+                "- Use **How you learn** as your loop for every capability: "
+                "Learn → Workshop → Sandbox → Build → Showcase → Badge.\n"
+                "- Check **Sandbox Labs** for hands-on practice any time.\n"
+                "- **Tools We Work With** links straight out to the official docs."
+            )
     with b2:
-        with st.popover("📄 AI Capability Guide", use_container_width=True):
-            st.markdown("## AI Capability Guide")
-            st.markdown("""
-            This board maps six AI pathways:
-            - Fundamentals
-            - Generative AI
-            - Agentic Systems
-            - RAG & Data
-            - Governance
-            - Simulation
-            Start with Fundamentals or jump directly into the area you are building.
-            """)
-
+        with st.popover("📄 Capability Guide", use_container_width=True):
+            st.markdown("**AI Capability Guide**")
+            st.markdown(
+                "This board maps six pathways, from AI fundamentals through to "
+                "agentic systems, RAG & data, governance, and simulation. Start "
+                "at **Fundamentals** if you're new, or jump to the pathway that "
+                "matches what you're building right now."
+            )
+            st.caption("Ask in the Community channel if you want the full PDF guide.")
     with b3:
+        st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
         with st.popover("💬 Share feedback", use_container_width=True):
-            st.markdown("## Tell us what's working (or not)")
-            fb = st.text_area(
-                "Your feedback",
-                label_visibility="collapsed",
-                placeholder="What would make this board more useful?",
-                key="fb_text")
+            st.markdown("**Tell us what's working (or not)**")
+            fb = st.text_area("Your feedback", label_visibility="collapsed",
+                               placeholder="What would make this board more useful?", key="fb_text")
             if st.button("Submit feedback", key="fb_submit"):
                 st.session_state.feedback_sent = True
-            if st.session_state.get("feedback_sent"):
+            if st.session_state.feedback_sent:
                 st.success("Thanks — your feedback has been noted for this session.")
-            st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 st.write("")
 
