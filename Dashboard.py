@@ -21,6 +21,7 @@ TRACKS = {
         "name": "Fundamentals",
         "color": "#2f6fed",
         "bg": "#eaf1ff",
+        "description": "Build a strong foundation in AI, LLMs, prompting, data and responsible AI.",
         "courses": [
             ("AI & LLM Fundamentals", "Understand how large language models work and their core capabilities.", "1.5 hrs"),
             ("Prompt Engineering", "Learn to write clear, effective prompts for consistent AI outputs.", "2 hrs"),
@@ -38,6 +39,7 @@ TRACKS = {
         "name": "Agentic AI",
         "color": "#2f9e5c",
         "bg": "#e9f8ee",
+        "description": "Learn how to build, orchestrate and scale AI agents.",
         "courses": [
             ("MCP & Tool Abstraction", "Connect models to tools and data using the Model Context Protocol.", "2 hrs"),
             ("Copilot Studio", "Build and deploy custom copilots without writing code.", "2.5 hrs"),
@@ -53,10 +55,11 @@ TRACKS = {
         "name": "RAG & Data",
         "color": "#8b5cf6",
         "bg": "#f2edfe",
+        "description": "Work with enterprise data, retrieval systems, embeddings and vector databases.",
         "courses": [
             ("Azure AI Search", "Index and retrieve enterprise content with Azure AI Search.", "2 hrs"),
             ("Vector Databases", "Understand embeddings and vector search for retrieval.", "2 hrs"),
-            ("Redis (Memory Cache)", "Use Redis for fast agent memory and caching.", "1.5 hrs"),
+            ("Redis Memory Cache", "Use Redis for fast agent memory and caching.", "1.5 hrs"),
             ("LangChain", "Build retrieval-augmented pipelines using LangChain.", "2.5 hrs"),
             ("Embedding Strategies", "Choose the right embedding model and chunking strategy.", "1.5 hrs"),
         ],
@@ -67,9 +70,10 @@ TRACKS = {
         "name": "LLM & Prompt Ops",
         "color": "#e8781f",
         "bg": "#fef1e6",
+        "description": "Learn how to work effectively with leading LLMs and prompt operations.",
         "courses": [
-            ("Work with GPT-4/4.1/5", "Get the most out of OpenAI's latest model family.", "1.5 hrs"),
-            ("Claude 3.x & Gemini", "Compare and apply Claude and Gemini for common tasks.", "1.5 hrs"),
+            ("Work with GPT-4 / 4.1 / 5", "Get the most out of OpenAI's latest model family.", "1.5 hrs"),
+            ("Claude & Gemini", "Compare and apply Claude and Gemini for common tasks.", "1.5 hrs"),
             ("Multi-Modal AI", "Work with text, image and audio inputs together.", "2 hrs"),
             ("GitHub Copilot", "Accelerate coding with AI pair programming.", "1.5 hrs"),
             ("Prompt Flow", "Build, test and evaluate prompt pipelines visually.", "2 hrs"),
@@ -82,6 +86,7 @@ TRACKS = {
         "name": "Governance & Responsible AI",
         "color": "#e0373f",
         "bg": "#fdecec",
+        "description": "Understand how to secure, govern, monitor and responsibly deploy AI.",
         "courses": [
             ("Security & Guardrails", "Put technical guardrails around AI systems in production.", "2 hrs"),
             ("Auditing & Monitoring", "Track AI decisions and outputs for accountability.", "1.5 hrs"),
@@ -95,10 +100,11 @@ TRACKS = {
         "name": "Simulation & Innovation",
         "color": "#12163a",
         "bg": "#eceef5",
+        "description": "Explore synthetic data, digital twins, open models and sandbox experimentation.",
         "courses": [
             ("Synthetic Data Generation", "Generate realistic synthetic datasets for testing and training.", "2 hrs"),
-            ("Digital Twins (Unreal Engine)", "Build simulated environments to test AI in the real world.", "3 hrs"),
-            ("Mistral & LLAMA", "Explore open-weight model families and when to use them.", "1.5 hrs"),
+            ("Digital Twins & Unreal Engine", "Build simulated environments to test AI in the real world.", "3 hrs"),
+            ("Mistral & Llama", "Explore open-weight model families and when to use them.", "1.5 hrs"),
             ("Simulation & Sandbox", "Safely trial new AI capabilities in a sandboxed environment.", "2 hrs"),
         ],
     },
@@ -115,28 +121,120 @@ STAGE_TO_TRACK = {
 }
 
 
-TOOL_LINKS = {
-    "Azure AI Search": ("🔷", "https://learn.microsoft.com/en-us/azure/search/"),
-    "Redis": ("🟥", "https://redis.io/docs/latest/"),
-    "LangChain": ("⛓️", "https://python.langchain.com/docs/introduction/"),
-    "LangGraph": ("🔗", "https://langchain-ai.github.io/langgraph/"),
-    "Copilot Studio": ("🧩", "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"),
-    "MS Foundry": ("Ⓜ️", "https://learn.microsoft.com/en-us/azure/ai-foundry/"),
-    "GitHub Copilot": ("🐙", "https://docs.github.com/en/copilot"),
-    "Celonis API": ("🌀", "https://docs.celonis.com/"),
-    "OpenAI": ("🌐", "https://platform.openai.com/docs"),
-    "Claude": ("✨", "https://docs.claude.com/"),
-    "Gemini": ("💎", "https://ai.google.dev/gemini-api/docs"),
-    "Llama": ("🦙", "https://www.llama.com/docs/overview/"),
-    "Mistral": ("🌪️", "https://docs.mistral.ai/"),
-    "DALL-E": ("🎨", "https://platform.openai.com/docs/guides/images"),
-    "Midjourney": ("🌆", "https://docs.midjourney.com/"),
-    "Whisper": ("🔊", "https://platform.openai.com/docs/guides/speech-to-text"),
-    "Unreal Engine": ("🏛️", "https://dev.epicgames.com/documentation/en-us/unreal-engine"),
-    "Prompt Flow": ("🌊", "https://microsoft.github.io/promptflow/"),
-    "LangSmith": ("🦜", "https://docs.smith.langchain.com/"),
-    "W&B": ("⚖️", "https://docs.wandb.ai/"),
-}
+EVENTS = [
+    {
+        "icon": "📅",
+        "title": "Intro to Prompt Engineering for Consultants",
+        "date": "22 May 2025",
+        "type": "Workshop",
+        "color": "#2f6fed",
+    },
+    {
+        "icon": "📗",
+        "title": "Building with RAG on Azure AI Search",
+        "date": "29 May 2025",
+        "type": "Workshop",
+        "color": "#2f9e5c",
+    },
+    {
+        "icon": "📘",
+        "title": "Multi-Agent Orchestration with LangGraph",
+        "date": "5 June 2025",
+        "type": "Advanced",
+        "color": "#8b5cf6",
+    },
+    {
+        "icon": "🎤",
+        "title": "AI Community Showcase",
+        "date": "12 June 2025",
+        "type": "Community",
+        "color": "#e8781f",
+    },
+]
+
+
+LABS = [
+    {
+        "icon": "🔍",
+        "title": "RAG Lab",
+        "description": "Build a company knowledge assistant using retrieval-augmented generation.",
+        "level": "Practitioner",
+        "color": "#2f6fed",
+        "bg": "#eaf1ff",
+    },
+    {
+        "icon": "🤖",
+        "title": "Agent Builder Lab",
+        "description": "Create your first AI agent and connect it to tools.",
+        "level": "Advanced",
+        "color": "#2f9e5c",
+        "bg": "#e9f8ee",
+    },
+    {
+        "icon": "🌊",
+        "title": "Prompt Flow Lab",
+        "description": "Test, evaluate and improve prompts through structured experimentation.",
+        "level": "Practitioner",
+        "color": "#8b5cf6",
+        "bg": "#f2edfe",
+    },
+    {
+        "icon": "🧬",
+        "title": "Synthetic Data Lab",
+        "description": "Generate realistic data for AI and analytics experimentation.",
+        "level": "Innovation",
+        "color": "#e8781f",
+        "bg": "#fef1e6",
+    },
+]
+
+
+ARTICLES = [
+    {
+        "icon": "🧠",
+        "title": "What is Generative AI?",
+        "category": "AI Fundamentals",
+        "description": "A simple introduction to generative AI, LLMs and how modern AI systems create content.",
+        "read_time": "5 min read",
+    },
+    {
+        "icon": "🤖",
+        "title": "The Rise of Agentic AI",
+        "category": "Agentic AI",
+        "description": "How AI agents are evolving from chatbots into systems that can reason, plan and act.",
+        "read_time": "8 min read",
+    },
+    {
+        "icon": "🔍",
+        "title": "Understanding RAG",
+        "category": "RAG & Data",
+        "description": "Why retrieval-augmented generation is important for enterprise AI applications.",
+        "read_time": "6 min read",
+    },
+    {
+        "icon": "🛡️",
+        "title": "Responsible AI in Practice",
+        "category": "Governance",
+        "description": "The principles and practical guardrails needed to deploy AI responsibly.",
+        "read_time": "7 min read",
+    },
+]
+
+
+TOOLS = [
+    ("🔷", "Azure AI Search", "https://learn.microsoft.com/en-us/azure/search/"),
+    ("🟥", "Redis", "https://redis.io/docs/latest/"),
+    ("⛓️", "LangChain", "https://python.langchain.com/docs/introduction/"),
+    ("🔗", "LangGraph", "https://langchain-ai.github.io/langgraph/"),
+    ("🧩", "Copilot Studio", "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"),
+    ("🐙", "GitHub Copilot", "https://docs.github.com/en/copilot"),
+    ("🌐", "OpenAI", "https://platform.openai.com/docs"),
+    ("✨", "Claude", "https://docs.claude.com/"),
+    ("💎", "Gemini", "https://ai.google.dev/gemini-api/docs"),
+    ("🦙", "Llama", "https://www.llama.com/docs/overview/"),
+    ("🌪️", "Mistral", "https://docs.mistral.ai/"),
+    ("🏛️", "Unreal Engine", "https://dev.epicgames.com/documentation/en-us/unreal-engine"),
+]
 
 
 # ============================================================================
@@ -150,16 +248,12 @@ if "feedback_sent" not in st.session_state:
     st.session_state.feedback_sent = False
 
 
-def go_home():
-    st.session_state.page = "home"
-
-
-def go_page(page):
+def navigate(page):
     st.session_state.page = page
 
 
 # ============================================================================
-# GLOBAL CSS
+# CSS
 # ============================================================================
 
 st.markdown(
@@ -181,85 +275,77 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    padding-top: 2.5rem;
+    padding-top: 2.2rem;
     padding-bottom: 3rem;
     max-width: 1500px;
 }
 
-p, div, span, li, a {
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
-
-
-/* ============================================================================
-SIDEBAR
-============================================================================ */
+/* =========================
+   SIDEBAR
+========================= */
 
 section[data-testid="stSidebar"] {
-    background-color: #131a3a;
+    background: #131a3a;
 }
 
 section[data-testid="stSidebar"] * {
-    color: #d7dbf0 !important;
+    color: #d7dbf0;
 }
 
 .sidebar-logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 4px 0 22px 0;
+    padding: 4px 0 25px 0;
     font-weight: 800;
     font-size: 16px;
     color: white !important;
-    line-height: 1.3;
 }
 
-.sidebar-logo .logo-icon {
+.sidebar-logo-icon {
     font-size: 24px;
-    flex-shrink: 0;
 }
 
-section[data-testid="stSidebar"] div[data-testid="stButton"] > button {
-    width: 100%;
-    border: none !important;
+.sidebar-section-label {
+    color: #858db8 !important;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 20px 0 8px 5px;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stButton"] button {
     background: transparent !important;
+    border: none !important;
     color: #c7cbe6 !important;
     text-align: left !important;
     justify-content: flex-start !important;
-    font-size: 13.5px !important;
     font-weight: 500 !important;
-    padding: 9px 12px !important;
-    min-height: 40px !important;
+    font-size: 13px !important;
+    min-height: 38px !important;
+    padding: 8px 12px !important;
     border-radius: 8px !important;
 }
 
-section[data-testid="stSidebar"] div[data-testid="stButton"] > button:hover {
-    background-color: #202956 !important;
+section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
+    background: #202957 !important;
     color: white !important;
 }
 
-.nav-active {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #2b3570;
+.sidebar-active button {
+    background: #2b3570 !important;
     color: white !important;
-    padding: 10px 12px;
-    border-radius: 8px;
-    margin-bottom: 4px;
-    font-size: 13.5px;
-    font-weight: 700;
 }
 
 .quote-box {
-    background-color: #1c2450;
+    background: #1c2450;
     border-radius: 10px;
     padding: 16px;
-    margin-top: 24px;
+    margin-top: 25px;
     font-size: 12px;
     line-height: 1.55;
-    color: #b8bde0;
+    color: #b8bde0 !important;
 }
 
 .quote-attr {
@@ -268,36 +354,54 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] > button:hover {
     color: #7f8ad4 !important;
 }
 
-
-/* ============================================================================
-HEADER
-============================================================================ */
+/* =========================
+   HEADERS
+========================= */
 
 .page-title {
     font-size: 28px;
     font-weight: 800;
     color: #101433;
-    margin: 0;
-    line-height: 1.35;
+    line-height: 1.25;
 }
 
 .page-subtitle {
     color: #6b7086;
     font-size: 14px;
-    margin-top: 4px;
-    line-height: 1.5;
+    margin-top: 5px;
 }
+
+.section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #12163a;
+    margin: 8px 0 14px 0;
+}
+
+.page-heading {
+    font-size: 26px;
+    font-weight: 800;
+    color: #12163a;
+    margin-bottom: 4px;
+}
+
+.page-description {
+    color: #6b7086;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 
 div[data-testid="stButton"] > button {
     border-radius: 8px;
     font-weight: 600;
     font-size: 13px;
     border: 1px solid #d7dae3;
-    background-color: white;
+    background: white;
     color: #2c3050;
-    padding: 8px 12px;
-    white-space: normal;
-    line-height: 1.3;
     min-height: 40px;
 }
 
@@ -306,382 +410,348 @@ div[data-testid="stButton"] > button:hover {
     color: #2f6fed;
 }
 
-div[data-testid="stPopover"] > button {
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 13px;
-    border: 1px solid #d7dae3;
-    background-color: white;
-    color: #2c3050;
-    padding: 8px 12px;
-    min-height: 40px;
-}
-
-
-/* ============================================================================
-SECTIONS
-============================================================================ */
-
-.section-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: #12163a;
-    margin: 8px 0 14px 0;
-    line-height: 1.3;
-}
-
-.section-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 8px 0 14px 0;
-}
-
-
-/* ============================================================================
-PATHWAY CARDS
-============================================================================ */
-
-.pathway-card {
-    min-height: 112px;
-    height: 112px;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.pathway-icon {
-    font-size: 22px;
-    line-height: 1;
-}
-
-.pathway-title {
-    font-size: 13px;
-    font-weight: 800;
-    line-height: 1.25;
-}
-
-.pathway-meta {
-    font-size: 11px;
-    color: #6b7086;
-}
-
-
-/* ============================================================================
-JOURNEY
-============================================================================ */
-
-.journey-wrap {
-    background: white;
-    border-radius: 14px;
-    padding: 28px 22px 20px 22px;
-    border: 1px solid #e7e9f2;
-    margin-bottom: 26px;
-}
-
-.journey-stage {
-    min-height: 265px;
-    height: 265px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.journey-circle {
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    border: 3px solid;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 23px;
-    margin-bottom: 10px;
-    background: white;
-}
-
-.journey-stage-title {
-    text-align: center;
-    font-weight: 800;
-    font-size: 12px;
-    line-height: 1.3;
-    min-height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.journey-stage-sub {
-    text-align: center;
-    font-size: 11px;
-    color: #6b7086;
-    min-height: 28px;
-    margin-top: 3px;
-}
-
-.journey-list {
-    list-style: none;
-    padding: 0;
-    margin: 6px 0 0 0;
-    width: 100%;
-    font-size: 11.5px;
-    color: #33364f;
-    line-height: 1.35;
-}
-
-.journey-list li {
-    padding: 5px 2px;
-    border-bottom: 1px dashed #eef0f6;
-}
-
-.journey-list li:before {
-    content: "•  ";
-}
-
-
-/* ============================================================================
-HOW YOU LEARN
-============================================================================ */
-
-.step-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e7e9f2;
-    padding: 16px 12px;
-    text-align: center;
-    min-height: 120px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.step-icon {
-    font-size: 21px;
-    margin-bottom: 7px;
-}
-
-.step-title {
-    font-weight: 700;
-    font-size: 12px;
-    color: #12163a;
-    line-height: 1.3;
-}
-
-.step-sub {
-    font-size: 11px;
-    color: #6b7086;
-    margin-top: 4px;
-    line-height: 1.35;
-}
-
-
-/* ============================================================================
-GENERAL CARDS
-============================================================================ */
+/* =========================
+   WHITE CARDS
+========================= */
 
 .white-card {
     background: white;
     border-radius: 14px;
     border: 1px solid #e7e9f2;
     padding: 20px;
+    height: 100%;
 }
+
+/* =========================
+   TRACK CARDS
+========================= */
+
+.track-card {
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.track-card-icon {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.track-card-title {
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.track-card-description {
+    font-size: 11.5px;
+    color: #5c6079;
+    line-height: 1.45;
+    margin-top: 6px;
+}
+
+.track-card-count {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+/* =========================
+   CAPABILITY JOURNEY
+========================= */
+
+.journey-wrapper {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e7e9f2;
+    padding: 28px 20px 22px 20px;
+}
+
+.journey-stage {
+    height: 100%;
+    text-align: center;
+}
+
+.journey-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 12px auto;
+    border-radius: 50%;
+    border: 3px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    font-size: 27px;
+}
+
+.journey-title {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.3;
+    min-height: 32px;
+}
+
+.journey-subtitle {
+    font-size: 11px;
+    color: #6b7086;
+    margin: 4px 0 12px 0;
+    min-height: 30px;
+}
+
+.journey-list {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 11.5px;
+    color: #454868;
+}
+
+.journey-list li {
+    padding: 6px 2px;
+    border-bottom: 1px dashed #eef0f6;
+}
+
+.journey-list li::before {
+    content: "• ";
+}
+
+/* =========================
+   COURSE CARDS
+========================= */
 
 .course-card {
     background: white;
     border-radius: 12px;
     border: 1px solid #e7e9f2;
-    padding: 16px;
+    padding: 17px;
     min-height: 180px;
-    height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .course-number {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .course-title {
     font-weight: 700;
     font-size: 14px;
     color: #12163a;
-    margin-bottom: 5px;
     line-height: 1.35;
 }
 
-.course-desc {
+.course-description {
     font-size: 12px;
     color: #5c6079;
     line-height: 1.45;
+    margin-top: 6px;
 }
 
-.course-meta {
+.course-duration {
     font-size: 11px;
     color: #8b8fa8;
     font-weight: 600;
+    margin-top: 12px;
 }
 
-
-/* ============================================================================
-TRACK HERO
-============================================================================ */
-
-.track-hero {
-    border-radius: 14px;
-    padding: 24px;
-    margin: 18px 0 22px 0;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.track-hero-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    flex-shrink: 0;
-}
-
-.track-hero-title {
-    font-size: 24px;
-    font-weight: 800;
-    margin: 0;
-    line-height: 1.2;
-}
-
-.track-hero-sub {
-    font-size: 13px;
-    margin-top: 4px;
-    opacity: 0.85;
-}
-
-
-/* ============================================================================
-LABS
-============================================================================ */
-
-.lab-card {
-    border-radius: 12px;
-    padding: 20px;
-    min-height: 215px;
-    height: 215px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.lab-title {
-    font-weight: 800;
-    font-size: 16px;
-    margin-bottom: 7px;
-}
-
-.lab-desc {
-    font-size: 12px;
-    color: #454868;
-    line-height: 1.5;
-}
-
-
-/* ============================================================================
-TOOLS
-============================================================================ */
-
-a.tool-chip {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: #f7f8fb;
-    border: 1px solid #edeef4;
-    border-radius: 8px;
-    padding: 8px 9px;
-    font-size: 11.5px;
-    font-weight: 600;
-    color: #23264a !important;
-    margin-bottom: 8px;
-    line-height: 1.25;
-    text-decoration: none;
-}
-
-a.tool-chip:hover {
-    border-color: #2f6fed;
-    background: #eaf1ff;
-    color: #2f6fed !important;
-}
-
-.tool-arrow {
-    margin-left: auto;
-    opacity: 0.45;
-}
-
-
-/* ============================================================================
-EVENTS / ARTICLES
-============================================================================ */
+/* =========================
+   EVENTS
+========================= */
 
 .event-card {
     background: white;
     border: 1px solid #e7e9f2;
     border-radius: 12px;
     padding: 18px;
-    min-height: 150px;
-    height: 150px;
+    margin-bottom: 12px;
 }
+
+.event-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.event-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+}
+
+.event-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #16193b;
+}
+
+.event-date {
+    font-size: 12px;
+    color: #6b7086;
+    margin-top: 5px;
+}
+
+.event-tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 9px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* =========================
+   LABS
+========================= */
+
+.lab-card {
+    background: white;
+    border: 1px solid #e7e9f2;
+    border-radius: 14px;
+    padding: 20px;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lab-icon {
+    font-size: 30px;
+}
+
+.lab-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 14px;
+}
+
+.lab-description {
+    font-size: 12.5px;
+    color: #5c6079;
+    line-height: 1.5;
+    margin-top: 7px;
+}
+
+.lab-level {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+/* =========================
+   ARTICLES
+========================= */
 
 .article-card {
     background: white;
     border: 1px solid #e7e9f2;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 20px;
-    min-height: 230px;
-    height: 230px;
+    min-height: 220px;
 }
 
+.article-icon {
+    font-size: 30px;
+}
 
-/* ============================================================================
-FOOTER
-============================================================================ */
+.article-category {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 14px;
+}
 
-.footer-banner {
+.article-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #12163a;
+    margin-top: 6px;
+}
+
+.article-description {
+    font-size: 12.5px;
+    color: #5c6079;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.article-time {
+    font-size: 11px;
+    color: #8b8fa8;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+/* =========================
+   TOOLS
+========================= */
+
+.tool-chip {
+    display: block;
+    background: white;
+    border: 1px solid #e7e9f2;
+    border-radius: 9px;
+    padding: 10px;
+    color: #23264a !important;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.tool-chip:hover {
+    border-color: #2f6fed;
+    background: #eaf1ff;
+}
+
+/* =========================
+   INFO BANNERS
+========================= */
+
+.info-banner {
     background: #eef1fb;
     border-radius: 12px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 26px;
+    padding: 18px;
+    margin-top: 20px;
 }
 
+.locked-banner {
+    background: #fff8e8;
+    border: 1px solid #f1d58a;
+    border-radius: 14px;
+    padding: 25px;
+    text-align: center;
+}
 
-/* ============================================================================
-BACK BUTTON
-============================================================================ */
+/* =========================
+   FAQ
+========================= */
 
-.back-marker + div[data-testid="stButton"] button {
-    border: none;
-    background: transparent;
-    color: #2f6fed;
-    font-weight: 700;
-    padding: 4px 0;
-    min-height: unset;
+.faq-card {
+    background: white;
+    border: 1px solid #e7e9f2;
+    border-radius: 12px;
+    padding: 4px 18px;
+    margin-bottom: 12px;
 }
 
 </style>
@@ -699,14 +769,19 @@ with st.sidebar:
     st.markdown(
         """
         <div class="sidebar-logo">
-            <span class="logo-icon">🔷</span>
+            <span class="sidebar-logo-icon">🔷</span>
             <span>OA AI Capability Journey</span>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    nav_items = [
+    st.markdown(
+        '<div class="sidebar-section-label">Navigation</div>',
+        unsafe_allow_html=True,
+    )
+
+    sidebar_items = [
         ("🏠", "Home", "home"),
         ("🗺️", "Capability Map", "capability_map"),
         ("🧪", "Sandbox Labs", "labs"),
@@ -716,29 +791,42 @@ with st.sidebar:
         ("❓", "Help & Support", "help"),
     ]
 
-    for icon, label, page_key in nav_items:
+    for icon, label, page in sidebar_items:
 
-        if st.session_state.page == page_key:
+        if st.session_state.page == page:
+            st.markdown('<div class="sidebar-active">', unsafe_allow_html=True)
 
-            st.markdown(
-                f"""
-                <div class="nav-active">
-                    <span>{icon}</span>
-                    <span>{label}</span>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        st.button(
+            f"{icon}  {label}",
+            key=f"sidebar_{page}",
+            use_container_width=True,
+            on_click=navigate,
+            args=(page,),
+        )
 
-        else:
+        if st.session_state.page == page:
+            st.markdown("</div>", unsafe_allow_html=True)
 
-            st.button(
-                f"{icon}  {label}",
-                key=f"nav_{page_key}",
-                use_container_width=True,
-                on_click=go_page,
-                args=(page_key,),
-            )
+    st.markdown(
+        '<div class="sidebar-section-label">Resources</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.button(
+        "🛠️  Tools & Guides",
+        key="sidebar_tools",
+        use_container_width=True,
+        on_click=navigate,
+        args=("tools",),
+    )
+
+    st.button(
+        "📁  Use Cases",
+        key="sidebar_usecases",
+        use_container_width=True,
+        on_click=navigate,
+        args=("usecases",),
+    )
 
     st.markdown(
         """
@@ -746,7 +834,9 @@ with st.sidebar:
             "We connect AI models to our foundational tools and semantics layers —
             enabling agents to read, reason and act across data and models."
 
-            <div class="quote-attr">— OA AI Team</div>
+            <div class="quote-attr">
+                — OA AI Team
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -754,12 +844,12 @@ with st.sidebar:
 
 
 # ============================================================================
-# SHARED HEADER
+# HEADER
 # ============================================================================
 
-h1, h2 = st.columns([3, 2])
+header_left, header_right = st.columns([3, 1])
 
-with h1:
+with header_left:
 
     st.markdown(
         '<div class="page-title">OA AI Capability Journey</div>',
@@ -771,152 +861,68 @@ with h1:
         unsafe_allow_html=True,
     )
 
+with header_right:
 
-with h2:
+    with st.popover("ℹ️ How to use this board", use_container_width=True):
 
-    b1, b2, b3 = st.columns(3)
+        st.markdown("### Getting around the board")
 
-    with b1:
-
-        with st.popover("ℹ️ How to use this board", use_container_width=True):
-
-            st.markdown("**Getting around the board**")
-
-            st.markdown(
-                """
-                - Use the sidebar to explore different areas.
-                - Use the **Capability Map** to explore AI capabilities.
-                - Follow the journey from Foundation to Innovation.
-                - Use **Sandbox Labs** for hands-on practice.
-                - Check **Workshops & Events** for upcoming sessions.
-                - Use **Tools & Guides** to access official documentation.
-                """
-            )
-
-
-    with b2:
-
-        with st.popover("📄 AI Capability Guide", use_container_width=True):
-
-            st.markdown("**AI Capability Guide**")
-
-            st.markdown(
-                """
-                This board maps six pathways, from AI fundamentals through to
-                agentic systems, RAG & data, governance and simulation.
-
-                Start at **Fundamentals** if you're new to AI, or jump directly
-                to the pathway that matches what you're building.
-                """
-            )
-
-
-    with b3:
-
-        with st.popover("💬 Share feedback", use_container_width=True):
-
-            st.markdown("**Tell us what's working — or not**")
-
-            fb = st.text_area(
-                "Your feedback",
-                label_visibility="collapsed",
-                placeholder="What would make this board more useful?",
-                key="fb_text",
-            )
-
-            if st.button("Submit feedback", key="fb_submit"):
-
-                st.session_state.feedback_sent = True
-
-            if st.session_state.feedback_sent:
-
-                st.success(
-                    "Thanks — your feedback has been noted for this session."
-                )
+        st.markdown(
+            """
+            - Use the **sidebar** to move between pages.
+            - Explore the **Capability Map** to understand the full AI journey.
+            - Use **Sandbox Labs** for hands-on practice.
+            - Browse **Workshops & Events** for upcoming learning opportunities.
+            - Read **Blog & Articles** for AI insights and updates.
+            - The **Teams Calendar** is available to invited users.
+            """
+        )
 
 
 st.write("")
 
 
 # ============================================================================
-# TRACK DETAIL PAGE
+# PAGE: HOME
 # ============================================================================
 
-def render_track_page(key):
-
-    track = TRACKS[key]
+def render_home():
 
     st.markdown(
-        '<div class="back-marker"></div>',
+        '<div class="section-title">Choose your learning pathway</div>',
         unsafe_allow_html=True,
     )
 
-    st.button(
-        "← Back to Capability Map",
-        key="back_to_map",
-        on_click=go_page,
-        args=("capability_map",),
-    )
+    track_cols = st.columns(6)
 
-    st.markdown(
-        f"""
-        <div class="track-hero" style="background:{track['bg']};">
+    for col, (key, track) in zip(track_cols, TRACKS.items()):
 
-            <div class="track-hero-icon">
-                {track['icon']}
-            </div>
-
-            <div>
-
-                <p class="track-hero-title" style="color:{track['color']};">
-                    {track['name']} Track
-                </p>
-
-                <p class="track-hero-sub" style="color:{track['color']};">
-                    {len(track['courses'])} capabilities in this pathway
-                </p>
-
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    cols = st.columns(4)
-
-    for i, (title, desc, duration) in enumerate(track["courses"]):
-
-        with cols[i % 4]:
+        with col:
 
             st.markdown(
                 f"""
-                <div class="course-card">
+                <div class="track-card"
+                     style="background:{track['bg']};
+                            border:1px solid {track['color']}44;">
 
                     <div>
-
-                        <div
-                            class="course-number"
-                            style="
-                                background:{track['color']}1a;
-                                color:{track['color']};
-                            "
-                        >
-                            {i + 1:02d}
+                        <div class="track-card-icon">
+                            {track['icon']}
                         </div>
 
-                        <div class="course-title">
-                            {title}
+                        <div class="track-card-title"
+                             style="color:{track['color']};">
+                            {track['name']}
                         </div>
 
-                        <div class="course-desc">
-                            {desc}
+                        <div class="track-card-description">
+                            {track['description']}
                         </div>
-
                     </div>
 
-                    <div class="course-meta">
-                        ⏱ {duration}
+                    <div class="track-card-count"
+                         style="color:{track['color']};">
+                        {len(track['courses'])} capabilities
                     </div>
 
                 </div>
@@ -925,673 +931,355 @@ def render_track_page(key):
             )
 
             st.button(
-                "Start course →",
-                key=f"course_{key}_{i}",
+                "Explore pathway →",
+                key=f"home_track_{key}",
                 use_container_width=True,
+                on_click=navigate,
+                args=(key,),
             )
 
 
-# ============================================================================
-# HOME PAGE
-# ============================================================================
+    st.write("")
 
-def render_home():
+    # ========================================================================
+    # AI CAPABILITY JOURNEY
+    # ========================================================================
 
-    main_col, right_col = st.columns(
-        [3, 1],
-        gap="large",
+    st.markdown(
+        '<div class="section-title">Your AI Capability Journey</div>',
+        unsafe_allow_html=True,
+    )
+
+    stages = [
+        (
+            "🌱",
+            "FOUNDATION",
+            "Build your basics",
+            "#2f6fed",
+            ["AI & LLM Fundamentals", "Prompt Engineering", "Responsible AI", "Governance Basics"],
+            "fundamentals",
+        ),
+        (
+            "🛠️",
+            "PRACTITIONER",
+            "Apply & build",
+            "#e8781f",
+            ["GPT & LLMs", "Claude & Gemini", "Multi-Modal AI", "GitHub Copilot"],
+            "llm_promptops",
+        ),
+        (
+            "🏗️",
+            "ADVANCED BUILDERS",
+            "Design & integrate",
+            "#8b5cf6",
+            ["Azure AI Search", "Vector Databases", "Redis", "LangChain"],
+            "rag_data",
+        ),
+        (
+            "🕸️",
+            "AGENTIC AI",
+            "Orchestrate & scale",
+            "#2f9e5c",
+            ["MCP & Tool Abstraction", "Copilot Studio", "Agent Frameworks", "LangGraph"],
+            "agentic",
+        ),
+        (
+            "🛡️",
+            "ENTERPRISE DEPLOYMENT",
+            "Secure & govern",
+            "#e0373f",
+            ["Security & Guardrails", "Auditing & Monitoring", "Compliance", "Decision Guardrails"],
+            "governance",
+        ),
+        (
+            "🚀",
+            "INNOVATION LAB",
+            "Simulate & explore",
+            "#12163a",
+            ["Synthetic Data", "Digital Twins", "Open Models", "Simulation"],
+            "simulation",
+        ),
+    ]
+
+    st.markdown(
+        '<div class="journey-wrapper">',
+        unsafe_allow_html=True,
+    )
+
+    journey_cols = st.columns(6)
+
+    for col, (icon, title, subtitle, color, items, track_key) in zip(
+        journey_cols,
+        stages,
+    ):
+
+        with col:
+
+            st.markdown(
+                f"""
+                <div class="journey-stage">
+
+                    <div class="journey-icon"
+                         style="border-color:{color};
+                                color:{color};">
+                        {icon}
+                    </div>
+
+                    <div class="journey-title"
+                         style="color:{color};">
+                        {title}
+                    </div>
+
+                    <div class="journey-subtitle">
+                        {subtitle}
+                    </div>
+
+                    <ul class="journey-list">
+                        {''.join(f'<li>{item}</li>' for item in items)}
+                    </ul>
+
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            st.button(
+                "View pathway →",
+                key=f"journey_{track_key}",
+                use_container_width=True,
+                on_click=navigate,
+                args=(track_key,),
+            )
+
+    st.markdown(
+        '</div>',
+        unsafe_allow_html=True,
     )
 
 
-    # ------------------------------------------------------------------------
-    # MAIN CONTENT
-    # ------------------------------------------------------------------------
+    st.write("")
 
-    with main_col:
+    # ========================================================================
+    # HOW YOU LEARN
+    # ========================================================================
 
-        # ---------------- PATHWAYS ----------------
+    st.markdown(
+        '<div class="section-title">How you learn</div>',
+        unsafe_allow_html=True,
+    )
 
-        st.markdown(
-            '<div class="section-title">Choose your learning pathway</div>',
-            unsafe_allow_html=True,
-        )
+    steps = [
+        ("📖", "1. LEARN", "Self-paced content"),
+        ("👥", "2. WORKSHOP", "Instructor-led learning"),
+        ("🧪", "3. SANDBOX", "Guided hands-on practice"),
+        ("⚙️", "4. BUILD", "Mini project or use case"),
+        ("📊", "5. SHOWCASE", "Demo to the community"),
+    ]
 
-        pathway_cols = st.columns(3)
+    step_cols = st.columns(5)
 
-        for i, (key, track) in enumerate(TRACKS.items()):
+    for col, (icon, title, subtitle) in zip(step_cols, steps):
 
-            with pathway_cols[i % 3]:
+        with col:
 
-                st.markdown(
-                    f"""
-                    <div
-                        class="pathway-card"
-                        style="
-                            background:{track['bg']};
-                            border-color:{track['color']}44;
-                        "
-                    >
+            st.markdown(
+                f"""
+                <div class="white-card"
+                     style="text-align:center;
+                            min-height:125px;">
 
-                        <div class="pathway-icon">
-                            {track['icon']}
-                        </div>
-
-                        <div
-                            class="pathway-title"
-                            style="color:{track['color']};"
-                        >
-                            {track['name']}
-                        </div>
-
-                        <div class="pathway-meta">
-                            {len(track['courses'])} capabilities
-                        </div>
-
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-
-                st.button(
-                    "Explore pathway →",
-                    key=f"home_track_{key}",
-                    use_container_width=True,
-                    on_click=go_page,
-                    args=(key,),
-                )
-
-
-        st.write("")
-
-
-        # ---------------- JOURNEY ----------------
-
-        st.markdown(
-            '<div class="section-title">Your AI Capability Journey</div>',
-            unsafe_allow_html=True,
-        )
-
-        stages = [
-
-            (
-                "🌱",
-                "FOUNDATION",
-                "Build your basics",
-                "#2f6fed",
-                [
-                    "AI & LLM Fundamentals",
-                    "Prompt Engineering",
-                    "Responsible AI",
-                    "Governance Basics",
-                ],
-            ),
-
-            (
-                "🛠️",
-                "PRACTITIONER",
-                "Apply & build",
-                "#e8781f",
-                [
-                    "Work with GPT-4/4.1/5",
-                    "Claude 3.x & Gemini",
-                    "Multi-Modal AI",
-                    "GitHub Copilot",
-                ],
-            ),
-
-            (
-                "</>",
-                "ADVANCED BUILDERS",
-                "Design & integrate",
-                "#8b5cf6",
-                [
-                    "Azure AI Search",
-                    "Vector Databases",
-                    "Redis (Memory Cache)",
-                    "LangChain",
-                ],
-            ),
-
-            (
-                "🕸️",
-                "AGENTIC AI",
-                "Orchestrate & scale",
-                "#2f9e5c",
-                [
-                    "MCP & Tool Abstraction",
-                    "Copilot Studio",
-                    "Agent Frameworks",
-                    "LangGraph",
-                ],
-            ),
-
-            (
-                "🛡️",
-                "ENTERPRISE DEPLOYMENT",
-                "Secure & govern",
-                "#e0373f",
-                [
-                    "Security & Guardrails",
-                    "Auditing & Monitoring",
-                    "Compliance",
-                    "Decision Guardrails",
-                ],
-            ),
-
-            (
-                "🚀",
-                "INNOVATION LAB",
-                "Simulate & explore",
-                "#12163a",
-                [
-                    "Synthetic Data Generation",
-                    "Digital Twins",
-                    "Mistral & LLAMA",
-                    "Simulation & Sandbox",
-                ],
-            ),
-
-        ]
-
-        st.markdown(
-            '<div class="journey-wrap">',
-            unsafe_allow_html=True,
-        )
-
-        journey_cols = st.columns(6)
-
-        for col, (icon, title, subtitle, color, items) in zip(
-            journey_cols,
-            stages,
-        ):
-
-            with col:
-
-                st.markdown(
-                    f"""
-                    <div class="journey-stage">
-
-                        <div
-                            class="journey-circle"
-                            style="
-                                border-color:{color};
-                                color:{color};
-                            "
-                        >
-                            {icon}
-                        </div>
-
-                        <div
-                            class="journey-stage-title"
-                            style="color:{color};"
-                        >
-                            {title}
-                        </div>
-
-                        <div class="journey-stage-sub">
-                            {subtitle}
-                        </div>
-
-                        <ul class="journey-list">
-
-                            {''.join(
-                                f'<li>{item}</li>'
-                                for item in items
-                            )}
-
-                        </ul>
-
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-
-                track_key = STAGE_TO_TRACK[title]
-
-                st.button(
-                    "View pathway →",
-                    key=f"stage_{track_key}",
-                    use_container_width=True,
-                    on_click=go_page,
-                    args=(track_key,),
-                )
-
-        st.markdown(
-            '</div>',
-            unsafe_allow_html=True,
-        )
-
-
-        # ---------------- HOW YOU LEARN ----------------
-
-        st.markdown(
-            '<div class="section-title">How you learn</div>',
-            unsafe_allow_html=True,
-        )
-
-        steps = [
-
-            (
-                "📖",
-                "1. LEARN",
-                "Self-paced content",
-            ),
-
-            (
-                "👥",
-                "2. WORKSHOP",
-                "Instructor-led session",
-            ),
-
-            (
-                "🧪",
-                "3. SANDBOX LAB",
-                "Guided hands-on practice",
-            ),
-
-            (
-                "⚙️",
-                "4. BUILD",
-                "Mini project or use case",
-            ),
-
-            (
-                "📊",
-                "5. SHOWCASE",
-                "Demo to the community",
-            ),
-
-        ]
-
-        step_cols = st.columns(5)
-
-        for col, (icon, title, subtitle) in zip(
-            step_cols,
-            steps,
-        ):
-
-            with col:
-
-                st.markdown(
-                    f"""
-                    <div class="step-card">
-
-                        <div class="step-icon">
-                            {icon}
-                        </div>
-
-                        <div class="step-title">
-                            {title}
-                        </div>
-
-                        <div class="step-sub">
-                            {subtitle}
-                        </div>
-
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-
-
-        # ---------------- FOOTER CTA ----------------
-
-        st.markdown(
-            """
-            <div class="footer-banner">
-
-                <div style="font-size:22px;">
-                    🌱
-                </div>
-
-                <div>
-
-                    <div
-                        style="
-                            font-weight:800;
-                            color:#12163a;
-                        "
-                    >
-                        New to AI? Start with Fundamentals.
-                    </div>
-
-                    <div
-                        style="
-                            color:#6b7086;
-                            font-size:12.5px;
-                            margin-top:3px;
-                        "
-                    >
-                        Build your foundation before progressing into
-                        advanced AI capabilities.
-                    </div>
-
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-
-    # ------------------------------------------------------------------------
-    # RIGHT SIDEBAR CONTENT
-    # ------------------------------------------------------------------------
-
-    with right_col:
-
-        st.markdown(
-            '<div class="section-title" style="font-size:15px;">Tools We Work With</div>',
-            unsafe_allow_html=True,
-        )
-
-        tool_cols = st.columns(2)
-
-        for i, (name, (icon, url)) in enumerate(
-            TOOL_LINKS.items()
-        ):
-
-            with tool_cols[i % 2]:
-
-                st.markdown(
-                    f"""
-                    <a
-                        class="tool-chip"
-                        href="{url}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    <div style="font-size:25px;">
                         {icon}
-                        {name}
-                        <span class="tool-arrow">↗</span>
-                    </a>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                    </div>
 
+                    <div style="font-weight:800;
+                                font-size:12px;
+                                color:#12163a;
+                                margin-top:8px;">
+                        {title}
+                    </div>
 
-        st.write("")
+                    <div style="font-size:11px;
+                                color:#6b7086;
+                                margin-top:5px;">
+                        {subtitle}
+                    </div>
 
-
-        st.markdown(
-            '<div class="section-title" style="font-size:15px;">Quick Links</div>',
-            unsafe_allow_html=True,
-        )
-
-        quick_links = [
-
-            ("🧪", "Sandbox Labs", "labs"),
-            ("🗓️", "Workshops & Events", "events"),
-            ("📰", "Blog & Articles", "blog"),
-            ("❓", "Help & Support", "help"),
-
-        ]
-
-        for icon, label, page_key in quick_links:
-
-            st.button(
-                f"{icon}  {label}",
-                key=f"quick_{page_key}",
-                use_container_width=True,
-                on_click=go_page,
-                args=(page_key,),
+                </div>
+                """,
+                unsafe_allow_html=True,
             )
 
 
+    st.write("")
+
+    # ========================================================================
+    # START HERE BANNER
+    # ========================================================================
+
+    st.markdown(
+        """
+        <div class="info-banner">
+
+            <div style="font-size:24px;">
+                🌱
+            </div>
+
+            <div>
+
+                <div style="font-size:15px;
+                            font-weight:800;
+                            color:#12163a;">
+                    New to AI?
+                </div>
+
+                <div style="font-size:12.5px;
+                            color:#6b7086;
+                            margin-top:4px;">
+                    Start with the Fundamentals pathway and build your knowledge
+                    step by step before moving into advanced AI capabilities.
+                </div>
+
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # ============================================================================
-# CAPABILITY MAP PAGE
+# PAGE: CAPABILITY MAP
 # ============================================================================
 
 def render_capability_map():
 
     st.markdown(
-        '<div class="page-title">AI Capability Map</div>',
+        '<div class="page-heading">🗺️ Capability Map</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Explore the full AI capability landscape and find the pathway
-            that matches your role and development goals.
+        <div class="page-description">
+            Explore the full OA AI capability landscape and find the pathway
+            that matches your current skills and interests.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
-
     for key, track in TRACKS.items():
 
-        st.markdown(
-            f"""
-            <div
-                class="white-card"
-                style="
-                    border-left:5px solid {track['color']};
-                    margin-bottom:12px;
-                "
-            >
+        col1, col2 = st.columns([4, 1])
 
-                <div
-                    style="
-                        display:flex;
-                        align-items:center;
-                        gap:14px;
-                    "
-                >
+        with col1:
 
-                    <div style="font-size:30px;">
-                        {track['icon']}
-                    </div>
+            st.markdown(
+                f"""
+                <div class="white-card">
 
-                    <div>
+                    <div style="display:flex;
+                                align-items:center;
+                                gap:14px;">
 
-                        <div
-                            style="
-                                font-size:18px;
-                                font-weight:800;
-                                color:{track['color']};
-                            "
-                        >
-                            {track['name']}
+                        <div style="font-size:30px;">
+                            {track['icon']}
                         </div>
 
-                        <div
-                            style="
-                                font-size:12px;
-                                color:#6b7086;
-                            "
-                        >
-                            {len(track['courses'])} capabilities
+                        <div>
+
+                            <div style="font-size:17px;
+                                        font-weight:800;
+                                        color:{track['color']};">
+                                {track['name']}
+                            </div>
+
+                            <div style="font-size:12px;
+                                        color:#6b7086;
+                                        margin-top:4px;">
+                                {track['description']}
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        with col2:
 
-        course_cols = st.columns(4)
-
-        for i, (title, desc, duration) in enumerate(
-            track["courses"]
-        ):
-
-            with course_cols[i % 4]:
-
-                st.markdown(
-                    f"""
-                    <div class="course-card">
-
-                        <div>
-
-                            <div class="course-title">
-                                {title}
-                            </div>
-
-                            <div class="course-desc">
-                                {desc}
-                            </div>
-
-                        </div>
-
-                        <div class="course-meta">
-                            ⏱ {duration}
-                        </div>
-
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+            st.button(
+                "Explore →",
+                key=f"map_{key}",
+                use_container_width=True,
+                on_click=navigate,
+                args=(key,),
+            )
 
         st.write("")
 
 
 # ============================================================================
-# SANDBOX LABS PAGE
+# PAGE: SANDBOX LABS
 # ============================================================================
 
 def render_labs():
 
     st.markdown(
-        '<div class="page-title">Sandbox Labs</div>',
+        '<div class="page-heading">🧪 Sandbox Labs</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Experiment safely, build prototypes and practise AI capabilities
-            through hands-on exercises.
+        <div class="page-description">
+            Learn by doing. Use these guided environments to experiment with
+            AI tools, models and workflows.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
+    lab_cols = st.columns(2)
 
-    labs = [
+    for col, lab in zip(lab_cols * 2, LABS):
 
-        (
-            "🧠",
-            "RAG Lab",
-            "Build a company knowledge assistant using documents and enterprise search.",
-            "Intermediate",
-            "2–4 hours",
-            "#eaf1ff",
-            "#2f6fed",
-        ),
-
-        (
-            "🤖",
-            "Agent Builder Lab",
-            "Create your first AI agent and connect it to tools and business processes.",
-            "Intermediate",
-            "2–4 hours",
-            "#e9f8ee",
-            "#2f9e5c",
-        ),
-
-        (
-            "🌊",
-            "Prompt Flow Lab",
-            "Test, evaluate and improve prompts using structured experimentation.",
-            "Practitioner",
-            "2–3 hours",
-            "#f2edfe",
-            "#8b5cf6",
-        ),
-
-        (
-            "📊",
-            "Synthetic Data Lab",
-            "Generate realistic synthetic datasets for testing AI and analytics use cases.",
-            "Advanced",
-            "3–4 hours",
-            "#fef1e6",
-            "#e8781f",
-        ),
-
-        (
-            "🕸️",
-            "Multi-Agent Lab",
-            "Build a workflow where multiple agents collaborate to complete a task.",
-            "Advanced",
-            "4–6 hours",
-            "#e9f8ee",
-            "#2f9e5c",
-        ),
-
-        (
-            "🛡️",
-            "Responsible AI Lab",
-            "Explore guardrails, monitoring and safe AI deployment scenarios.",
-            "All levels",
-            "2 hours",
-            "#fdecec",
-            "#e0373f",
-        ),
-
-    ]
-
-    lab_cols = st.columns(3)
-
-    for i, (
-        icon,
-        title,
-        desc,
-        level,
-        duration,
-        bg,
-        color,
-    ) in enumerate(labs):
-
-        with lab_cols[i % 3]:
+        with col:
 
             st.markdown(
                 f"""
-                <div
-                    class="lab-card"
-                    style="background:{bg}; margin-bottom:14px;"
-                >
+                <div class="lab-card"
+                     style="background:{lab['bg']};
+                            border-color:{lab['color']}44;">
 
                     <div>
 
-                        <div
-                            style="
-                                font-size:28px;
-                                margin-bottom:10px;
-                            "
-                        >
-                            {icon}
+                        <div class="lab-icon">
+                            {lab['icon']}
                         </div>
 
-                        <div
-                            class="lab-title"
-                            style="color:{color};"
-                        >
-                            {title}
+                        <div class="lab-title"
+                             style="color:{lab['color']};">
+                            {lab['title']}
                         </div>
 
-                        <div class="lab-desc">
-                            {desc}
+                        <div class="lab-description">
+                            {lab['description']}
                         </div>
 
                     </div>
 
-                    <div
-                        style="
-                            font-size:11px;
-                            color:#6b7086;
-                        "
-                    >
-                        <b>{level}</b>
-                        &nbsp; · &nbsp;
-                        {duration}
+                    <div>
+
+                        <div class="lab-level"
+                             style="color:{lab['color']};">
+                            {lab['level']}
+                        </div>
+
                     </div>
 
                 </div>
@@ -1600,159 +1288,65 @@ def render_labs():
             )
 
             st.button(
-                "Start Lab →",
-                key=f"lab_{i}",
+                "Open Lab →",
+                key=f"open_lab_{lab['title']}",
                 use_container_width=True,
             )
 
+            st.write("")
+
 
 # ============================================================================
-# WORKSHOPS & EVENTS PAGE
+# PAGE: EVENTS
 # ============================================================================
 
 def render_events():
 
     st.markdown(
-        '<div class="page-title">Workshops & Events</div>',
+        '<div class="page-heading">🗓️ Workshops & Events</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Learn from experts, build together and discover what is happening
-            across the OA AI community.
+        <div class="page-description">
+            Join workshops, community sessions and practical learning events
+            across the OA AI capability journey.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
-
-    events = [
-
-        (
-            "📅",
-            "Intro to Prompt Engineering for Consultants",
-            "Learn how to write effective prompts for analysis, research and consulting workflows.",
-            "22 May 2025",
-            "Beginner",
-            "#eaf1ff",
-            "#2f6fed",
-        ),
-
-        (
-            "📗",
-            "Building with RAG on Azure AI Search",
-            "Build a knowledge assistant using enterprise documents and retrieval-augmented generation.",
-            "29 May 2025",
-            "Practitioner",
-            "#e9f8ee",
-            "#2f9e5c",
-        ),
-
-        (
-            "📘",
-            "Multi-Agent Orchestration with LangGraph",
-            "Explore how multiple agents can collaborate on complex business processes.",
-            "5 June 2025",
-            "Advanced",
-            "#f2edfe",
-            "#8b5cf6",
-        ),
-
-        (
-            "🛡️",
-            "Responsible AI in Practice",
-            "Understand how to design safe, governed and trustworthy AI solutions.",
-            "12 June 2025",
-            "All levels",
-            "#fdecec",
-            "#e0373f",
-        ),
-
-    ]
-
-    for i, (
-        icon,
-        title,
-        desc,
-        date,
-        level,
-        bg,
-        color,
-    ) in enumerate(events):
+    for event in EVENTS:
 
         st.markdown(
             f"""
-            <div
-                class="event-card"
-                style="margin-bottom:10px;"
-            >
+            <div class="event-card">
 
-                <div
-                    style="
-                        display:flex;
-                        align-items:flex-start;
-                        gap:16px;
-                    "
-                >
+                <div class="event-card-header">
 
-                    <div
-                        style="
-                            background:{bg};
-                            color:{color};
-                            border-radius:10px;
-                            padding:12px;
-                            font-size:22px;
-                        "
-                    >
-                        {icon}
+                    <div class="event-icon"
+                         style="background:{event['color']}18;
+                                color:{event['color']};">
+                        {event['icon']}
                     </div>
 
-                    <div style="flex:1;">
+                    <div>
 
-                        <div
-                            style="
-                                font-size:16px;
-                                font-weight:800;
-                                color:#12163a;
-                            "
-                        >
-                            {title}
+                        <div class="event-title">
+                            {event['title']}
                         </div>
 
-                        <div
-                            style="
-                                font-size:13px;
-                                color:#6b7086;
-                                margin-top:5px;
-                            "
-                        >
-                            {desc}
+                        <div class="event-date">
+                            📅 {event['date']}
                         </div>
 
-                        <div
-                            style="
-                                margin-top:10px;
-                                font-size:11px;
-                                color:{color};
-                                font-weight:700;
-                            "
-                        >
-                            {level}
-                        </div>
+                        <span class="event-tag"
+                              style="background:{event['color']}18;
+                                     color:{event['color']};">
+                            {event['type']}
+                        </span>
 
-                    </div>
-
-                    <div
-                        style="
-                            font-size:12px;
-                            color:#6b7086;
-                            white-space:nowrap;
-                        "
-                    >
-                        {date}
                     </div>
 
                 </div>
@@ -1764,150 +1358,62 @@ def render_events():
 
         st.button(
             "View event details →",
-            key=f"event_{i}",
+            key=f"event_{event['title']}",
         )
+
+        st.write("")
 
 
 # ============================================================================
-# BLOG PAGE
+# PAGE: BLOG
 # ============================================================================
 
 def render_blog():
 
     st.markdown(
-        '<div class="page-title">Blog & Articles</div>',
+        '<div class="page-heading">📰 Blog & Articles</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Ideas, insights and practical guidance from the OA AI community.
+        <div class="page-description">
+            Explore practical AI insights, explainers, capability updates and
+            stories from the OA AI community.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
-
-    articles = [
-
-        (
-            "🧠",
-            "What is Agentic AI?",
-            "Understand how AI agents differ from traditional chatbots and automation.",
-            "AI Fundamentals",
-            "8 min read",
-            "#eaf1ff",
-            "#2f6fed",
-        ),
-
-        (
-            "🔍",
-            "Why Retrieval-Augmented Generation Matters",
-            "How RAG helps enterprise AI systems work with trusted organisational knowledge.",
-            "RAG & Data",
-            "10 min read",
-            "#f2edfe",
-            "#8b5cf6",
-        ),
-
-        (
-            "🛡️",
-            "Building Responsible AI Systems",
-            "The practical principles behind safe, governed and trustworthy AI.",
-            "Responsible AI",
-            "7 min read",
-            "#fdecec",
-            "#e0373f",
-        ),
-
-        (
-            "🚀",
-            "From AI Experiment to Enterprise Capability",
-            "What it takes to move from a prototype to a production AI solution.",
-            "Enterprise AI",
-            "12 min read",
-            "#e9f8ee",
-            "#2f9e5c",
-        ),
-
-    ]
-
     article_cols = st.columns(2)
 
-    for i, (
-        icon,
-        title,
-        desc,
-        category,
-        duration,
-        bg,
-        color,
-    ) in enumerate(articles):
+    for col, article in zip(article_cols * 2, ARTICLES):
 
-        with article_cols[i % 2]:
+        with col:
 
             st.markdown(
                 f"""
-                <div
-                    class="article-card"
-                    style="margin-bottom:14px;"
-                >
+                <div class="article-card">
 
-                    <div
-                        style="
-                            background:{bg};
-                            border-radius:10px;
-                            padding:18px;
-                            font-size:30px;
-                            margin-bottom:14px;
-                        "
-                    >
-                        {icon}
+                    <div class="article-icon">
+                        {article['icon']}
                     </div>
 
-                    <div
-                        style="
-                            font-size:11px;
-                            color:{color};
-                            font-weight:700;
-                            text-transform:uppercase;
-                        "
-                    >
-                        {category}
+                    <div class="article-category"
+                         style="color:#2f6fed;">
+                        {article['category']}
                     </div>
 
-                    <div
-                        style="
-                            font-size:17px;
-                            font-weight:800;
-                            color:#12163a;
-                            margin-top:6px;
-                        "
-                    >
-                        {title}
+                    <div class="article-title">
+                        {article['title']}
                     </div>
 
-                    <div
-                        style="
-                            font-size:13px;
-                            color:#6b7086;
-                            margin-top:6px;
-                            line-height:1.5;
-                        "
-                    >
-                        {desc}
+                    <div class="article-description">
+                        {article['description']}
                     </div>
 
-                    <div
-                        style="
-                            font-size:11px;
-                            color:#8b8fa8;
-                            margin-top:12px;
-                        "
-                    >
-                        {duration}
+                    <div class="article-time">
+                        ⏱ {article['read_time']}
                     </div>
 
                 </div>
@@ -1917,70 +1423,54 @@ def render_blog():
 
             st.button(
                 "Read article →",
-                key=f"article_{i}",
+                key=f"article_{article['title']}",
                 use_container_width=True,
             )
 
+            st.write("")
+
 
 # ============================================================================
-# TEAMS CALENDAR PAGE
+# PAGE: TEAMS CALENDAR
 # ============================================================================
 
 def render_calendar():
 
     st.markdown(
-        '<div class="page-title">Teams Calendar</div>',
+        '<div class="page-heading">📅 Teams Calendar</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Access invite-only AI sessions, private workshops and internal
-            community events.
+        <div class="page-description">
+            Access private workshops, invite-only sessions and team events.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
-
     st.markdown(
         """
-        <div
-            class="white-card"
-            style="
-                text-align:center;
-                padding:55px 30px;
-            "
-        >
+        <div class="locked-banner">
 
-            <div style="font-size:48px;">
+            <div style="font-size:40px;">
                 🔒
             </div>
 
-            <div
-                style="
-                    font-size:21px;
-                    font-weight:800;
-                    color:#12163a;
-                    margin-top:15px;
-                "
-            >
+            <div style="font-size:20px;
+                        font-weight:800;
+                        color:#12163a;
+                        margin-top:10px;">
                 Invite-only calendar
             </div>
 
-            <div
-                style="
-                    max-width:550px;
-                    margin:10px auto;
-                    font-size:14px;
-                    color:#6b7086;
-                    line-height:1.6;
-                "
-            >
-                This calendar contains private Teams meetings, invite-only
-                workshops and internal AI community events.
+            <div style="font-size:13px;
+                        color:#6b7086;
+                        max-width:550px;
+                        margin:10px auto;">
+                This calendar contains private Microsoft Teams meetings,
+                internal workshops and invite-only AI capability sessions.
             </div>
 
         </div>
@@ -1990,64 +1480,109 @@ def render_calendar():
 
     st.write("")
 
-    col1, col2, col3 = st.columns([1, 1, 1])
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+
+        st.markdown(
+            """
+            <div class="white-card" style="text-align:center;">
+                <div style="font-size:25px;">👥</div>
+                <div style="font-weight:800;margin-top:8px;">
+                    Internal workshops
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     with col2:
 
-        st.button(
-            "Request calendar access →",
-            use_container_width=True,
+        st.markdown(
+            """
+            <div class="white-card" style="text-align:center;">
+                <div style="font-size:25px;">🎤</div>
+                <div style="font-weight:800;margin-top:8px;">
+                    Expert sessions
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
+
+    with col3:
+
+        st.markdown(
+            """
+            <div class="white-card" style="text-align:center;">
+                <div style="font-size:25px;">🚀</div>
+                <div style="font-weight:800;margin-top:8px;">
+                    Community events
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.write("")
+
+    st.info(
+        "To connect the live Microsoft Teams calendar, add your internal Teams "
+        "calendar URL or Microsoft Graph integration here."
+    )
 
 
 # ============================================================================
-# HELP & SUPPORT PAGE
+# PAGE: HELP & SUPPORT
 # ============================================================================
 
 def render_help():
 
     st.markdown(
-        '<div class="page-title">Help & Support</div>',
+        '<div class="page-heading">❓ Help & Support</div>',
         unsafe_allow_html=True,
     )
 
     st.markdown(
         """
-        <div class="page-subtitle">
-            Find answers, troubleshoot issues and get help with your AI
-            learning journey.
+        <div class="page-description">
+            Find answers, report issues and get help navigating the OA AI
+            Capability Journey.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
+    faqs = [
+        (
+            "Where should I start?",
+            "If you are new to AI, start with the Fundamentals pathway. "
+            "If you already have experience, explore the Capability Map and "
+            "choose a pathway that matches your current skills."
+        ),
+        (
+            "How do I access a Sandbox Lab?",
+            "Open the Sandbox Labs page from the sidebar and choose the lab "
+            "that matches the capability you want to practise."
+        ),
+        (
+            "How do I join a workshop?",
+            "Upcoming public workshops are listed on the Workshops & Events "
+            "page. Invite-only sessions are available through the Teams Calendar."
+        ),
+        (
+            "How do I suggest a new course?",
+            "Use the internal feedback channel or contact the OA AI Capability "
+            "Journey team with your suggestion."
+        ),
+        (
+            "Who can I contact for technical support?",
+            "Contact the OA AI support team through your internal support channel "
+            "or the relevant Microsoft Teams community."
+        ),
+    ]
 
-    st.markdown(
-        '<div class="section-title">Frequently Asked Questions</div>',
-        unsafe_allow_html=True,
-    )
-
-    faqs = {
-
-        "Where should I start?":
-            "Start with the Fundamentals pathway if you are new to AI. If you already have experience, use the Capability Map to find the most relevant pathway.",
-
-        "How do I access a Sandbox Lab?":
-            "Select a lab from the Sandbox Labs page and follow the access instructions. Some environments may require additional permissions.",
-
-        "How do I join a workshop?":
-            "Visit Workshops & Events and select the session you are interested in. Some sessions require registration.",
-
-        "Who can I contact about AI capability development?":
-            "Contact the OA AI Team or ask a question in the AI Community channel.",
-
-        "I need access to a tool or platform.":
-            "Submit an access request through the appropriate internal IT or platform support process.",
-
-    }
-
-    for question, answer in faqs.items():
+    for question, answer in faqs:
 
         with st.expander(question):
 
@@ -2056,81 +1591,245 @@ def render_help():
     st.write("")
 
     st.markdown(
-        '<div class="section-title">Still need help?</div>',
+        """
+        <div class="info-banner">
+
+            <div style="font-size:25px;">
+                💬
+            </div>
+
+            <div>
+
+                <div style="font-weight:800;
+                            color:#12163a;">
+                    Still need help?
+                </div>
+
+                <div style="font-size:12px;
+                            color:#6b7086;
+                            margin-top:4px;">
+                    Contact the OA AI team or ask the community for support.
+                </div>
+
+            </div>
+
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
-    col1, col2 = st.columns(2)
 
-    with col1:
+# ============================================================================
+# PAGE: TOOLS
+# ============================================================================
 
-        st.markdown(
-            """
-            <div class="white-card">
+def render_tools():
 
-                <div style="font-size:24px;">
-                    💬
+    st.markdown(
+        '<div class="page-heading">🛠️ Tools & Guides</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="page-description">
+            Explore the tools and technologies used across the OA AI ecosystem.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    tool_cols = st.columns(3)
+
+    for col, (icon, name, url) in zip(tool_cols * 4, TOOLS):
+
+        with col:
+
+            st.markdown(
+                f"""
+                <a class="tool-chip"
+                   href="{url}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    {icon} {name}
+                    <span style="float:right;">↗</span>
+
+                </a>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
+# ============================================================================
+# PAGE: USE CASES
+# ============================================================================
+
+def render_use_cases():
+
+    st.markdown(
+        '<div class="page-heading">📁 AI Use Cases</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="page-description">
+            Explore examples of how AI capabilities can be applied across
+            consulting, operations, data and technology.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    use_cases = [
+        ("🔍", "Knowledge Assistant", "Search and reason across internal documents."),
+        ("🤖", "AI Agent", "Automate multi-step tasks using tools and data."),
+        ("📊", "Data Analysis", "Use AI to accelerate analysis and insight generation."),
+        ("📝", "Document Intelligence", "Extract, summarise and classify enterprise documents."),
+        ("⚙️", "Process Automation", "Combine AI with workflows to improve productivity."),
+        ("🧪", "Synthetic Data", "Generate realistic data for testing and experimentation."),
+    ]
+
+    cols = st.columns(3)
+
+    for col, (icon, title, description) in zip(cols * 2, use_cases):
+
+        with col:
+
+            st.markdown(
+                f"""
+                <div class="white-card"
+                     style="min-height:170px;">
+
+                    <div style="font-size:28px;">
+                        {icon}
+                    </div>
+
+                    <div style="font-size:15px;
+                                font-weight:800;
+                                color:#12163a;
+                                margin-top:12px;">
+                        {title}
+                    </div>
+
+                    <div style="font-size:12px;
+                                color:#6b7086;
+                                line-height:1.5;
+                                margin-top:7px;">
+                        {description}
+                    </div>
+
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            st.write("")
+
+
+# ============================================================================
+# PAGE: TRACK DETAIL
+# ============================================================================
+
+def render_track_page(track_key):
+
+    track = TRACKS[track_key]
+
+    st.button(
+        "← Back to Capability Map",
+        key=f"back_{track_key}",
+        on_click=navigate,
+        args=("capability_map",),
+    )
+
+    st.markdown(
+        f"""
+        <div style="background:{track['bg']};
+                    border-radius:14px;
+                    padding:25px;
+                    margin:15px 0 25px 0;">
+
+            <div style="display:flex;
+                        align-items:center;
+                        gap:16px;">
+
+                <div style="font-size:38px;">
+                    {track['icon']}
                 </div>
 
-                <div
-                    style="
-                        font-size:16px;
-                        font-weight:800;
-                        margin-top:8px;
-                    "
-                >
-                    Ask the Community
-                </div>
+                <div>
 
-                <div
-                    style="
-                        font-size:12px;
-                        color:#6b7086;
-                        margin-top:5px;
-                    "
-                >
-                    Get advice from colleagues working with AI across OA.
+                    <div style="font-size:25px;
+                                font-weight:800;
+                                color:{track['color']};">
+                        {track['name']}
+                    </div>
+
+                    <div style="font-size:13px;
+                                color:{track['color']};
+                                margin-top:5px;">
+                        {track['description']}
+                    </div>
+
                 </div>
 
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
 
-    with col2:
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        st.markdown(
-            """
-            <div class="white-card">
+    st.markdown(
+        '<div class="section-title">Capabilities in this pathway</div>',
+        unsafe_allow_html=True,
+    )
 
-                <div style="font-size:24px;">
-                    🛠️
+    course_cols = st.columns(4)
+
+    for i, (title, description, duration) in enumerate(track["courses"]):
+
+        with course_cols[i % 4]:
+
+            st.markdown(
+                f"""
+                <div class="course-card">
+
+                    <div>
+
+                        <div class="course-number"
+                             style="background:{track['color']}1a;
+                                    color:{track['color']};">
+                            {i + 1:02d}
+                        </div>
+
+                        <div class="course-title">
+                            {title}
+                        </div>
+
+                        <div class="course-description">
+                            {description}
+                        </div>
+
+                    </div>
+
+                    <div class="course-duration">
+                        ⏱ {duration}
+                    </div>
+
                 </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-                <div
-                    style="
-                        font-size:16px;
-                        font-weight:800;
-                        margin-top:8px;
-                    "
-                >
-                    Technical Support
-                </div>
+            st.button(
+                "Start capability →",
+                key=f"course_{track_key}_{i}",
+                use_container_width=True,
+            )
 
-                <div
-                    style="
-                        font-size:12px;
-                        color:#6b7086;
-                        margin-top:5px;
-                    "
-                >
-                    Get help with access, environments and AI tooling.
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            st.write("")
 
 
 # ============================================================================
@@ -2165,6 +1864,18 @@ elif st.session_state.page == "help":
 
     render_help()
 
+elif st.session_state.page == "tools":
+
+    render_tools()
+
+elif st.session_state.page == "usecases":
+
+    render_use_cases()
+
 elif st.session_state.page in TRACKS:
 
     render_track_page(st.session_state.page)
+
+else:
+
+    render_home()
