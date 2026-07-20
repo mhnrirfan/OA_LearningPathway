@@ -1040,7 +1040,7 @@ def render_home():
             ),
 
             (
-                "</>",
+                "&lt;/&gt;",
                 "ADVANCED BUILDERS",
                 "Design & integrate",
                 "#8b5cf6",
@@ -1092,11 +1092,6 @@ def render_home():
             ),
 
         ]
-
-        st.markdown(
-            '<div class="journey-wrap">',
-            unsafe_allow_html=True,
-        )
 
         journey_cols = st.columns(6)
 
@@ -1155,12 +1150,6 @@ def render_home():
                     on_click=go_page,
                     args=(track_key,),
                 )
-
-        st.markdown(
-            '</div>',
-            unsafe_allow_html=True,
-        )
-
 
         # ---------------- HOW YOU LEARN ----------------
 
