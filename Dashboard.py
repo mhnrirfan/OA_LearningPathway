@@ -491,6 +491,27 @@ def render_home():
                 """, unsafe_allow_html=True)
 
         st.write("")
+    with right_col:
+        st.markdown('<div class="section-title" style="font-size:15px;">Tools We Work With</div>', unsafe_allow_html=True)
+        tc = st.columns(2)
+        for i, (name, (icon, url)) in enumerate(TOOL_LINKS.items()):
+            with tc[i % 2]:
+                st.markdown(
+                    f'<a class="tool-chip" href="{url}" target="_blank" rel="noopener noreferrer">'
+                    f'{icon} {name}<span class="chip-arrow">↗</span></a>',
+                    unsafe_allow_html=True,
+                )
+
+        st.write("")
+        st.markdown('<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>', unsafe_allow_html=True)
+        links = [
+            "🛠️ AI Tooling Guide", "📚 OA AI Use Cases Library",
+            "💬 Prompt Engineering Guide", "✅ Secure AI Checklist",
+            "📋 Responsible AI Principles", "❓ Ask the Community",
+        ]
+        for link in links:
+            st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
+        st.caption("These point to OA's internal wiki — add your intranet URLs once you have them.")
 
         # ---------------- EVENTS + LABS ----------------
         ev_col, lab_col = st.columns(2, gap="large")
@@ -573,27 +594,6 @@ def render_home():
         </div>
         """, unsafe_allow_html=True)
 
-    with right_col:
-        st.markdown('<div class="section-title" style="font-size:15px;">Tools We Work With</div>', unsafe_allow_html=True)
-        tc = st.columns(2)
-        for i, (name, (icon, url)) in enumerate(TOOL_LINKS.items()):
-            with tc[i % 2]:
-                st.markdown(
-                    f'<a class="tool-chip" href="{url}" target="_blank" rel="noopener noreferrer">'
-                    f'{icon} {name}<span class="chip-arrow">↗</span></a>',
-                    unsafe_allow_html=True,
-                )
-
-        st.write("")
-        st.markdown('<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>', unsafe_allow_html=True)
-        links = [
-            "🛠️ AI Tooling Guide", "📚 OA AI Use Cases Library",
-            "💬 Prompt Engineering Guide", "✅ Secure AI Checklist",
-            "📋 Responsible AI Principles", "❓ Ask the Community",
-        ]
-        for link in links:
-            st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
-        st.caption("These point to OA's internal wiki — add your intranet URLs once you have them.")
 
 
 # ============================================================================
