@@ -438,7 +438,7 @@ def render_home():
              ["AI & LLM Fundamentals", "Prompt Engineering", "Responsible AI", "Governance Basics"]),
             ("🛠️", "PRACTITIONER", "Apply & build", "#e8781f",
              ["Work with GPT-4/4.1/5", "Claude 3.x & Gemini", "Multi-Modal AI", "GitHub Copilot"]),
-            ("</>", "ADVANCED BUILDERS", "Design & integrate", "#8b5cf6",
+            ("🏗️", "ADVANCED BUILDERS", "Design & integrate", "#8b5cf6",
              ["Azure AI Search", "Vector Databases", "Redis (Memory Cache)", "LangChain"]),
             ("🕸️", "AGENTIC AI", "Orchestrate & scale", "#2f9e5c",
              ["MCP & Tool Abstraction", "Copilot Studio", "Agent Frameworks", "LangGraph"]),
@@ -468,9 +468,6 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
-                n = len(TRACKS[track_key]["courses"])
-                st.button(f"View all ({n}) →", key=f"stage_{title}",
-                          use_container_width=True, on_click=go_track, args=(track_key,))
         st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
