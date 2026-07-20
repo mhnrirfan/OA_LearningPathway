@@ -428,84 +428,54 @@ def render_home():
             unsafe_allow_html=True
         )
 
-        cols = st.columns(3, gap="medium")  # 3 columns = 2 rows of 3
+        cols = st.columns(3, gap="medium")   # 3 per row
 
-        pastel_colours = {
-            "fundamentals": "#E8F5E9",   # pale green
-            "genai": "#FFF3E0",          # pale orange
-            "agents": "#E3F2FD",         # pale blue
-            "rag": "#F3E5F5",            # pale purple
-            "governance": "#FFFDE7",     # pale yellow
-            "simulation": "#FCE4EC",     # pale pink
-        }
-
-        text_colours = {
-            "fundamentals": "#2E7D32",
-            "genai": "#E65100",
-            "agents": "#1565C0",
-            "rag": "#6A1B9A",
-            "governance": "#827717",
-            "simulation": "#AD1457",
-        }
+        pastel_colours = [
+            "#EDE7F6",  # soft purple
+            "#FFE8D6",  # soft orange
+            "#DFF6FF",  # soft blue
+            "#E3FCEC",  # soft green
+            "#FFF4CC",  # soft yellow
+            "#FCE4EC",  # soft pink
+        ]
 
         for i, key in enumerate(TRACKS.keys()):
-
             t = TRACKS[key]
 
-            # place buttons in rows of 3
             col = cols[i % 3]
 
             with col:
-
-                bg = pastel_colours.get(key, "#F5F5F5")
-                txt = text_colours.get(key, "#333333")
-
                 st.markdown(
                     f"""
                     <style>
-
                     div[data-testid='column']:has(#marker-track-{key})
                     div[data-testid='stButton'] button {{
-
-                        background-color: {bg} !important;
-                        color: {txt} !important;
-
-                        border: 1px solid {txt}33 !important;
-                        border-radius: 16px !important;
-
-                        width:100% !important;
-                        height:120px !important;
-                        min-height:120px !important;
-
-                        padding:16px !important;
-
-                        font-size:17px !important;
-                        font-weight:700 !important;
-
-                        text-align:left !important;
-                        white-space:normal !important;
-
-                        display:flex !important;
-                        align-items:flex-start !important;
-                        justify-content:flex-start !important;
+                        background:{pastel_colours[i]} !important;
+                        color:#222 !important;
+                        border:1px solid #ddd !important;
+                        width:100%;
+                        height:120px;
+                        min-height:120px;
+                        border-radius:16px;
+                        text-align:left;
+                        padding:16px;
+                        font-weight:700;
+                        font-size:16px;
+                        display:flex;
+                        align-items:flex-start;
+                        white-space:normal;
                     }}
-
 
                     div[data-testid='column']:has(#marker-track-{key})
                     div[data-testid='stButton'] button:hover {{
-
-                        filter: brightness(0.96);
-                        border:2px solid {txt} !important;
-
+                        border:2px solid #888 !important;
                     }}
-
                     </style>
 
                     <span id="marker-track-{key}"></span>
                     """,
                     unsafe_allow_html=True,
                 )
-
 
                 st.button(
                     f"{t['icon']}  {t['name']}",
@@ -514,7 +484,6 @@ def render_home():
                     on_click=go_track,
                     args=(key,)
                 )
-
 
                 st.markdown(
                     f"""
