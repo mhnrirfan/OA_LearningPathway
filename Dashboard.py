@@ -497,9 +497,12 @@ def render_home():
         st.write("")
         st.markdown('<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>', unsafe_allow_html=True)
         links = [
-            "🛠️ AI Tooling Guide", "📚 OA AI Use Cases Library",
-            "💬 Prompt Engineering Guide", "✅ Secure AI Checklist",
-            "📋 Responsible AI Principles", "❓ Ask the Community",
+            ("🛠️ AI Tooling Guide", "https://learn.microsoft.com/en-us/ai/"),
+            ("📚 OA AI Use Cases Library", "https://www.microsoft.com/en-us/ai"),
+            ("💬 Prompt Engineering Guide", "https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering"),
+            ("✅ Secure AI Checklist", "https://learn.microsoft.com/en-us/security/ai-security"),
+            ("📋 Responsible AI Principles", "https://www.microsoft.com/en-us/ai/principles-and-approach"),
+            ("❓ Ask the Community", "https://learn.microsoft.com/en-us/answers/topics/azure-ai.html"),
         ]
         for link in links:
             st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
