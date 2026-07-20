@@ -117,6 +117,16 @@ EVENTS = [
     ("💡", "Working with Claude 3.x & Gemini", "22 September 2026", "llm_promptops", "Beginner", "Virtual"),
 ]
 
+# Homepage "Upcoming Workshops & Events" preview — fixed custom styling per event
+HOME_EVENTS = [
+    ("🧠", "#eef6ff", "#3b82f6", "Prompt Engineering Fundamentals", "12 September 2026",
+        ("Beginner", "#eef6ff", "#3b82f6")),
+    ("💡", "#fff7e6", "#f59f00", "Working with Claude 3.x & Gemini", "22 September 2026",
+        ("Beginner", "#fff7e6", "#f59f00")),
+    ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
+        ("Practitioner", "#e9f8ee", "#2f9e5c")),
+]
+
 LABS = [
     ("🧪", "RAG Lab", "Build a company knowledge assistant", "rag_data", "Intermediate"),
     ("🤖", "Agent Builder Lab", "Create your first AI agent", "agentic", "Intermediate"),
@@ -919,20 +929,15 @@ def render_home():
 
     # ---------------- EVENTS + LABS ----------------
     ev_col, lab_col = st.columns(2, gap="large")
+
     with ev_col:
         st.markdown(
             '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-            'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
+            'Upcoming Workshops & Events</span></div>',
             unsafe_allow_html=True,
         )
-        events = [
-            ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
-                ("Practitioner", "#e9f8ee", "#2f9e5c")),
-            ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 December 2026",
-                ("Advanced", "#f2edfe", "#8b5cf6")),
-        ]
         rows_html = ""
-        for icon, ibg, icolor, title, date, badge in events:
+        for icon, ibg, icolor, title, date, badge in HOME_EVENTS:
             badge_html = ""
             if badge:
                 btxt, bbg, bcolor = badge
@@ -947,7 +952,9 @@ def render_home():
                 <div class="event-date">{date}</div>
             </div>
             """
-        st.markdown(rows_html, unsafe_allow_html=True)
+        st.markdown(f'<div class="white-card">{rows_html}</div>', unsafe_allow_html=True)
+        st.write("")
+        st.button("View all events →", key="view_all_events", on_click=go_page, args=("workshops",))
 
     with lab_col:
         st.markdown(
