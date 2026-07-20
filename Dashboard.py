@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 # ============================================================================
 # PAGE CONFIG
 # ============================================================================
@@ -10,6 +11,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
 
 # ============================================================================
 # DATA
@@ -152,10 +154,6 @@ if "feedback_sent" not in st.session_state:
     st.session_state.feedback_sent = False
 
 
-def navigate(page):
-    st.session_state.page = page
-
-
 # ============================================================================
 # CSS
 # ============================================================================
@@ -164,17 +162,17 @@ st.markdown(
     """
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
-}
-
 * {
     box-sizing: border-box;
 }
 
-.main {
+html,
+body,
+[class*="css"] {
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.stApp {
     background: #f3f5f9;
 }
 
@@ -184,7 +182,10 @@ html, body, [class*="css"] {
     padding-bottom: 3rem;
 }
 
-/* ================= SIDEBAR ================= */
+
+/* ============================================================================
+   SIDEBAR
+============================================================================ */
 
 section[data-testid="stSidebar"] {
     background: #131a3a;
@@ -251,7 +252,14 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
     color: #7f8ad4 !important;
 }
 
-/* ================= HEADERS ================= */
+
+/* ============================================================================
+   HEADERS
+============================================================================ */
+
+.page-header {
+    margin-bottom: 28px;
+}
 
 .page-title {
     font-size: 29px;
@@ -264,10 +272,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
     color: #6b7086;
     font-size: 14px;
     margin-top: 4px;
-}
-
-.page-header {
-    margin-bottom: 28px;
 }
 
 .section-title {
@@ -290,7 +294,10 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
     margin-bottom: 24px;
 }
 
-/* ================= BUTTONS ================= */
+
+/* ============================================================================
+   BUTTONS
+============================================================================ */
 
 div[data-testid="stButton"] > button {
     border-radius: 8px;
@@ -307,7 +314,10 @@ div[data-testid="stButton"] > button:hover {
     color: #2f6fed;
 }
 
-/* ================= CARDS ================= */
+
+/* ============================================================================
+   CARDS
+============================================================================ */
 
 .white-card {
     background: white;
@@ -337,7 +347,10 @@ div[data-testid="stButton"] > button:hover {
     line-height: 1.5;
 }
 
-/* ================= PATHWAYS ================= */
+
+/* ============================================================================
+   PATHWAY CARDS
+============================================================================ */
 
 .pathway-card {
     border-radius: 13px;
@@ -363,7 +376,10 @@ div[data-testid="stButton"] > button:hover {
     color: #6b7086;
 }
 
-/* ================= JOURNEY ================= */
+
+/* ============================================================================
+   JOURNEY
+============================================================================ */
 
 .journey-container {
     background: white;
@@ -373,7 +389,7 @@ div[data-testid="stButton"] > button:hover {
 }
 
 .journey-card {
-    min-height: 270px;
+    min-height: 260px;
     text-align: center;
 }
 
@@ -421,7 +437,10 @@ div[data-testid="stButton"] > button:hover {
     content: "• ";
 }
 
-/* ================= HOW YOU LEARN ================= */
+
+/* ============================================================================
+   HOW YOU LEARN
+============================================================================ */
 
 .step-card {
     background: white;
@@ -450,7 +469,10 @@ div[data-testid="stButton"] > button:hover {
     line-height: 1.4;
 }
 
-/* ================= TRACK PAGE ================= */
+
+/* ============================================================================
+   TRACK PAGE
+============================================================================ */
 
 .track-hero {
     border-radius: 15px;
@@ -475,7 +497,6 @@ div[data-testid="stButton"] > button:hover {
 .track-hero-title {
     font-size: 25px;
     font-weight: 800;
-    margin: 0;
 }
 
 .track-hero-description {
@@ -525,7 +546,10 @@ div[data-testid="stButton"] > button:hover {
     margin-top: 14px;
 }
 
-/* ================= EVENT CARDS ================= */
+
+/* ============================================================================
+   EVENT CARDS
+============================================================================ */
 
 .event-card {
     background: white;
@@ -557,7 +581,10 @@ div[data-testid="stButton"] > button:hover {
     margin-top: 8px;
 }
 
-/* ================= LAB CARDS ================= */
+
+/* ============================================================================
+   LAB CARDS
+============================================================================ */
 
 .lab-card {
     background: white;
@@ -585,7 +612,10 @@ div[data-testid="stButton"] > button:hover {
     margin-top: 8px;
 }
 
-/* ================= BLOG ================= */
+
+/* ============================================================================
+   BLOG
+============================================================================ */
 
 .article-card {
     background: white;
@@ -620,7 +650,10 @@ div[data-testid="stButton"] > button:hover {
     margin-top: 8px;
 }
 
-/* ================= TOOLS ================= */
+
+/* ============================================================================
+   TOOLS
+============================================================================ */
 
 a.tool-chip {
     display: flex;
@@ -642,7 +675,10 @@ a.tool-chip:hover {
     background: #eaf1ff;
 }
 
-/* ================= FOOTER ================= */
+
+/* ============================================================================
+   FOOTER
+============================================================================ */
 
 .footer-banner {
     background: #eef1fb;
@@ -661,6 +697,15 @@ a.tool-chip:hover {
 
 
 # ============================================================================
+# NAVIGATION FUNCTION
+# ============================================================================
+
+def go_to(page):
+    st.session_state.page = page
+    st.rerun()
+
+
+# ============================================================================
 # SIDEBAR
 # ============================================================================
 
@@ -676,7 +721,10 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="sidebar-section">Navigate</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sidebar-section">Navigate</div>',
+        unsafe_allow_html=True,
+    )
 
     sidebar_items = [
         ("🏠", "Home", "home"),
@@ -689,15 +737,18 @@ with st.sidebar:
     ]
 
     for icon, label, page in sidebar_items:
+
         if st.button(
             f"{icon}  {label}",
             key=f"sidebar_{page}",
             use_container_width=True,
         ):
-            st.session_state.page = page
-            st.rerun()
+            go_to(page)
 
-    st.markdown('<div class="sidebar-section">Support</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sidebar-section">Support</div>',
+        unsafe_allow_html=True,
+    )
 
     support_items = [
         ("❓", "Help & Support", "help"),
@@ -706,13 +757,13 @@ with st.sidebar:
     ]
 
     for icon, label, page in support_items:
+
         if st.button(
             f"{icon}  {label}",
             key=f"sidebar_{page}",
             use_container_width=True,
         ):
-            st.session_state.page = page
-            st.rerun()
+            go_to(page)
 
     st.markdown(
         """
@@ -730,7 +781,7 @@ with st.sidebar:
 
 
 # ============================================================================
-# SHARED HEADER
+# SHARED COMPONENTS
 # ============================================================================
 
 def render_header(title, subtitle):
@@ -748,9 +799,11 @@ def render_header(title, subtitle):
 
 def back_home():
 
-    if st.button("← Back to Home", key=f"back_{st.session_state.page}"):
-        st.session_state.page = "home"
-        st.rerun()
+    if st.button(
+        "← Back to Home",
+        key=f"back_{st.session_state.page}",
+    ):
+        go_to("home")
 
 
 # ============================================================================
@@ -808,8 +861,7 @@ def render_home():
                 key=f"home_pathway_{key}",
                 use_container_width=True,
             ):
-                st.session_state.page = key
-                st.rerun()
+                go_to(key)
 
     # ------------------------------------------------------------------------
     # JOURNEY
@@ -826,101 +878,124 @@ def render_home():
             "FOUNDATION",
             "Build your basics",
             "#2f6fed",
-            ["AI & LLM Fundamentals", "Prompt Engineering", "Responsible AI", "Governance Basics"],
+            [
+                "AI & LLM Fundamentals",
+                "Prompt Engineering",
+                "Responsible AI",
+                "Governance Basics",
+            ],
         ),
         (
             "🛠️",
             "PRACTITIONER",
             "Apply & build",
             "#e8781f",
-            ["Work with GPT-4/4.1/5", "Claude 3.x & Gemini", "Multi-Modal AI", "GitHub Copilot"],
+            [
+                "Work with GPT-4/4.1/5",
+                "Claude 3.x & Gemini",
+                "Multi-Modal AI",
+                "GitHub Copilot",
+            ],
         ),
         (
             "🧩",
             "ADVANCED BUILDERS",
             "Design & integrate",
             "#8b5cf6",
-            ["Azure AI Search", "Vector Databases", "Redis (Memory Cache)", "LangChain"],
+            [
+                "Azure AI Search",
+                "Vector Databases",
+                "Redis (Memory Cache)",
+                "LangChain",
+            ],
         ),
         (
             "🕸️",
             "AGENTIC AI",
             "Orchestrate & scale",
             "#2f9e5c",
-            ["MCP & Tool Abstraction", "Copilot Studio", "Agent Frameworks", "LangGraph"],
+            [
+                "MCP & Tool Abstraction",
+                "Copilot Studio",
+                "Agent Frameworks",
+                "LangGraph",
+            ],
         ),
         (
             "🛡️",
             "ENTERPRISE DEPLOYMENT",
             "Secure & govern",
             "#e0373f",
-            ["Security & Guardrails", "Auditing & Monitoring", "Compliance", "Decision Guardrails"],
+            [
+                "Security & Guardrails",
+                "Auditing & Monitoring",
+                "Compliance",
+                "Decision Guardrails",
+            ],
         ),
         (
             "🚀",
             "INNOVATION LAB",
             "Simulate & explore",
             "#12163a",
-            ["Synthetic Data Generation", "Digital Twins", "Mistral & Llama", "Simulation & Sandbox"],
+            [
+                "Synthetic Data Generation",
+                "Digital Twins",
+                "Mistral & Llama",
+                "Simulation & Sandbox",
+            ],
         ),
     ]
 
-    st.markdown(
-        '<div class="journey-container">',
-        unsafe_allow_html=True,
-    )
+    # Native Streamlit container instead of opening a div and closing it
+    # around Streamlit widgets.
+    with st.container(border=True):
 
-    journey_cols = st.columns(6)
+        journey_cols = st.columns(6)
 
-    for col, (icon, title, subtitle, color, items) in zip(journey_cols, stages):
+        for col, (icon, title, subtitle, color, items) in zip(
+            journey_cols,
+            stages,
+        ):
 
-        with col:
+            with col:
 
-            st.markdown(
-                f"""
-                <div class="journey-card">
+                st.markdown(
+                    f"""
+                    <div class="journey-card">
 
-                    <div class="journey-circle"
-                         style="border-color:{color};
-                                color:{color};">
+                        <div class="journey-circle"
+                             style="border-color:{color};
+                                    color:{color};">
+                            {icon}
+                        </div>
 
-                        {icon}
+                        <div class="journey-title"
+                             style="color:{color};">
+                            {title}
+                        </div>
+
+                        <div class="journey-subtitle">
+                            {subtitle}
+                        </div>
+
+                        <ul class="journey-list">
+                            {''.join(f"<li>{item}</li>" for item in items)}
+                        </ul>
 
                     </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
-                    <div class="journey-title"
-                         style="color:{color};">
+                track_key = STAGE_TO_TRACK[title]
 
-                        {title}
-
-                    </div>
-
-                    <div class="journey-subtitle">
-                        {subtitle}
-                    </div>
-
-                    <ul class="journey-list">
-
-                        {''.join(f"<li>{item}</li>" for item in items)}
-
-                    </ul>
-
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            track_key = STAGE_TO_TRACK[title]
-
-            if st.button(
-                "View pathway →",
-                key=f"journey_{track_key}",
-                use_container_width=True,
-            ):
-                st.session_state.page = track_key
-                st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
+                if st.button(
+                    "View pathway →",
+                    key=f"journey_{track_key}",
+                    use_container_width=True,
+                ):
+                    go_to(track_key)
 
     # ------------------------------------------------------------------------
     # HOW YOU LEARN
@@ -987,8 +1062,12 @@ def render_home():
                    href="{url}"
                    target="_blank">
 
-                    {icon} {name}
-                    <span style="margin-left:auto;">↗</span>
+                    {icon}
+                    {name}
+
+                    <span style="margin-left:auto;">
+                        ↗
+                    </span>
 
                 </a>
                 """,
@@ -1098,8 +1177,7 @@ def render_capability_map():
                 key=f"map_{key}",
                 use_container_width=True,
             ):
-                st.session_state.page = key
-                st.rerun()
+                go_to(key)
 
 
 # ============================================================================
@@ -1136,8 +1214,12 @@ def render_pathways():
                         {track['description']}
                     </div>
 
-                    <div style="font-size:11px; color:#8b8fa8; margin-top:12px;">
+                    <div style="font-size:11px;
+                                color:#8b8fa8;
+                                margin-top:12px;">
+
                         {len(track['courses'])} capabilities
+
                     </div>
 
                 </div>
@@ -1150,8 +1232,7 @@ def render_pathways():
                 key=f"pathway_{key}",
                 use_container_width=True,
             ):
-                st.session_state.page = key
-                st.rerun()
+                go_to(key)
 
 
 # ============================================================================
@@ -1166,12 +1247,42 @@ def render_labs():
     )
 
     labs = [
-        ("🧠", "RAG Lab", "Build a company knowledge assistant using enterprise content and retrieval.", "Beginner → Intermediate"),
-        ("🤖", "Agent Builder Lab", "Create your first AI agent and connect it to tools and workflows.", "Intermediate"),
-        ("🧪", "Prompt Evaluation Lab", "Test, evaluate and improve prompts using structured experiments.", "Beginner → Intermediate"),
-        ("📊", "Synthetic Data Lab", "Generate realistic synthetic data for AI and analytics use cases.", "Intermediate"),
-        ("🕸️", "Multi-Agent Lab", "Experiment with multiple agents collaborating on a complex task.", "Advanced"),
-        ("🛡️", "Responsible AI Lab", "Explore guardrails, monitoring and safe AI deployment patterns.", "Intermediate"),
+        (
+            "🧠",
+            "RAG Lab",
+            "Build a company knowledge assistant using enterprise content and retrieval.",
+            "Beginner → Intermediate",
+        ),
+        (
+            "🤖",
+            "Agent Builder Lab",
+            "Create your first AI agent and connect it to tools and workflows.",
+            "Intermediate",
+        ),
+        (
+            "🧪",
+            "Prompt Evaluation Lab",
+            "Test, evaluate and improve prompts using structured experiments.",
+            "Beginner → Intermediate",
+        ),
+        (
+            "📊",
+            "Synthetic Data Lab",
+            "Generate realistic synthetic data for AI and analytics use cases.",
+            "Intermediate",
+        ),
+        (
+            "🕸️",
+            "Multi-Agent Lab",
+            "Experiment with multiple agents collaborating on a complex task.",
+            "Advanced",
+        ),
+        (
+            "🛡️",
+            "Responsible AI Lab",
+            "Explore guardrails, monitoring and safe AI deployment patterns.",
+            "Intermediate",
+        ),
     ]
 
     cols = st.columns(3)
@@ -1196,8 +1307,12 @@ def render_labs():
                         {description}
                     </div>
 
-                    <div style="font-size:11px; color:#8b8fa8; margin-top:14px;">
+                    <div style="font-size:11px;
+                                color:#8b8fa8;
+                                margin-top:14px;">
+
                         {level}
+
                     </div>
 
                 </div>
@@ -1224,12 +1339,42 @@ def render_events():
     )
 
     events = [
-        ("22 May 2025", "Intro to Prompt Engineering for Consultants", "Learn how to create better prompts for day-to-day consulting work.", "Beginner"),
-        ("29 May 2025", "Building with RAG on Azure AI Search", "Build a retrieval-augmented knowledge assistant using enterprise content.", "Practitioner"),
-        ("5 June 2025", "Multi-Agent Orchestration with LangGraph", "Explore how multiple AI agents can collaborate to complete complex tasks.", "Advanced"),
-        ("12 June 2025", "Responsible AI in Practice", "Understand how to apply governance and responsible AI principles to real projects.", "All levels"),
-        ("19 June 2025", "AI Showcase: What Are Teams Building?", "See practical AI use cases being developed across OA.", "Community"),
-        ("26 June 2025", "AI Tools Open Clinic", "Bring your AI questions and get practical support from the AI community.", "Open session"),
+        (
+            "22 May 2025",
+            "Intro to Prompt Engineering for Consultants",
+            "Learn how to create better prompts for day-to-day consulting work.",
+            "Beginner",
+        ),
+        (
+            "29 May 2025",
+            "Building with RAG on Azure AI Search",
+            "Build a retrieval-augmented knowledge assistant using enterprise content.",
+            "Practitioner",
+        ),
+        (
+            "5 June 2025",
+            "Multi-Agent Orchestration with LangGraph",
+            "Explore how multiple AI agents can collaborate to complete complex tasks.",
+            "Advanced",
+        ),
+        (
+            "12 June 2025",
+            "Responsible AI in Practice",
+            "Understand how to apply governance and responsible AI principles to real projects.",
+            "All levels",
+        ),
+        (
+            "19 June 2025",
+            "AI Showcase: What Are Teams Building?",
+            "See practical AI use cases being developed across OA.",
+            "Community",
+        ),
+        (
+            "26 June 2025",
+            "AI Tools Open Clinic",
+            "Bring your AI questions and get practical support from the AI community.",
+            "Open session",
+        ),
     ]
 
     cols = st.columns(3)
@@ -1254,8 +1399,12 @@ def render_events():
                         {description}
                     </div>
 
-                    <div style="font-size:11px; color:#8b8fa8; margin-top:14px;">
+                    <div style="font-size:11px;
+                                color:#8b8fa8;
+                                margin-top:14px;">
+
                         {level}
+
                     </div>
 
                 </div>
@@ -1271,7 +1420,7 @@ def render_events():
 
 
 # ============================================================================
-# BLOG & ARTICLES
+# BLOG
 # ============================================================================
 
 def render_blog():
@@ -1282,12 +1431,36 @@ def render_blog():
     )
 
     articles = [
-        ("AI Fundamentals", "What Actually Happens When You Ask an LLM a Question?", "A simple explanation of tokens, context windows, inference and model outputs."),
-        ("Practical AI", "From Prompt to Production: What Changes?", "Why production AI systems require more than a good prompt."),
-        ("Agentic AI", "What Makes an AI Agent Different from a Chatbot?", "Understand the difference between conversational AI and systems that can reason and act."),
-        ("Responsible AI", "Why AI Governance Matters", "The practical role of governance, guardrails and monitoring in enterprise AI."),
-        ("Data & RAG", "Why Enterprise AI Needs Better Data", "How data quality, retrieval and context influence AI outcomes."),
-        ("Innovation", "The Future of AI at OA", "Exploring emerging capabilities, tools and opportunities for innovation."),
+        (
+            "AI Fundamentals",
+            "What Actually Happens When You Ask an LLM a Question?",
+            "A simple explanation of tokens, context windows, inference and model outputs.",
+        ),
+        (
+            "Practical AI",
+            "From Prompt to Production: What Changes?",
+            "Why production AI systems require more than a good prompt.",
+        ),
+        (
+            "Agentic AI",
+            "What Makes an AI Agent Different from a Chatbot?",
+            "Understand the difference between conversational AI and systems that can reason and act.",
+        ),
+        (
+            "Responsible AI",
+            "Why AI Governance Matters",
+            "The practical role of governance, guardrails and monitoring in enterprise AI.",
+        ),
+        (
+            "Data & RAG",
+            "Why Enterprise AI Needs Better Data",
+            "How data quality, retrieval and context influence AI outcomes.",
+        ),
+        (
+            "Innovation",
+            "The Future of AI at OA",
+            "Exploring emerging capabilities, tools and opportunities for innovation.",
+        ),
     ]
 
     cols = st.columns(3)
@@ -1343,14 +1516,19 @@ def render_calendar():
                 🔒
             </div>
 
-            <div class="card-title" style="margin-top:12px;">
+            <div class="card-title"
+                 style="margin-top:12px;">
+
                 Invite-only calendar
+
             </div>
 
             <div class="card-description">
+
                 This calendar is restricted to invited participants and approved
                 OA AI community members. Once connected, this page can display
                 the relevant Microsoft Teams calendar and event invitations.
+
             </div>
 
         </div>
@@ -1360,7 +1538,10 @@ def render_calendar():
 
     st.write("")
 
-    if st.button("Request calendar access →", use_container_width=False):
+    if st.button(
+        "Request calendar access →",
+        use_container_width=False,
+    ):
 
         st.success(
             "Your access request has been recorded. The AI team can review your request."
@@ -1381,23 +1562,23 @@ def render_help():
     faqs = [
         (
             "Where should I start?",
-            "If you are new to AI, begin with the Fundamentals pathway. It covers AI, LLMs, prompt engineering, responsible AI and governance."
+            "If you are new to AI, begin with the Fundamentals pathway. It covers AI, LLMs, prompt engineering, responsible AI and governance.",
         ),
         (
             "How do I choose a pathway?",
-            "Choose the pathway that best matches what you are currently trying to learn or build. You can move between pathways at any time."
+            "Choose the pathway that best matches what you are currently trying to learn or build. You can move between pathways at any time.",
         ),
         (
             "What are Sandbox Labs?",
-            "Sandbox Labs provide safe environments where you can practise AI concepts and experiment with tools without affecting production systems."
+            "Sandbox Labs provide safe environments where you can practise AI concepts and experiment with tools without affecting production systems.",
         ),
         (
             "How do I attend a workshop?",
-            "Visit Workshops & Events to see upcoming sessions. Calendar invitations for restricted sessions will be sent through Microsoft Teams."
+            "Visit Workshops & Events to see upcoming sessions. Calendar invitations for restricted sessions will be sent through Microsoft Teams.",
         ),
         (
             "Where can I get help with a technical problem?",
-            "Use the Community channel or contact the AI team through your internal support route."
+            "Use the Community channel or contact the AI team through your internal support route.",
         ),
     ]
 
@@ -1446,9 +1627,21 @@ def render_community():
     cols = st.columns(3)
 
     community_cards = [
-        ("💬", "Ask the Community", "Ask questions and get support from colleagues working with AI."),
-        ("🏆", "Share Your Build", "Showcase an AI experiment, use case or project."),
-        ("🤝", "Find Collaborators", "Connect with people interested in similar AI capabilities."),
+        (
+            "💬",
+            "Ask the Community",
+            "Ask questions and get support from colleagues working with AI.",
+        ),
+        (
+            "🏆",
+            "Share Your Build",
+            "Showcase an AI experiment, use case or project.",
+        ),
+        (
+            "🤝",
+            "Find Collaborators",
+            "Connect with people interested in similar AI capabilities.",
+        ),
     ]
 
     for col, (icon, title, description) in zip(cols, community_cards):
@@ -1463,12 +1656,17 @@ def render_community():
                         {icon}
                     </div>
 
-                    <div class="card-title" style="margin-top:10px;">
+                    <div class="card-title"
+                         style="margin-top:10px;">
+
                         {title}
+
                     </div>
 
                     <div class="card-description">
+
                         {description}
+
                     </div>
 
                 </div>
@@ -1568,7 +1766,9 @@ def render_track_page(key):
 
     cols = st.columns(4)
 
-    for i, (title, description, duration) in enumerate(track["courses"]):
+    for i, (title, description, duration) in enumerate(
+        track["courses"]
+    ):
 
         with cols[i % 4]:
 
@@ -1613,6 +1813,7 @@ def render_track_page(key):
 # ============================================================================
 
 page = st.session_state.page
+
 
 if page == "home":
 
