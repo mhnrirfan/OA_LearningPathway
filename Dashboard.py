@@ -85,11 +85,37 @@ STAGE_TO_TRACK = {
     "INNOVATION LAB": "simulation",
 }
 
+# Tool -> official documentation link
+TOOL_LINKS = {
+    "Azure AI Search": ("🔷", "https://learn.microsoft.com/en-us/azure/search/"),
+    "Redis": ("🟥", "https://redis.io/docs/latest/"),
+    "LangChain": ("⛓️", "https://python.langchain.com/docs/introduction/"),
+    "LangGraph": ("🔗", "https://langchain-ai.github.io/langgraph/"),
+    "Copilot Studio": ("🧩", "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"),
+    "MS Foundry": ("Ⓜ️", "https://learn.microsoft.com/en-us/azure/ai-foundry/"),
+    "GitHub Copilot": ("🐙", "https://docs.github.com/en/copilot"),
+    "Celonis API": ("🌀", "https://docs.celonis.com/"),
+    "OpenAI": ("🌐", "https://platform.openai.com/docs"),
+    "Claude": ("✨", "https://docs.claude.com/"),
+    "Gemini": ("💎", "https://ai.google.dev/gemini-api/docs"),
+    "Llama": ("🦙", "https://www.llama.com/docs/overview/"),
+    "Mistral": ("🌪️", "https://docs.mistral.ai/"),
+    "DALL-E": ("🎨", "https://platform.openai.com/docs/guides/images"),
+    "Midjourney": ("🌆", "https://docs.midjourney.com/"),
+    "Whisper": ("🔊", "https://platform.openai.com/docs/guides/speech-to-text"),
+    "Unreal Engine": ("🏛️", "https://dev.epicgames.com/documentation/en-us/unreal-engine"),
+    "Prompt Flow": ("🌊", "https://microsoft.github.io/promptflow/"),
+    "LangSmith": ("🦜", "https://docs.smith.langchain.com/"),
+    "W&B": ("⚖️", "https://docs.wandb.ai/"),
+}
+
 # ============================================================================
 # STATE
 # ============================================================================
 if "page" not in st.session_state:
     st.session_state.page = "home"
+if "feedback_sent" not in st.session_state:
+    st.session_state.feedback_sent = False
 
 
 def go_home():
@@ -111,7 +137,7 @@ st.markdown("""
     * { box-sizing: border-box; }
 
     .main { background-color: #f3f5f9; }
-    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 1500px; }
+    .block-container { padding-top: 3rem; padding-bottom: 2rem; max-width: 1500px; }
 
     p, div, span, li, a { overflow-wrap: break-word; word-break: break-word; }
 
@@ -119,9 +145,11 @@ st.markdown("""
     section[data-testid="stSidebar"] { background-color: #131a3a; }
     section[data-testid="stSidebar"] * { color: #d7dbf0 !important; }
     .sidebar-logo {
-        display: flex; align-items: center; gap: 8px;
-        padding: 4px 0 18px 0; font-weight: 800; font-size: 20px; color: white !important;
+        display: flex; align-items: center; gap: 10px;
+        padding: 4px 0 20px 0; font-weight: 800; font-size: 16.5px; color: white !important;
+        line-height: 1.3;
     }
+    .sidebar-logo .logo-icon { font-size: 24px; flex-shrink: 0; }
     .nav-item {
         display: flex; align-items: center; gap: 12px;
         padding: 9px 12px; border-radius: 8px; margin-bottom: 2px;
@@ -135,10 +163,19 @@ st.markdown("""
     .quote-attr { margin-top: 10px; font-weight: 700; color: #7f8ad4 !important; }
 
     /* ---------- Header ---------- */
-    .page-title { font-size: 28px; font-weight: 800; color: #101433; margin-bottom: 0px; line-height: 1.2; }
-    .page-subtitle { color: #6b7086; font-size: 14px; margin-top: 3px; }
+    .page-title {
+        font-size: 28px; font-weight: 800; color: #101433;
+        margin: 0; line-height: 1.45; padding-top: 2px; overflow: visible;
+    }
+    .page-subtitle { color: #6b7086; font-size: 14px; margin-top: 3px; line-height: 1.4; overflow: visible; }
 
     div[data-testid="stButton"] > button {
+        border-radius: 8px; font-weight: 600; font-size: 13px;
+        border: 1px solid #d7dae3; background-color: white; color: #2c3050;
+        padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
+    }
+    div[data-testid="stButton"] > button:hover { border-color: #2f6fed; color: #2f6fed; }
+    div[data-testid="stPopover"] > button {
         border-radius: 8px; font-weight: 600; font-size: 13px;
         border: 1px solid #d7dae3; background-color: white; color: #2c3050;
         padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
@@ -151,6 +188,7 @@ st.markdown("""
     .section-link { font-size: 12.5px; font-weight: 700; color: #2f6fed; text-decoration: none; white-space: nowrap; }
 
     /* ---------- Track cards (clickable pathway buttons) ---------- */
+    div[data-testid="stButton"] > button.track-btn,
     .track-marker + div[data-testid="stButton"] button {
         width: 100%; min-height: 96px; border-radius: 12px; text-align: left;
         padding: 14px 14px; font-weight: 700; font-size: 14px;
@@ -206,17 +244,19 @@ st.markdown("""
     }
     .lab-title { font-weight: 700; font-size: 13.5px; margin-bottom: 4px; line-height: 1.3; }
     .lab-desc { font-size: 11.5px; color: #454868; line-height: 1.4; }
-    .lab-link { font-weight: 700; font-size: 12px; margin-top: 8px; }
 
-    .tool-chip {
+    /* Tool chips are now real links */
+    a.tool-chip {
         display: flex; align-items: center; gap: 7px; background: #f7f8fb;
         border: 1px solid #edeef4; border-radius: 8px; padding: 8px 9px;
-        font-size: 11.5px; font-weight: 600; color: #23264a; margin-bottom: 8px; line-height: 1.25;
+        font-size: 11.5px; font-weight: 600; color: #23264a !important; margin-bottom: 8px; line-height: 1.25;
+        text-decoration: none; transition: all 0.15s ease;
     }
-    .qlink { font-size: 12.5px; font-weight: 600; color: #23264a; padding: 6px 0; line-height: 1.3; }
+    a.tool-chip:hover { border-color: #2f6fed; background: #eaf1ff; color: #2f6fed !important; }
+    a.tool-chip .chip-arrow { margin-left: auto; opacity: 0.45; font-size: 10px; }
+    a.tool-chip:hover .chip-arrow { opacity: 1; }
 
-    .survey-card { background: white; border-radius: 14px; border: 1px solid #e7e9f2; padding: 18px 20px; margin-bottom: 20px; }
-    .survey-check { font-size: 12px; color: #33364f; padding: 3px 0; line-height: 1.4; }
+    .qlink { font-size: 12.5px; font-weight: 600; color: #23264a; padding: 6px 0; line-height: 1.3; }
 
     .footer-banner {
         background: #eef1fb; border-radius: 12px; padding: 14px 20px;
@@ -238,7 +278,9 @@ st.markdown("""
     .course-card {
         background: white; border-radius: 12px; border: 1px solid #e7e9f2;
         padding: 16px; min-height: 168px; display: flex; flex-direction: column; justify-content: space-between;
+        transition: box-shadow 0.15s ease;
     }
+    .course-card:hover { box-shadow: 0 4px 14px rgba(18,22,58,0.08); }
     .course-number {
         width: 26px; height: 26px; border-radius: 7px; display: flex;
         align-items: center; justify-content: center; font-size: 12px; font-weight: 800; margin-bottom: 8px;
@@ -258,12 +300,16 @@ st.markdown("""
 # SIDEBAR
 # ============================================================================
 with st.sidebar:
-    st.markdown('<div class="sidebar-logo">🔷 &nbsp;</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sidebar-logo"><span class="logo-icon">🔷</span>'
+        '<span>OA AI Capability Journey</span></div>',
+        unsafe_allow_html=True,
+    )
     nav_items = [
         ("🏠", "Home", True), ("🎯", "Learning Pathways", False), ("🗺️", "Capability Map", False),
         ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), ("🛠️", "Tools & Guides", False),
-        ("📁", "Use Cases", False), ("📝", "Surveys & Feedback", False), ("📈", "My Progress", False),
-        ("🏅", "Badges & Achievements", False), ("👥", "Community", False), ("❓", "Help & Support", False),
+        ("📁", "Use Cases", False), ("📝", "Surveys & Feedback", False), ("👥", "Community", False),
+        ("❓", "Help & Support", False),
     ]
     for icon, label, active in nav_items:
         cls = "nav-item active" if active else "nav-item"
@@ -286,12 +332,36 @@ with h1:
 with h2:
     b1, b2, b3 = st.columns(3)
     with b1:
-        st.button("ℹ️ How to use this board", use_container_width=True)
+        with st.popover("ℹ️ How to use this board", use_container_width=True):
+            st.markdown("**Getting around the board**")
+            st.markdown(
+                "- Pick a **pathway** to see every course in that track.\n"
+                "- Follow the **Journey** left to right — each stage builds on the last.\n"
+                "- Use **How you learn** as your loop for every capability: "
+                "Learn → Workshop → Sandbox → Build → Showcase → Badge.\n"
+                "- Check **Sandbox Labs** for hands-on practice any time.\n"
+                "- **Tools We Work With** links straight out to the official docs."
+            )
     with b2:
-        st.button("📄 AI Capability Guide", use_container_width=True)
+        with st.popover("📄 AI Capability Guide", use_container_width=True):
+            st.markdown("**AI Capability Guide**")
+            st.markdown(
+                "This board maps six pathways, from AI fundamentals through to "
+                "agentic systems, RAG & data, governance, and simulation. Start "
+                "at **Fundamentals** if you're new, or jump to the pathway that "
+                "matches what you're building right now."
+            )
+            st.caption("Ask in the Community channel if you want the full PDF guide.")
     with b3:
         st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
-        st.button("💬 Share feedback", use_container_width=True)
+        with st.popover("💬 Share feedback", use_container_width=True):
+            st.markdown("**Tell us what's working (or not)**")
+            fb = st.text_area("Your feedback", label_visibility="collapsed",
+                               placeholder="What would make this board more useful?", key="fb_text")
+            if st.button("Submit feedback", key="fb_submit"):
+                st.session_state.feedback_sent = True
+            if st.session_state.feedback_sent:
+                st.success("Thanks — your feedback has been noted for this session.")
         st.markdown('</div>', unsafe_allow_html=True)
 
 st.write("")
@@ -327,6 +397,7 @@ def render_track_page(key):
                 <div class="course-meta">⏱ {duration}</div>
             </div>
             """, unsafe_allow_html=True)
+            st.button("Start course →", key=f"course_{key}_{i}", use_container_width=True)
             st.write("")
 
 
@@ -342,11 +413,14 @@ def render_home():
         for col, key in zip(cols, TRACKS.keys()):
             t = TRACKS[key]
             with col:
-                st.markdown('<div class="track-marker"></div>', unsafe_allow_html=True)
                 st.markdown(
-                    f"<style>.track-marker + div[data-testid='stButton'] button {{"
+                    f"<style>div[data-testid='column']:has(#marker-track-{key}) "
+                    f"div[data-testid='stButton'] button {{"
                     f"background:{t['bg']} !important; color:{t['color']} !important;"
-                    f"border:1.5px solid {t['color']}44 !important;}}</style>",
+                    f"border:1.5px solid {t['color']}44 !important; width:100%; min-height:96px; "
+                    f"border-radius:12px; text-align:left; padding:14px; font-weight:700; "
+                    f"font-size:14px; display:flex; align-items:flex-start; white-space:normal;}}</style>"
+                    f"<span id='marker-track-{key}'></span>",
                     unsafe_allow_html=True,
                 )
                 st.button(f"{t['icon']}  {t['name']}", key=f"track_{key}",
@@ -385,12 +459,13 @@ def render_home():
                     <ul class="journey-list">{''.join(f'<li>{i}</li>' for i in items)}</ul>
                 """, unsafe_allow_html=True)
                 track_key = STAGE_TO_TRACK[title]
-                st.markdown('<div class="track-marker"></div>', unsafe_allow_html=True)
                 st.markdown(
-                    f"<style>.track-marker + div[data-testid='stButton'] button {{"
+                    f"<style>div[data-testid='column']:has(#marker-stage-{track_key}) "
+                    f"div[data-testid='stButton'] button {{"
                     f"background:transparent !important; color:{color} !important; border:none !important;"
                     f"min-height:unset !important; padding:2px 0 !important; font-size:12px !important;"
-                    f"font-weight:700 !important; text-align:center !important; justify-content:center !important;}}</style>",
+                    f"font-weight:700 !important; text-align:center !important; justify-content:center !important;}}</style>"
+                    f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
                 n = len(TRACKS[track_key]["courses"])
@@ -406,9 +481,8 @@ def render_home():
             ("🧪", "3. SANDBOX LAB", "Guided hands-on (2-4 hrs)"),
             ("⚙️", "4. BUILD", "Mini project / use case (½-1 day)"),
             ("📊", "5. SHOWCASE", "Demo to community (15 mins)"),
-            ("🏅", "6. BADGE", "Earn capability accreditation"),
         ]
-        step_cols = st.columns(6)
+        step_cols = st.columns(5)
         for col, (icon, title, sub) in zip(step_cols, steps):
             with col:
                 st.markdown(f"""
@@ -478,9 +552,18 @@ def render_home():
                             <div class="lab-title" style="color:{color};">{title}</div>
                             <div class="lab-desc">{desc}</div>
                         </div>
-                        <div class="lab-link" style="color:{color};">Start Lab →</div>
                     </div>
                     """, unsafe_allow_html=True)
+                    st.markdown(
+                        f"<style>div[data-testid='column']:has(#marker-lab-{title.replace(' ', '')}) "
+                        f"div[data-testid='stButton'] button {{"
+                        f"background:transparent !important; color:{color} !important; border:none !important;"
+                        f"font-size:12px !important; font-weight:700 !important; padding:2px 0 !important; "
+                        f"min-height:unset !important; text-align:left !important;}}</style>"
+                        f"<span id='marker-lab-{title.replace(' ', '')}'></span>",
+                        unsafe_allow_html=True,
+                    )
+                    st.button("Start Lab →", key=f"lab_{title}", use_container_width=True)
 
         st.write("")
         st.markdown("""
@@ -494,36 +577,15 @@ def render_home():
         """, unsafe_allow_html=True)
 
     with right_col:
-        st.markdown("""
-        <div class="survey-card">
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size:18px;">✅</span>
-                <span style="font-weight:800; font-size:13.5px; color:#12163a;">CAPABILITY INITIAL SURVEY</span>
-            </div>
-            <p style="font-size:12px; color:#6b7086; margin:8px 0 10px 0; line-height:1.4;">Start your journey with a quick assessment</p>
-            <div class="survey-check">✔ Understand your current capability</div>
-            <div class="survey-check">✔ Identify strengths and gaps</div>
-            <div class="survey-check">✔ Get personalized learning recommendations</div>
-            <div class="survey-check">✔ Track your growth over time</div>
-        </div>
-        """, unsafe_allow_html=True)
-        st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
-        st.button("Take a Capability Test →", use_container_width=True, key="survey_btn")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        st.write("")
         st.markdown('<div class="section-title" style="font-size:15px;">Tools We Work With</div>', unsafe_allow_html=True)
-        tools = [
-            ("🔷", "Azure AI Search"), ("🟥", "Redis"), ("⛓️", "LangChain"), ("🔗", "LangGraph"),
-            ("🧩", "Copilot Studio"), ("Ⓜ️", "MS Foundry"), ("🐙", "GitHub Copilot"), ("🌀", "Celonis API"),
-            ("🌐", "OpenAI"), ("✨", "Claude"), ("💎", "Gemini"), ("🦙", "Llama"),
-            ("🌪️", "Mistral"), ("🎨", "DALL-E"), ("🌆", "Midjourney"), ("🔊", "Whisper"),
-            ("🏛️", "Unreal Engine"), ("🌊", "Prompt Flow"), ("🦜", "LangSmith"), ("⚖️", "W&B"),
-        ]
         tc = st.columns(2)
-        for i, (icon, name) in enumerate(tools):
+        for i, (name, (icon, url)) in enumerate(TOOL_LINKS.items()):
             with tc[i % 2]:
-                st.markdown(f'<div class="tool-chip">{icon} {name}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<a class="tool-chip" href="{url}" target="_blank" rel="noopener noreferrer">'
+                    f'{icon} {name}<span class="chip-arrow">↗</span></a>',
+                    unsafe_allow_html=True,
+                )
 
         st.write("")
         st.markdown('<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>', unsafe_allow_html=True)
@@ -534,6 +596,7 @@ def render_home():
         ]
         for link in links:
             st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
+        st.caption("These point to OA's internal wiki — add your intranet URLs once you have them.")
 
 
 # ============================================================================
