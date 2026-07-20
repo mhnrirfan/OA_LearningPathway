@@ -299,12 +299,45 @@ st.markdown("""
 # ============================================================================
 # SIDEBAR
 # ============================================================================
+
 with st.sidebar:
+
     st.markdown(
-        '<div class="sidebar-logo"><span class="logo-icon">🔷</span>'
-        '<span>OA AI Capability Journey</span></div>',
+        '<div class="sidebar-logo">'
+        '<span class="logo-icon">🔷</span>'
+        '<span>OA AI Capability Journey</span>'
+        '</div>',
         unsafe_allow_html=True,
     )
+
+    st.markdown("""
+    <style>
+
+    div[data-testid="stButton"] button {
+        width:100%;
+        border:none !important;
+        text-align:left;
+        background:transparent !important;
+        padding:10px 12px !important;
+        font-size:15px !important;
+        font-weight:600 !important;
+        color:#12163a !important;
+        border-radius:8px !important;
+    }
+
+    div[data-testid="stButton"] button p {
+        color:#12163a !important;
+    }
+
+    div[data-testid="stButton"] button:hover {
+        background:#eef2ff !important;
+        color:#12163a !important;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+
     nav_items = [
         ("🏠", "Home", "home"),
         ("📚", "Capability Survey", "capability_survey"),
@@ -312,39 +345,16 @@ with st.sidebar:
         ("🧪", "Sandbox Labs", "sandbox"),
     ]
 
+
     for icon, label, page_key in nav_items:
 
-        active = st.session_state.get("page", "home") == page_key
-
-        if active:
-            button_label = f"{icon}  {label}"
-        else:
-            button_label = f"{icon}  {label}"
-
         if st.button(
-            button_label,
+            f"{icon}  {label}",
             key=f"nav_{page_key}",
             use_container_width=True
         ):
             st.session_state.page = page_key
             st.rerun()
-    st.markdown("""
-    <style>
-    div[data-testid="stButton"] button {
-        width:100%;
-        border:none;
-        text-align:left;
-        background:transparent;
-        padding:8px 12px;
-        font-size:15px;
-    }
-
-    div[data-testid="stButton"] button:hover {
-        background:#f0f2ff;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 # ============================================================================
 # HEADER (shared)
 # ============================================================================
