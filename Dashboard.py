@@ -308,7 +308,6 @@ with st.sidebar:
     nav_items = [
         ("🏠", "Home", True), ("📚", "Capability Survey", False),
         ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), 
-        ("❓", "Help & Support", False),
     ]
     for icon, label, active in nav_items:
         cls = "nav-item active" if active else "nav-item"
@@ -624,3 +623,119 @@ if st.session_state.page == "home":
     render_home()
 else:
     render_track_page(st.session_state.page)
+
+
+# ============================================================================
+# Capability survey page 
+# ============================================================================
+def render_capability_survey():
+    """Render the capability assessment survey page"""
+    st.markdown('<h1 class="page-title">AI Capability Assessment</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="page-subtitle">Assess your current AI skills and expertise to get personalized learning recommendations</p>', unsafe_allow_html=True)
+    
+    st.write("")
+    
+    # Survey sections
+    survey_sections = {
+        "AI Fundamentals": {
+            "questions": [
+                ("I understand what Large Language Models (LLMs) are and how they work", 
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I can write effective prompts for AI models",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I understand responsible AI and ethical considerations",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I know the difference between various AI models (GPT, Claude, Gemini, etc.)",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+            ]
+        },
+        "Practical AI Skills": {
+            "questions": [
+                ("I have used AI tools in my day-to-day work",
+                 ["Never", "Occasionally", "Regularly", "Frequently", "Extensively"]),
+                ("I can work with APIs and integrate AI into applications",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I understand RAG (Retrieval-Augmented Generation) concepts",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I have experience building or deploying AI solutions",
+                 ["No experience", "Limited experience", "Some experience", "Good experience", "Extensive experience"]),
+            ]
+        },
+        "Advanced AI Capabilities": {
+            "questions": [
+                ("I understand agentic AI and autonomous workflows",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I can design multi-agent systems",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I'm familiar with vector databases and embeddings",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+                ("I understand AI governance and compliance requirements",
+                 ["Not at all", "Somewhat", "Moderate", "Advanced", "Expert"]),
+            ]
+        },
+        "Your Role & Goals": {
+            "questions": [
+                ("What is your primary role?",
+                 ["Business User", "Data Analyst", "Developer", "AI/ML Engineer", "Executive/Manager", "Other"]),
+                ("What are your main learning goals?",
+                 ["Understand AI fundamentals", "Apply AI in my work", "Build AI solutions", "Ensure responsible AI use", "Lead AI initiatives"]),
+            ]
+        }
+    }
+    
+    # Create form
+    with st.form(key="capability_survey_form"):
+        responses = {}
+        
+        for section_name, section_data in survey_sections.items():
+            st.markdown(f'<h3 style="color:#12163a; font-weight:700; margin-top:20px;">{section_name}</h3>', 
+                       unsafe_allow_html=True)
+            
+            for q_idx, (question, options) in enumerate(section_data["questions"]):
+                key = f"{section_name}_{q_idx}"
+                response = st.radio(question, options, key=key, horizontal=False)
+                responses[key] = response
+        
+        st.write("")
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            submit_button = st.form_submit_button("Get My Learning Path", use_container_width=True)
+        
+        if submit_button:
+            st.session_state.survey_responses = responses
+            st.success("✅ Survey submitted! Analyzing your responses...")
+            st.write("")
+            
+            # Generate recommendations based on responses
+            st.markdown('<h3 style="color:#12163a; font-weight:700; margin-top:20px;">Your Personalized Learning Path</h3>', 
+                       unsafe_allow_html=True)
+            
+            # Count expertise levels
+            expertise_count = sum(1 for v in responses.values() if v in ["Advanced", "Expert", "Extensive experience", "Good experience"])
+            
+            if expertise_count >= 8:
+                recommended_track = "agentic"
+                level = "Advanced Builder"
+                description = "You have strong foundational knowledge. Focus on advanced topics like agentic AI, multi-agent systems, and enterprise deployment."
+            elif expertise_count >= 4:
+                recommended_track = "rag_data"
+                level = "Practitioner"
+                description = "You have solid fundamentals. Build practical skills with RAG, LLMs, and prompt engineering."
+            else:
+                recommended_track = "fundamentals"
+                level = "Foundation"
+                description = "Start with AI fundamentals to build a strong knowledge base before moving to advanced topics."
+            
+            track_info = TRACKS.get(recommended_track, {})
+            st.info(f"📌 **Recommended Level:** {level}\n\n{description}")
+            
+            # Show first 3 recommended courses
+            if track_info.get("courses"):
+                st.markdown(f"**Suggested Courses from {track_info.get('name', 'Track')}:**")
+                for course_name, course_desc, duration in track_info["courses"][:3]:
+                    st.markdown(f"- **{course_name}** ({duration})\n  {course_desc}")
+            
+            st.write("")
+            if st.button("View Full Learning Path →", use_container_width=True):
+                st.session_state.page = recommended_track
+                st.rerun()
