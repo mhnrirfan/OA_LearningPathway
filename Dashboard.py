@@ -177,10 +177,17 @@ st.markdown("""
     div[data-testid="stButton"] > button:hover { border-color: #2f6fed; color: #2f6fed; }
     div[data-testid="stPopover"] > button {
         border-radius: 8px; font-weight: 600; font-size: 13px;
-        border: 1px solid #d7dae3; background-color: white; color: #2c3050;
-        padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
+        border: 1px solid transparent; background-image: linear-gradient(135deg, #5b3df0, #2f6fed);
+        color: white; padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
     }
-    .purple-btn button { background-color: #5b3df0 !important; color: white !important; border: none !important; }
+    div[data-testid="stPopover"] > button:hover {
+        filter: brightness(1.05); border-color: transparent; color: white;
+    }
+    .purple-btn button {
+        background-image: linear-gradient(135deg, #8b5cf6, #5b3df0) !important;
+        color: white !important; border: none !important;
+        box-shadow: 0 8px 18px rgba(95, 67, 255, 0.12) !important;
+    }
 
     /* ---------- Section headers ---------- */
     .section-title { font-size: 18px; font-weight: 800; color: #12163a; margin: 6px 0 12px 0; line-height: 1.3; }
@@ -323,52 +330,38 @@ with h1:
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
 with h2:
     b1, b2, b3 = st.columns(3)
-    # Make the three info boxes equal height and use gradient styles
-    box_style = (
-        "height:220px; padding:16px; border-radius:12px; color:#fff;"
-        "display:flex; flex-direction:column; justify-content:flex-start;"
-    )
     with b1:
-        with st.container():
+        with st.popover("ℹ️ How to use this board", use_container_width=True):
+            st.markdown("**Getting around the board**")
             st.markdown(
-                f"<div style=\"background:linear-gradient(135deg,#6a11cb,#2575fc);{box_style}\">"
-                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">ℹ️ How to use this board</div>"
-                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95;\">"
-                "- Pick a <strong>pathway</strong> to see every course in that track.<br>"
-                "- Follow the <strong>Journey</strong> left to right — each stage builds on the last.<br>"
-                "- Use <strong>How you learn</strong> as your loop for every capability: Learn → Workshop → Sandbox → Build → Showcase → Badge.<br>"
-                "- Check <strong>Sandbox Labs</strong> for hands-on practice any time.<br>"
-                "- <strong>Tools We Work With</strong> links straight out to the official docs."
-                "</div></div>",
-                unsafe_allow_html=True,
+                "- Pick a **pathway** to see every course in that track.\n"
+                "- Follow the **Journey** left to right — each stage builds on the last.\n"
+                "- Use **How you learn** as your loop for every capability: "
+                "Learn → Workshop → Sandbox → Build → Showcase → Badge.\n"
+                "- Check **Sandbox Labs** for hands-on practice any time.\n"
+                "- **Tools We Work With** links straight out to the official docs."
             )
     with b2:
-        with st.container():
+        with st.popover("📄 Capability Guide", use_container_width=True):
+            st.markdown("**AI Capability Guide**")
             st.markdown(
-                f"<div style=\"background:linear-gradient(135deg,#ff7e5f,#feb47b);{box_style}\">"
-                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">📄 Capability Guide</div>"
-                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95;\">"
-                "This board maps six pathways, from AI fundamentals through to agentic systems, RAG & data, governance, and simulation. Start at <strong>Fundamentals</strong> if you're new, or jump to the pathway that matches what you're building right now."
-                "</div>"
-                "<div style=\"margin-top:auto; font-size:12px; opacity:0.9;\">Ask in the Community channel if you want the full PDF guide.</div>"
-                "</div>",
-                unsafe_allow_html=True,
+                "This board maps six pathways, from AI fundamentals through to "
+                "agentic systems, RAG & data, governance, and simulation. Start "
+                "at **Fundamentals** if you're new, or jump to the pathway that "
+                "matches what you're building right now."
             )
+            st.caption("Ask in the Community channel if you want the full PDF guide.")
     with b3:
-        with st.container():
-            st.markdown(
-                f"<div style=\"background:linear-gradient(135deg,#36d1dc,#5b86e5);{box_style}\">"
-                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">💬 Share feedback</div>"
-                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95; margin-bottom:8px;\">Tell us what's working (or not)</div>"
-            , unsafe_allow_html=True)
+        st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
+        with st.popover("💬 Share feedback", use_container_width=True):
+            st.markdown("**Tell us what's working (or not)**")
             fb = st.text_area("Your feedback", label_visibility="collapsed",
                                placeholder="What would make this board more useful?", key="fb_text")
             if st.button("Submit feedback", key="fb_submit"):
                 st.session_state.feedback_sent = True
-            if st.session_state.get("feedback_sent"):
+            if st.session_state.feedback_sent:
                 st.success("Thanks — your feedback has been noted for this session.")
-            # close the gradient box visually by adding a small spacer
-            st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 st.write("")
 
@@ -474,7 +467,6 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
-                st.button("Explore track →", key=f"stage_{track_key}", use_container_width=True, on_click=go_track, args=(track_key,))
         st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
