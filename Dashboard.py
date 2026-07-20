@@ -687,12 +687,10 @@ else:
 # ============================================================================
 
 def render_capability_survey():
-
     st.markdown(
         '<h1 class="page-title">AI Capability Assessment</h1>',
         unsafe_allow_html=True
     )
-
     st.markdown(
         '<p class="page-subtitle">'
         'Assess your AI capability and get a recommended learning pathway.'
@@ -700,12 +698,8 @@ def render_capability_survey():
         unsafe_allow_html=True
     )
 
-
     with st.form("capability_survey"):
-
         responses = {}
-
-
         # AI maturity slider
         st.markdown("### 🚀 Your AI Experience")
 
@@ -716,13 +710,8 @@ def render_capability_survey():
             3,
             help="0 = New to AI | 10 = Advanced AI builder"
         )
-
         responses["AI Score"] = ai_score
-
-
         st.divider()
-
-
         questions = {
 
             "🧠 AI Fundamentals": [
@@ -741,7 +730,6 @@ def render_capability_survey():
             ]
         }
 
-
         options = [
             "Beginner",
             "Developing",
@@ -750,13 +738,9 @@ def render_capability_survey():
             "Expert"
         ]
 
-
         for section, items in questions.items():
-
             st.markdown(f"### {section}")
-
             for i, question in enumerate(items):
-
                 responses[f"{section}_{i}"] = st.radio(
                     question,
                     options,
@@ -764,10 +748,7 @@ def render_capability_survey():
                     key=f"{section}_{i}"
                 )
 
-
         st.divider()
-
-
         role = st.selectbox(
             "Your role",
             [
@@ -778,22 +759,14 @@ def render_capability_survey():
                 "Leader"
             ]
         )
-
         responses["Role"] = role
-
-
         submit = st.form_submit_button(
             "Generate My Learning Path →",
             use_container_width=True
         )
 
-
-
     if submit:
-
         score = responses["AI Score"]
-
-
         advanced = sum(
             1 for value in responses.values()
             if value in ["Advanced", "Expert"]
@@ -801,10 +774,7 @@ def render_capability_survey():
 
 
         final_score = score + advanced
-
-
         st.divider()
-
         if final_score >= 14:
 
             track = "agentic"
@@ -814,9 +784,7 @@ def render_capability_survey():
                 "enterprise deployment and governance."
             )
 
-
         elif final_score >= 7:
-
             track = "rag_data"
             level = "AI Practitioner"
             text = (
@@ -824,9 +792,7 @@ def render_capability_survey():
                 "prompt engineering and AI workflows."
             )
 
-
         else:
-
             track = "fundamentals"
             level = "AI Explorer"
             text = (
@@ -834,23 +800,15 @@ def render_capability_survey():
                 "and responsible AI."
             )
 
-
         st.success(
             f"Recommended Level: **{level}**"
         )
-
         st.info(text)
-
-
         if track in TRACKS:
-
             st.markdown(
                 f"### Recommended Path: {TRACKS[track]['name']}"
             )
-
-
             for course, desc, duration in TRACKS[track]["courses"][:3]:
-
                 st.markdown(
                     f"""
                     **{course}**  
@@ -858,12 +816,9 @@ def render_capability_survey():
                     ⏱️ {duration}
                     """
                 )
-
-
         if st.button(
             "Start This Pathway →",
             use_container_width=True
         ):
-
             st.session_state.page = track
             st.rerun()
