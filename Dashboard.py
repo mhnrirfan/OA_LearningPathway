@@ -317,7 +317,7 @@ with st.sidebar:
         active = st.session_state.get("page", "home") == page_key
 
         if active:
-            button_label = f"▶ {icon}  {label}"
+            button_label = f"{icon}  {label}"
         else:
             button_label = f"{icon}  {label}"
 
@@ -328,6 +328,22 @@ with st.sidebar:
         ):
             st.session_state.page = page_key
             st.rerun()
+    st.markdown("""
+    <style>
+    div[data-testid="stButton"] button {
+        width:100%;
+        border:none;
+        text-align:left;
+        background:transparent;
+        padding:8px 12px;
+        font-size:15px;
+    }
+
+    div[data-testid="stButton"] button:hover {
+        background:#f0f2ff;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # ============================================================================
 # HEADER (shared)
