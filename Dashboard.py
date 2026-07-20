@@ -448,7 +448,7 @@ def render_home():
              ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
         ]
 
-        st.markdown('<div class="journey-wrap">', unsafe_allow_html=True)
+
         circ_cols = st.columns(6)
         for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
             with col:
