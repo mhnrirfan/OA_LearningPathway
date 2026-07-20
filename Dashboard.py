@@ -306,12 +306,28 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     nav_items = [
-        ("🏠", "Home", True), ("📚", "Capability Survey", False),
-        ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), 
+        ("🏠", "Home", "home"),
+        ("📚", "Capability Survey", "capability_survey"),
+        ("🗓️", "Workshops & Events", "workshops"),
+        ("🧪", "Sandbox Labs", "sandbox"),
     ]
-    for icon, label, active in nav_items:
-        cls = "nav-item active" if active else "nav-item"
-        st.markdown(f'<div class="{cls}">{icon} &nbsp;{label}</div>', unsafe_allow_html=True)
+
+    for icon, label, page_key in nav_items:
+
+        active = st.session_state.get("page", "home") == page_key
+
+        if active:
+            button_label = f"▶ {icon}  {label}"
+        else:
+            button_label = f"{icon}  {label}"
+
+        if st.button(
+            button_label,
+            key=f"nav_{page_key}",
+            use_container_width=True
+        ):
+            st.session_state.page = page_key
+            st.rerun()
 
 # ============================================================================
 # HEADER (shared)
