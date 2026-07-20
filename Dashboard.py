@@ -513,86 +513,86 @@ def render_home():
             st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
         st.caption("These point to OA's internal wiki — add your intranet URLs once you have them.")
 
-        # ---------------- EVENTS + LABS ----------------
-        ev_col, lab_col = st.columns(2, gap="large")
+    # ---------------- EVENTS + LABS ----------------
+    ev_col, lab_col = st.columns(2, gap="large")
 
-        with ev_col:
-            st.markdown(
-                '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-                'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
-                unsafe_allow_html=True,
-            )
-            st.markdown('<div class="white-card">', unsafe_allow_html=True)
-            events = [
-                ("📅", "#e8f0ff", "#2f6fed", "Intro to Prompt Engineering for Consultants", "22 May 2025", None),
-                ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 May 2025",
-                 ("Practitioner", "#e9f8ee", "#2f9e5c")),
-                ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 June 2025",
-                 ("Advanced", "#f2edfe", "#8b5cf6")),
-            ]
-            rows_html = ""
-            for icon, ibg, icolor, title, date, badge in events:
-                badge_html = ""
-                if badge:
-                    btxt, bbg, bcolor = badge
-                    badge_html = f'<span class="badge" style="background:{bbg}; color:{bcolor};">{btxt}</span>'
-                rows_html += f"""
-                <div class="event-row">
-                    <div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>
-                    <div style="flex:1;">
-                        <div class="event-title">{title}</div>
-                        {badge_html}
-                    </div>
-                    <div class="event-date">{date}</div>
+    with ev_col:
+        st.markdown(
+            '<div class="section-title-row"><span class="section-title" style="margin:0;">'
+            'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown('<div class="white-card">', unsafe_allow_html=True)
+        events = [
+            ("📅", "#e8f0ff", "#2f6fed", "Intro to Prompt Engineering for Consultants", "22 May 2025", None),
+            ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 May 2025",
+                ("Practitioner", "#e9f8ee", "#2f9e5c")),
+            ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 June 2025",
+                ("Advanced", "#f2edfe", "#8b5cf6")),
+        ]
+        rows_html = ""
+        for icon, ibg, icolor, title, date, badge in events:
+            badge_html = ""
+            if badge:
+                btxt, bbg, bcolor = badge
+                badge_html = f'<span class="badge" style="background:{bbg}; color:{bcolor};">{btxt}</span>'
+            rows_html += f"""
+            <div class="event-row">
+                <div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>
+                <div style="flex:1;">
+                    <div class="event-title">{title}</div>
+                    {badge_html}
                 </div>
-                """
-            st.markdown(rows_html, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        with lab_col:
-            st.markdown(
-                '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-                'Sandbox Labs</span><a class="section-link" href="#">Open Lab Environment →</a></div>',
-                unsafe_allow_html=True,
-            )
-            labs = [
-                ("RAG Lab", "Build a company knowledge assistant", "#eaf1ff", "#2f6fed"),
-                ("Agent Builder Lab", "Create your first AI agent", "#e9f8ee", "#2f9e5c"),
-                ("Prompt Flow Lab", "Test, evaluate and improve prompts", "#f2edfe", "#8b5cf6"),
-                ("Synthetic Data Lab", "Generate data for AI & analytics", "#fef1e6", "#e8781f"),
-            ]
-            lc = st.columns(4)
-            for col, (title, desc, bg, color) in zip(lc, labs):
-                with col:
-                    st.markdown(f"""
-                    <div class="lab-card" style="background:{bg};">
-                        <div>
-                            <div class="lab-title" style="color:{color};">{title}</div>
-                            <div class="lab-desc">{desc}</div>
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    st.markdown(
-                        f"<style>div[data-testid='column']:has(#marker-lab-{title.replace(' ', '')}) "
-                        f"div[data-testid='stButton'] button {{"
-                        f"background:transparent !important; color:{color} !important; border:none !important;"
-                        f"font-size:12px !important; font-weight:700 !important; padding:2px 0 !important; "
-                        f"min-height:unset !important; text-align:left !important;}}</style>"
-                        f"<span id='marker-lab-{title.replace(' ', '')}'></span>",
-                        unsafe_allow_html=True,
-                    )
-                    st.button("Start Lab →", key=f"lab_{title}", use_container_width=True)
-
-        st.write("")
-        st.markdown("""
-        <div class="footer-banner">
-            <div style="font-size:20px;">🌱</div>
-            <div>
-                <a href="#" style="font-weight:700; color:#12163a; text-decoration:none;">New to AI? Start here →</a>
-                &nbsp;&nbsp;<span style="color:#6b7086; font-size:12.5px;">Begin your journey with our AI Foundations path designed for everyone.</span>
+                <div class="event-date">{date}</div>
             </div>
+            """
+        st.markdown(rows_html, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with lab_col:
+        st.markdown(
+            '<div class="section-title-row"><span class="section-title" style="margin:0;">'
+            'Sandbox Labs</span><a class="section-link" href="#">Open Lab Environment →</a></div>',
+            unsafe_allow_html=True,
+        )
+        labs = [
+            ("RAG Lab", "Build a company knowledge assistant", "#eaf1ff", "#2f6fed"),
+            ("Agent Builder Lab", "Create your first AI agent", "#e9f8ee", "#2f9e5c"),
+            ("Prompt Flow Lab", "Test, evaluate and improve prompts", "#f2edfe", "#8b5cf6"),
+            ("Synthetic Data Lab", "Generate data for AI & analytics", "#fef1e6", "#e8781f"),
+        ]
+        lc = st.columns(4)
+        for col, (title, desc, bg, color) in zip(lc, labs):
+            with col:
+                st.markdown(f"""
+                <div class="lab-card" style="background:{bg};">
+                    <div>
+                        <div class="lab-title" style="color:{color};">{title}</div>
+                        <div class="lab-desc">{desc}</div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                st.markdown(
+                    f"<style>div[data-testid='column']:has(#marker-lab-{title.replace(' ', '')}) "
+                    f"div[data-testid='stButton'] button {{"
+                    f"background:transparent !important; color:{color} !important; border:none !important;"
+                    f"font-size:12px !important; font-weight:700 !important; padding:2px 0 !important; "
+                    f"min-height:unset !important; text-align:left !important;}}</style>"
+                    f"<span id='marker-lab-{title.replace(' ', '')}'></span>",
+                    unsafe_allow_html=True,
+                )
+                st.button("Start Lab →", key=f"lab_{title}", use_container_width=True)
+
+    st.write("")
+    st.markdown("""
+    <div class="footer-banner">
+        <div style="font-size:20px;">🌱</div>
+        <div>
+            <a href="#" style="font-weight:700; color:#12163a; text-decoration:none;">New to AI? Start here →</a>
+            &nbsp;&nbsp;<span style="color:#6b7086; font-size:12.5px;">Begin your journey with our AI Foundations path designed for everyone.</span>
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
 
 
 
