@@ -526,7 +526,6 @@ def render_home():
         )
         st.markdown('<div class="white-card">', unsafe_allow_html=True)
         events = [
-            ("📅", "#e8f0ff", "#2f6fed", "Intro to Prompt Engineering for Consultants", "22 September 2026"),
             ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
                 ("Practitioner", "#e9f8ee", "#2f9e5c")),
             ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 December 2026",
