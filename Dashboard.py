@@ -683,5 +683,187 @@ else:
 
 
 # ============================================================================
-# Capability survey page 
+# Capability Survey
 # ============================================================================
+
+def render_capability_survey():
+
+    st.markdown(
+        '<h1 class="page-title">AI Capability Assessment</h1>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<p class="page-subtitle">'
+        'Assess your AI capability and get a recommended learning pathway.'
+        '</p>',
+        unsafe_allow_html=True
+    )
+
+
+    with st.form("capability_survey"):
+
+        responses = {}
+
+
+        # AI maturity slider
+        st.markdown("### 🚀 Your AI Experience")
+
+        ai_score = st.slider(
+            "Where are you on your AI journey?",
+            0,
+            10,
+            3,
+            help="0 = New to AI | 10 = Advanced AI builder"
+        )
+
+        responses["AI Score"] = ai_score
+
+
+        st.divider()
+
+
+        questions = {
+
+            "🧠 AI Fundamentals": [
+                "I understand AI and LLM concepts",
+                "I can write effective prompts",
+            ],
+
+            "⚙️ Applied AI": [
+                "I use AI tools in my work",
+                "I can identify AI automation opportunities",
+            ],
+
+            "🤖 Advanced AI": [
+                "I understand RAG, agents and AI workflows",
+                "I can build or integrate AI solutions",
+            ]
+        }
+
+
+        options = [
+            "Beginner",
+            "Developing",
+            "Confident",
+            "Advanced",
+            "Expert"
+        ]
+
+
+        for section, items in questions.items():
+
+            st.markdown(f"### {section}")
+
+            for i, question in enumerate(items):
+
+                responses[f"{section}_{i}"] = st.radio(
+                    question,
+                    options,
+                    horizontal=True,
+                    key=f"{section}_{i}"
+                )
+
+
+        st.divider()
+
+
+        role = st.selectbox(
+            "Your role",
+            [
+                "Business User",
+                "Analyst",
+                "Developer",
+                "AI Engineer",
+                "Leader"
+            ]
+        )
+
+        responses["Role"] = role
+
+
+        submit = st.form_submit_button(
+            "Generate My Learning Path →",
+            use_container_width=True
+        )
+
+
+
+    if submit:
+
+        score = responses["AI Score"]
+
+
+        advanced = sum(
+            1 for value in responses.values()
+            if value in ["Advanced", "Expert"]
+        )
+
+
+        final_score = score + advanced
+
+
+        st.divider()
+
+        if final_score >= 14:
+
+            track = "agentic"
+            level = "Advanced Builder"
+            text = (
+                "Focus on AI agents, orchestration, "
+                "enterprise deployment and governance."
+            )
+
+
+        elif final_score >= 7:
+
+            track = "rag_data"
+            level = "AI Practitioner"
+            text = (
+                "Build practical capability with RAG, "
+                "prompt engineering and AI workflows."
+            )
+
+
+        else:
+
+            track = "fundamentals"
+            level = "AI Explorer"
+            text = (
+                "Start with AI foundations, prompting "
+                "and responsible AI."
+            )
+
+
+        st.success(
+            f"Recommended Level: **{level}**"
+        )
+
+        st.info(text)
+
+
+        if track in TRACKS:
+
+            st.markdown(
+                f"### Recommended Path: {TRACKS[track]['name']}"
+            )
+
+
+            for course, desc, duration in TRACKS[track]["courses"][:3]:
+
+                st.markdown(
+                    f"""
+                    **{course}**  
+                    {desc}  
+                    ⏱️ {duration}
+                    """
+                )
+
+
+        if st.button(
+            "Start This Pathway →",
+            use_container_width=True
+        ):
+
+            st.session_state.page = track
+            st.rerun()
