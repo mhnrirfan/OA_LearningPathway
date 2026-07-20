@@ -324,70 +324,75 @@ with h1:
 with h2:
     b1, b2, b3 = st.columns(3, gap="medium")
 
-button_style = (
-    "height:90px;"
-    "width:100%;"
-    "border-radius:14px;"
-    "color:white;"
-    "font-size:22px;"
-    "font-weight:700;"
-)
+    with b1:
+        with st.popover("How to use this board", use_container_width=True):
+            st.markdown("## How to use this board")
 
-with b1:
-    st.markdown(
-        f"""
-        <div style="
-        background:linear-gradient(135deg,#6a11cb,#2575fc);
-        {button_style}
-        display:flex;
-        align-items:center;
-        justify-content:center;">
-        ℹ️ How to use this board
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            st.markdown("""
+            **Getting around the board**
 
-    if st.button("Go to guide", key="guide_btn", use_container_width=True):
-        st.switch_page("pages/how_to_use.py")
+            - Pick a **pathway** to see every course in that track.
+            - Follow the **Journey** left to right — each stage builds on the last.
+            - Use the learning loop:
+
+            **Learn → Workshop → Sandbox → Build → Showcase → Badge**
+
+            - Explore **Sandbox Labs** for hands-on practice.
+            - Use **Tools We Work With** for official documentation.
+            """)
 
 
-with b2:
-    st.markdown(
-        f"""
-        <div style="
-        background:linear-gradient(135deg,#ff7e5f,#feb47b);
-        {button_style}
-        display:flex;
-        align-items:center;
-        justify-content:center;">
-        📄 AI Capability Guide
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    with b2:
+        with st.popover("AI Capability Guide", use_container_width=True):
+            st.markdown("## AI Capability Guide")
 
-    if st.button("Open capability guide", key="capability_btn", use_container_width=True):
-        st.switch_page("pages/capability_guide.py")
+            st.markdown("""
+            This board maps six AI capability pathways:
+
+            - AI Fundamentals
+            - Generative AI
+            - Agentic Systems
+            - RAG & Data
+            - Governance
+            - Simulation
+
+            Start with Fundamentals if you are new,
+            or jump directly to the pathway that matches your project.
+            """)
 
 
-with b3:
-    st.markdown(
-        f"""
-        <div style="
-        background:linear-gradient(135deg,#36d1dc,#5b86e5);
-        {button_style}
-        display:flex;
-        align-items:center;
-        justify-content:center;">
-        💬 Share feedback
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    with b3:
+        with st.popover("Share feedback", use_container_width=True):
+            st.markdown("## Share feedback")
 
-    if st.button("Give feedback", key="feedback_btn", use_container_width=True):
-        st.switch_page("pages/feedback.py")
+            st.markdown("""
+            Help us improve the board.
+
+            Tell us:
+            - What works well
+            - What is unclear
+            - What content is missing
+            - What would improve your experience
+            """)
+
+            fb = st.text_area(
+                "Your feedback",
+                placeholder="What would make this board more useful?",
+                label_visibility="collapsed",
+                key="fb_text"
+            )
+
+            if st.button("Submit feedback", key="fb_submit"):
+                st.success("Thanks — your feedback has been noted.")
+    st.markdown("""
+    <style>
+    div[data-testid="stPopover"] button {
+        height: 70px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 st.write("")
 
 # ============================================================================
