@@ -308,7 +308,7 @@ with st.sidebar:
     nav_items = [
         ("🏠", "Home", True), ("📚", "Capability Survey", False),
         ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), 
-        ("❓", "Help & Support", False),
+        ("❓", "Help & Support", False), ("💬", "Blog", False)
     ]
     for icon, label, active in nav_items:
         cls = "nav-item active" if active else "nav-item"
@@ -423,66 +423,115 @@ def render_home():
     main_col, right_col = st.columns([3, 1], gap="large")
 
     with main_col:
-        st.markdown('<div class="section-title">Choose your learning pathway</div>', unsafe_allow_html=True)
-        cols = st.columns(6)
-        for col, key in zip(cols, TRACKS.keys()):
-            t = TRACKS[key]
-            with col:
-                st.markdown(
-                    f"<style>div[data-testid='column']:has(#marker-track-{key}) "
-                    f"div[data-testid='stButton'] button {{"
-                    f"background:{t['bg']} !important; color:{t['color']} !important;"
-                    f"border:1.5px solid {t['color']}44 !important; width:100%; min-height:96px; "
-                    f"border-radius:12px; text-align:left; padding:14px; font-weight:700; "
-                    f"font-size:14px; display:flex; align-items:flex-start; white-space:normal;}}</style>"
-                    f"<span id='marker-track-{key}'></span>",
-                    unsafe_allow_html=True,
-                )
-                st.button(f"{t['icon']}  {t['name']}", key=f"track_{key}",
-                          use_container_width=True, on_click=go_track, args=(key,))
-                st.markdown(
-                    f'<div class="track-caption">Track · <b>{len(t["courses"])} Capabilities</b></div>',
-                    unsafe_allow_html=True,
-                )
+        st.markdown(
+            '<div class="section-title">Choose your learning pathway</div>',
+            unsafe_allow_html=True
+        )
 
-        st.write("")
-        st.markdown('<div class="section-title">Your AI Capability Journey</div>', unsafe_allow_html=True)
+        cols = st.columns(3, gap="medium")   # 3 per row
 
-        stages = [
-            ("🌱", "FOUNDATION", "Build your basics", "#2f6fed",
-             ["AI & LLM Fundamentals", "Prompt Engineering", "Responsible AI", "Governance Basics"]),
-            ("🛠️", "PRACTITIONER", "Apply & build", "#e8781f",
-             ["Work with GPT-4/4.1/5", "Claude 3.x & Gemini", "Multi-Modal AI", "GitHub Copilot"]),
-            ("🏗️", "ADVANCED BUILDERS", "Design & integrate", "#8b5cf6",
-             ["Azure AI Search", "Vector Databases", "Redis (Memory Cache)", "LangChain"]),
-            ("🕸️", "AGENTIC AI", "Orchestrate & scale", "#2f9e5c",
-             ["MCP & Tool Abstraction", "Copilot Studio", "Agent Frameworks", "LangGraph"]),
-            ("🛡️", "ENTERPRISE DEPLOYMENT", "Secure & govern", "#e0373f",
-             ["Security & Guardrails", "Auditing & Monitoring", "Compliance", "Decision Guardrails"]),
-            ("🚀", "INNOVATION LAB", "Simulate & explore", "#12163a",
-             ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
+        pastel_colours = [
+            "#EDE7F6",  # soft purple
+            "#FFE8D6",  # soft orange
+            "#DFF6FF",  # soft blue
+            "#E3FCEC",  # soft green
+            "#FFF4CC",  # soft yellow
+            "#FCE4EC",  # soft pink
         ]
 
-        circ_cols = st.columns(6)
-        for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
+        for i, key in enumerate(TRACKS.keys()):
+            t = TRACKS[key]
+
+            col = cols[i % 3]
+
             with col:
-                st.markdown(f"""
-                    <div class="journey-circle" style="border-color:{color}; color:{color};">{icon}</div>
-                    <div class="journey-stage-title" style="color:{color};">{title}</div>
-                    <div class="journey-stage-sub">{sub}</div>
-                    <ul class="journey-list">{''.join(f'<li>{i}</li>' for i in items)}</ul>
-                """, unsafe_allow_html=True)
-                track_key = STAGE_TO_TRACK[title]
                 st.markdown(
-                    f"<style>div[data-testid='column']:has(#marker-stage-{track_key}) "
-                    f"div[data-testid='stButton'] button {{"
-                    f"background:transparent !important; color:{color} !important; border:none !important;"
-                    f"min-height:unset !important; padding:2px 0 !important; font-size:12px !important;"
-                    f"font-weight:700 !important; text-align:center !important; justify-content:center !important;}}</style>"
-                    f"<span id='marker-stage-{track_key}'></span>",
+                    f"""
+                    <style>
+                    div[data-testid='column']:has(#marker-track-{key})
+                    div[data-testid='stButton'] button {{
+                        background:{pastel_colours[i]} !important;
+                        color:#222 !important;
+                        border:1px solid #ddd !important;
+                        width:100%;
+                        height:120px;
+                        min-height:120px;
+                        border-radius:16px;
+                        text-align:left;
+                        padding:16px;
+                        font-weight:700;
+                        font-size:16px;
+                        display:flex;
+                        align-items:flex-start;
+                        white-space:normal;
+                    }}
+
+                    div[data-testid='column']:has(#marker-track-{key})
+                    div[data-testid='stButton'] button:hover {{
+                        border:2px solid #888 !important;
+                    }}
+                    </style>
+
+                    <span id="marker-track-{key}"></span>
+                    """,
                     unsafe_allow_html=True,
                 )
-            st.markdown('</div>', unsafe_allow_html=True)
+
+                st.button(
+                    f"{t['icon']}  {t['name']}",
+                    key=f"track_{key}",
+                    use_container_width=True,
+                    on_click=go_track,
+                    args=(key,)
+                )
+
+                st.markdown(
+                    f"""
+                    <div class="track-caption">
+                        Track · <b>{len(t["courses"])} Capabilities</b>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+            st.write("")
+            st.markdown('<div class="section-title">Your AI Capability Journey</div>', unsafe_allow_html=True)
+
+            stages = [
+                ("🌱", "FOUNDATION", "Build your basics", "#2f6fed",
+                ["AI & LLM Fundamentals", "Prompt Engineering", "Responsible AI", "Governance Basics"]),
+                ("🛠️", "PRACTITIONER", "Apply & build", "#e8781f",
+                ["Work with GPT-4/4.1/5", "Claude 3.x & Gemini", "Multi-Modal AI", "GitHub Copilot"]),
+                ("🏗️", "ADVANCED BUILDERS", "Design & integrate", "#8b5cf6",
+                ["Azure AI Search", "Vector Databases", "Redis (Memory Cache)", "LangChain"]),
+                ("🕸️", "AGENTIC AI", "Orchestrate & scale", "#2f9e5c",
+                ["MCP & Tool Abstraction", "Copilot Studio", "Agent Frameworks", "LangGraph"]),
+                ("🛡️", "ENTERPRISE DEPLOYMENT", "Secure & govern", "#e0373f",
+                ["Security & Guardrails", "Auditing & Monitoring", "Compliance", "Decision Guardrails"]),
+                ("🚀", "INNOVATION LAB", "Simulate & explore", "#12163a",
+                ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
+            ]
+
+            circ_cols = st.columns(6)
+            for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
+                with col:
+                    st.markdown(f"""
+                        <div class="journey-circle" style="border-color:{color}; color:{color};">{icon}</div>
+                        <div class="journey-stage-title" style="color:{color};">{title}</div>
+                        <div class="journey-stage-sub">{sub}</div>
+                        <ul class="journey-list">{''.join(f'<li>{i}</li>' for i in items)}</ul>
+                    """, unsafe_allow_html=True)
+                    track_key = STAGE_TO_TRACK[title]
+                    st.markdown(
+                        f"<style>div[data-testid='column']:has(#marker-stage-{track_key}) "
+                        f"div[data-testid='stButton'] button {{"
+                        f"background:transparent !important; color:{color} !important; border:none !important;"
+                        f"min-height:unset !important; padding:2px 0 !important; font-size:12px !important;"
+                        f"font-weight:700 !important; text-align:center !important; justify-content:center !important;}}</style>"
+                        f"<span id='marker-stage-{track_key}'></span>",
+                        unsafe_allow_html=True,
+                    )
+                st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
         st.markdown('<div class="section-title">How you learn</div>', unsafe_allow_html=True)
