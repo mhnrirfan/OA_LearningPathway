@@ -925,40 +925,28 @@ def render_home():
             'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
             unsafe_allow_html=True,
         )
-
-        upcoming = sorted(EVENTS, key=lambda e: parse_event_date(e[2]))[:3]
-
-        rows_html = '<div class="events-container">'
-
-        for icon, title, date, track_key, level, mode in upcoming:
-            t = TRACKS[track_key]
-
+        events = [
+            ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
+                ("Practitioner", "#e9f8ee", "#2f9e5c")),
+            ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 December 2026",
+                ("Advanced", "#f2edfe", "#8b5cf6")),
+        ]
+        rows_html = ""
+        for icon, ibg, icolor, title, date, badge in events:
+            badge_html = ""
+            if badge:
+                btxt, bbg, bcolor = badge
+                badge_html = f'<span class="badge" style="background:{bbg}; color:{bcolor};">{btxt}</span>'
             rows_html += f"""
             <div class="event-row">
-                <div class="event-icon" style="background:{t['bg']}; color:{t['color']};">
-                    {icon}
-                </div>
-
-                <div class="event-info" style="flex:1;">
+                <div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>
+                <div style="flex:1;">
                     <div class="event-title">{title}</div>
-
-                    <span class="badge" style="background:{t['bg']}; color:{t['color']};">
-                        {level}
-                    </span>
-
-                    <span class="badge" style="background:#f0f1f6; color:#6b7086;">
-                        {mode}
-                    </span>
+                    {badge_html}
                 </div>
-
-                <div class="event-date">
-                    {date}
-                </div>
+                <div class="event-date">{date}</div>
             </div>
             """
-
-        rows_html += "</div>"
-
         st.markdown(rows_html, unsafe_allow_html=True)
 
     with lab_col:
