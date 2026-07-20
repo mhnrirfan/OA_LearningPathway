@@ -493,9 +493,12 @@ def render_home():
                     f'{icon} {name}<span class="chip-arrow">↗</span></a>',
                     unsafe_allow_html=True,
                 )
-
         st.write("")
-        st.markdown('<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="section-title" style="font-size:15px;">Quick Links & Resources</div>',
+            unsafe_allow_html=True
+        )
+
         links = [
             ("🛠️ AI Tooling Guide", "https://learn.microsoft.com/en-us/ai/"),
             ("📚 OA AI Use Cases Library", "https://www.microsoft.com/en-us/ai"),
@@ -504,10 +507,14 @@ def render_home():
             ("📋 Responsible AI Principles", "https://www.microsoft.com/en-us/ai/principles-and-approach"),
             ("❓ Ask the Community", "https://learn.microsoft.com/en-us/answers/topics/azure-ai.html"),
         ]
-        for link in links:
-            st.markdown(f'<div class="qlink">{link}</div>', unsafe_allow_html=True)
-        st.caption("These point to OA's internal wiki — add your intranet URLs once you have them.")
 
+        for title, url in links:
+            st.markdown(
+                f'<div class="qlink"><a href="{url}" target="_blank">{title}</a></div>',
+                unsafe_allow_html=True
+            )
+
+        st.caption("These links currently point to Microsoft AI resources. Replace with OA intranet URLs when available.")
     # ---------------- EVENTS + LABS ----------------
     ev_col, lab_col = st.columns(2, gap="large")
 
