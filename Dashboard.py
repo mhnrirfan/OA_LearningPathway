@@ -317,7 +317,7 @@ with st.sidebar:
         width:100%;
         border:none !important;
         text-align:left;
-        background:transparent !important;
+        background:white !important;
         padding:10px 12px !important;
         font-size:15px !important;
         font-weight:600 !important;
