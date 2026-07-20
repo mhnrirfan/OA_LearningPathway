@@ -323,132 +323,71 @@ with h1:
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
 with h2:
     b1, b2, b3 = st.columns(3, gap="medium")
-    button_style = (
-        "height:90px;"
-        "width:100%;"
-        "border-radius:14px;"
-        "color:white;"
-        "font-size:22px;"
-        "font-weight:700;"
-        "display:flex;"
-        "align-items:center;"
-        "justify-content:center;"
-        "text-align:center;"
-        "margin-bottom:12px;"
+
+button_style = (
+    "height:90px;"
+    "width:100%;"
+    "border-radius:14px;"
+    "color:white;"
+    "font-size:22px;"
+    "font-weight:700;"
+)
+
+with b1:
+    st.markdown(
+        f"""
+        <div style="
+        background:linear-gradient(135deg,#6a11cb,#2575fc);
+        {button_style}
+        display:flex;
+        align-items:center;
+        justify-content:center;">
+        ℹ️ How to use this board
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    with b1:
-        st.markdown(
-            f"""
-            <div style="
-                background:linear-gradient(135deg,#6a11cb,#2575fc);
-                {button_style}">
-                ℹ️ How to use this board
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        with st.popover("Open guide", use_container_width=True):
-            st.markdown("## ℹ️ How to use this board")
-            st.markdown(
-                """
-                **Getting around the board**
+    if st.button("Go to guide", key="guide_btn", use_container_width=True):
+        st.switch_page("pages/how_to_use.py")
 
-                - Pick a **pathway** to see every course in that track.
-                - Follow the **Journey** from left to right — each stage builds on the last.
-                - Use the learning loop for every capability:
 
-                **Learn → Workshop → Sandbox → Build → Showcase → Badge**
+with b2:
+    st.markdown(
+        f"""
+        <div style="
+        background:linear-gradient(135deg,#ff7e5f,#feb47b);
+        {button_style}
+        display:flex;
+        align-items:center;
+        justify-content:center;">
+        📄 AI Capability Guide
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-                - Explore **Sandbox Labs** for hands-on practice at any time.
-                - Use **Tools We Work With** to access official documentation.
-                - Revisit pathways regularly as new courses, examples and capabilities are added.
-                """
-            )
+    if st.button("Open capability guide", key="capability_btn", use_container_width=True):
+        st.switch_page("pages/capability_guide.py")
 
-    with b2:
-        st.markdown(
-            f"""
-            <div style="
-                background:linear-gradient(135deg,#ff7e5f,#feb47b);
-                {button_style}">
-                📄 AI Capability Guide
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        with st.popover("Open guide", use_container_width=True):
-            st.markdown("## 📄 AI Capability Guide")
-            st.markdown(
-                """
-                This board maps six AI capability pathways, taking you from
-                foundational knowledge through to advanced AI systems.
 
-                **Pathways include:**
+with b3:
+    st.markdown(
+        f"""
+        <div style="
+        background:linear-gradient(135deg,#36d1dc,#5b86e5);
+        {button_style}
+        display:flex;
+        align-items:center;
+        justify-content:center;">
+        💬 Share feedback
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-                - 🧠 **AI Fundamentals**  
-                Core concepts, terminology and essential AI principles.
-
-                - ✨ **Generative AI**  
-                Prompting, workflows and practical AI applications.
-
-                - 🤖 **Agentic Systems**  
-                Designing AI agents and autonomous workflows.
-
-                - 🔎 **RAG & Data**  
-                Connecting AI systems to trusted information sources.
-
-                - 🛡️ **AI Governance**  
-                Responsible, secure and compliant AI adoption.
-
-                - 🎮 **Simulation & Advanced Applications**  
-                Testing, modelling and next-generation AI experiences.
-
-                Start with **Fundamentals** if you are new to AI,
-                or jump directly into the pathway that matches what you are building.
-                """
-            )
-            st.caption(
-                "Ask in the Community channel if you would like the complete PDF guide."
-            )
-
-    with b3:
-        st.markdown(
-            f"""
-            <div style="
-                background:linear-gradient(135deg,#36d1dc,#5b86e5);
-                {button_style}">
-                💬 Share feedback
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        with st.popover("Open feedback form", use_container_width=True):
-            st.markdown("## 💬 Tell us what's working (or not)")
-            st.markdown(
-                """
-                Help us improve the board.
-
-                Share:
-                - What you found useful
-                - Anything that was unclear
-                - Missing courses or resources
-                - Ideas for improving the learning journey
-                """
-            )
-            fb = st.text_area(
-                "Your feedback",
-                label_visibility="collapsed",
-                placeholder="What would make this board more useful?",
-                key="fb_text"
-            )
-            if st.button("Submit feedback", key="fb_submit"):
-                st.session_state.feedback_sent = True
-            if st.session_state.get("feedback_sent"):
-                st.success(
-                    "Thanks — your feedback has been noted for this session."
-                )
-
+    if st.button("Give feedback", key="feedback_btn", use_container_width=True):
+        st.switch_page("pages/feedback.py")
 st.write("")
 
 # ============================================================================
