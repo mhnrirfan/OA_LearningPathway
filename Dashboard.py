@@ -327,61 +327,47 @@ with h2:
     with b1:
         with st.popover("How to use this board", use_container_width=True):
             st.markdown("## How to use this board")
-
             st.markdown("""
             **Getting around the board**
-
             - Pick a **pathway** to see every course in that track.
             - Follow the **Journey** left to right — each stage builds on the last.
             - Use the learning loop:
-
             **Learn → Workshop → Sandbox → Build → Showcase → Badge**
-
             - Explore **Sandbox Labs** for hands-on practice.
             - Use **Tools We Work With** for official documentation.
             """)
-
-
     with b2:
         with st.popover("AI Capability Guide", use_container_width=True):
             st.markdown("## AI Capability Guide")
 
             st.markdown("""
             This board maps six AI capability pathways:
-
             - AI Fundamentals
             - Generative AI
             - Agentic Systems
             - RAG & Data
             - Governance
             - Simulation
-
             Start with Fundamentals if you are new,
             or jump directly to the pathway that matches your project.
             """)
-
-
     with b3:
         with st.popover("Share feedback", use_container_width=True):
             st.markdown("## Share feedback")
-
             st.markdown("""
             Help us improve the board.
-
             Tell us:
             - What works well
             - What is unclear
             - What content is missing
             - What would improve your experience
             """)
-
             fb = st.text_area(
                 "Your feedback",
                 placeholder="What would make this board more useful?",
                 label_visibility="collapsed",
                 key="fb_text"
             )
-
             if st.button("Submit feedback", key="fb_submit"):
                 st.success("Thanks — your feedback has been noted.")
     st.markdown("""
@@ -497,8 +483,7 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
-                st.button("Explore track →", key=f"stage_{track_key}", use_container_width=True, on_click=go_track, args=(track_key,))
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
         st.markdown('<div class="section-title">How you learn</div>', unsafe_allow_html=True)
