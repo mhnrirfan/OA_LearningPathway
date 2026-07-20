@@ -474,6 +474,7 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
+                st.button("Explore track →", key=f"stage_{track_key}", use_container_width=True, on_click=go_track, args=(track_key,))
         st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
