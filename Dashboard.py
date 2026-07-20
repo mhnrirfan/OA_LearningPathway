@@ -337,24 +337,6 @@ with st.sidebar:
     </style>
     """, unsafe_allow_html=True)
 
-
-    nav_items = [
-        ("🏠", "Home", "home"),
-        ("📚", "Capability Survey", "capability_survey"),
-        ("🗓️", "Workshops & Events", "workshops"),
-        ("🧪", "Sandbox Labs", "sandbox"),
-    ]
-
-
-    for icon, label, page_key in nav_items:
-
-        if st.button(
-            f"{icon}  {label}",
-            key=f"nav_{page_key}",
-            use_container_width=True
-        ):
-            st.session_state.page = page_key
-            st.rerun()
 # ============================================================================
 # HEADER (shared)
 # ============================================================================
@@ -362,65 +344,144 @@ h1, h2 = st.columns([3, 2])
 with h1:
     st.markdown('<div class="page-title">OA AI Capability Journey</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
-with h2:
-    b1, b2, b3 = st.columns(3, gap="medium")
+    # ============================================================
+    # Dashboard Toggles
+    # ============================================================
 
-    with b1:
-        with st.popover("How to use this board", use_container_width=True):
-            st.markdown("## How to use this board")
-            st.markdown("""
-            **Getting around the board**
-            - Pick a **pathway** to see every course in that track.
-            - Follow the **Journey** left to right — each stage builds on the last.
-            - Use the learning loop:
-            **Learn → Workshop → Sandbox → Build → Showcase → Badge**
-            - Explore **Sandbox Labs** for hands-on practice.
-            - Use **Tools We Work With** for official documentation.
-            """)
-    with b2:
-        with st.popover("AI Capability Guide", use_container_width=True):
-            st.markdown("## AI Capability Guide")
+    toggle1, toggle2, toggle3 = st.columns(3)
 
-            st.markdown("""
-            This board maps six AI capability pathways:
-            - AI Fundamentals
-            - Generative AI
-            - Agentic Systems
-            - RAG & Data
-            - Governance
-            - Simulation
-            Start with Fundamentals if you are new,
-            or jump directly to the pathway that matches your project.
-            """)
-    with b3:
-        with st.popover("Share feedback", use_container_width=True):
-            st.markdown("## Share feedback")
-            st.markdown("""
-            Help us improve the board.
-            Tell us:
-            - What works well
-            - What is unclear
-            - What content is missing
-            - What would improve your experience
-            """)
-            fb = st.text_area(
-                "Your feedback",
-                placeholder="What would make this board more useful?",
-                label_visibility="collapsed",
-                key="fb_text"
+
+    # ---------------- Capability Survey ----------------
+
+    with toggle1:
+
+        with st.expander("📚 Capability Assessment"):
+
+            st.markdown("### Discover your AI level")
+
+            st.caption(
+                "Complete this quick assessment to get a recommended learning pathway."
             )
-            if st.button("Submit feedback", key="fb_submit"):
-                st.success("Thanks — your feedback has been noted.")
-    st.markdown("""
-    <style>
-    div[data-testid="stPopover"] button {
-        height: 70px;
-        font-size: 20px;
-        font-weight: 600;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-st.write("")
+
+            ai_score = st.slider(
+                "AI experience level",
+                0,
+                10,
+                3,
+                help="0 = New to AI | 10 = Advanced AI builder",
+                key="ai_score"
+            )
+
+
+            capability = st.radio(
+                "AI confidence",
+                [
+                    "Beginner",
+                    "Developing",
+                    "Confident",
+                    "Advanced",
+                    "Expert"
+                ],
+                horizontal=True,
+                key="capability_level"
+            )
+
+
+            goal = st.selectbox(
+                "Your goal",
+                [
+                    "Understand AI fundamentals",
+                    "Use AI in my daily work",
+                    "Build AI solutions",
+                    "Create AI agents",
+                    "Lead AI adoption"
+                ],
+                key="learning_goal"
+            )
+
+
+            if st.button(
+                "Generate Learning Path →",
+                use_container_width=True,
+                key="generate_path"
+            ):
+
+                score = ai_score
+
+                if capability in ["Advanced", "Expert"]:
+                    score += 5
+
+
+                if score >= 12:
+                    recommended = "agentic"
+
+                elif score >= 7:
+                    recommended = "rag_data"
+
+                else:
+                    recommended = "fundamentals"
+
+
+                st.success(
+                    f"Recommended: **{TRACKS[recommended]['name']}**"
+                )
+
+
+                st.session_state.page = recommended
+                st.rerun()
+
+
+
+    # ---------------- AI Guide ----------------
+
+    with toggle2:
+
+        with st.expander("📄 AI Capability Guide"):
+
+            st.markdown(
+                """
+                ### AI Capability Journey
+
+                Explore pathways covering:
+
+                - AI Fundamentals
+                - Generative AI
+                - RAG & Data
+                - AI Agents
+                - Governance
+                - Simulation
+                """
+            )
+
+            st.info(
+                "Choose a pathway to start building your capability."
+            )
+
+
+
+    # ---------------- Feedback ----------------
+
+    with toggle3:
+
+        with st.expander("💬 Share Feedback"):
+
+            st.markdown(
+                "### Help us improve the journey"
+            )
+
+            feedback = st.text_area(
+                "Your feedback",
+                placeholder="What would make this experience better?"
+            )
+
+
+            if st.button(
+                "Submit Feedback",
+                key="feedback_submit"
+            ):
+                st.success(
+                    "Thanks for your feedback!"
+                )
 
 # ============================================================================
 # TRACK DETAIL PAGE
@@ -681,144 +742,3 @@ elif page in TRACKS:
 else:
     render_track_page(st.session_state.page)
 
-
-# ============================================================================
-# Capability Survey
-# ============================================================================
-
-def render_capability_survey():
-    st.markdown(
-        '<h1 class="page-title">AI Capability Assessment</h1>',
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        '<p class="page-subtitle">'
-        'Assess your AI capability and get a recommended learning pathway.'
-        '</p>',
-        unsafe_allow_html=True
-    )
-
-    with st.form("capability_survey"):
-        responses = {}
-        # AI maturity slider
-        st.markdown("### 🚀 Your AI Experience")
-
-        ai_score = st.slider(
-            "Where are you on your AI journey?",
-            0,
-            10,
-            3,
-            help="0 = New to AI | 10 = Advanced AI builder"
-        )
-        responses["AI Score"] = ai_score
-        st.divider()
-        questions = {
-
-            "🧠 AI Fundamentals": [
-                "I understand AI and LLM concepts",
-                "I can write effective prompts",
-            ],
-
-            "⚙️ Applied AI": [
-                "I use AI tools in my work",
-                "I can identify AI automation opportunities",
-            ],
-
-            "🤖 Advanced AI": [
-                "I understand RAG, agents and AI workflows",
-                "I can build or integrate AI solutions",
-            ]
-        }
-
-        options = [
-            "Beginner",
-            "Developing",
-            "Confident",
-            "Advanced",
-            "Expert"
-        ]
-
-        for section, items in questions.items():
-            st.markdown(f"### {section}")
-            for i, question in enumerate(items):
-                responses[f"{section}_{i}"] = st.radio(
-                    question,
-                    options,
-                    horizontal=True,
-                    key=f"{section}_{i}"
-                )
-
-        st.divider()
-        role = st.selectbox(
-            "Your role",
-            [
-                "Business User",
-                "Analyst",
-                "Developer",
-                "AI Engineer",
-                "Leader"
-            ]
-        )
-        responses["Role"] = role
-        submit = st.form_submit_button(
-            "Generate My Learning Path →",
-            use_container_width=True
-        )
-
-    if submit:
-        score = responses["AI Score"]
-        advanced = sum(
-            1 for value in responses.values()
-            if value in ["Advanced", "Expert"]
-        )
-
-
-        final_score = score + advanced
-        st.divider()
-        if final_score >= 14:
-
-            track = "agentic"
-            level = "Advanced Builder"
-            text = (
-                "Focus on AI agents, orchestration, "
-                "enterprise deployment and governance."
-            )
-
-        elif final_score >= 7:
-            track = "rag_data"
-            level = "AI Practitioner"
-            text = (
-                "Build practical capability with RAG, "
-                "prompt engineering and AI workflows."
-            )
-
-        else:
-            track = "fundamentals"
-            level = "AI Explorer"
-            text = (
-                "Start with AI foundations, prompting "
-                "and responsible AI."
-            )
-
-        st.success(
-            f"Recommended Level: **{level}**"
-        )
-        st.info(text)
-        if track in TRACKS:
-            st.markdown(
-                f"### Recommended Path: {TRACKS[track]['name']}"
-            )
-            for course, desc, duration in TRACKS[track]["courses"][:3]:
-                st.markdown(
-                    f"""
-                    **{course}**  
-                    {desc}  
-                    ⏱️ {duration}
-                    """
-                )
-        if st.button(
-            "Start This Pathway →",
-            use_container_width=True
-        ):
-            st.session_state.page = track
-            st.rerun()
