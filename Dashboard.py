@@ -126,7 +126,33 @@ LABS = [
     ("🏆", "Foundations Playground", "Warm up with core LLM concepts", "fundamentals", "Beginner"),
 ]
 
-LEVELS = ["New to this", "Getting started", "Comfortable", "Confident"]
+LEVELS = ["New to this", "Beginner", "Comfortable", "Expert"]
+
+SURVEY_QUESTIONS = [
+    ("fundamentals", "How well do you understand the basics of how AI and large language models work?"),
+    ("llm_promptops", "How comfortable are you writing prompts and working with tools like ChatGPT, Claude or Copilot?"),
+    ("rag_data", "How familiar are you with retrieval, vector search, or connecting AI to company data?"),
+    ("agentic", "How much experience do you have building AI agents that use tools or take multi-step actions?"),
+    ("governance", "How confident are you with AI governance, security, and responsible-use requirements?"),
+    ("simulation", "How much have you explored simulation, synthetic data, or open-weight/experimental AI models?"),
+]
+
+FAQS = [
+    ("What is the OA AI Capability Journey?",
+     "It's a structured learning programme covering six pathways, from AI fundamentals through to advanced simulation, "
+     "so everyone can build AI skills at their own pace."),
+    ("How do I know where to start?",
+     "Take the Capability Survey — answer six quick questions and you'll get a recommended pathway to start with."),
+    ("Do I have to complete pathways in order?",
+     "No. The Journey is a suggested progression, but you can jump into any pathway that matches your current project or interests."),
+    ("What's the difference between a course, a workshop and a lab?",
+     "Courses are self-paced content you work through solo. Workshops are instructor-led sessions with the community. "
+     "Sandbox Labs are guided, hands-on environments to practise what you've learned."),
+    ("How long does each pathway take?",
+     "Each course lists its own duration, generally 1-3 hours. A full pathway usually takes a few weeks if done alongside your day-to-day work."),
+    ("Who do I contact if I have questions?",
+     "Reach out to the Learning & Capability Team, or leave feedback using the 'Share feedback' button at the top of the board."),
+]
 
 # ============================================================================
 # STATE
@@ -369,6 +395,7 @@ with st.sidebar:
         ("📚", "Capability Survey", "capability_survey"),
         ("🗓️", "Workshops & Events", "workshops"),
         ("🧪", "Sandbox Labs", "sandbox"),
+        ("❓", "FAQ", "faq"),
     ]
 
     current_page = st.session_state.get("page", "home")
@@ -500,37 +527,29 @@ def render_home():
     main_col, right_col = st.columns([3, 1], gap="large")
 
     with main_col:
-        st.markdown('<div class="section-title">Choose your learning pathway</div>', unsafe_allow_html=True)
-        cols = st.columns(6)
-        for col, key in zip(cols, TRACKS.keys()):
-            t = TRACKS[key]
+        # ---------------- HOW YOU LEARN ----------------
+        st.markdown('<div class="section-title">How you learn</div>', unsafe_allow_html=True)
+        steps = [
+            ("📖", "1. LEARN", "Self-paced content (1-2 hrs)"),
+            ("👥", "2. WORKSHOP", "Instructor-led (2-4 hrs)"),
+            ("🧪", "3. SANDBOX LAB", "Guided hands-on (2-4 hrs)"),
+            ("⚙️", "4. BUILD", "Mini project / use case (½-1 day)"),
+            ("📊", "5. SHOWCASE", "Demo to community (15 mins)"),
+        ]
+        step_cols = st.columns(5)
+        for col, (icon, title, sub) in zip(step_cols, steps):
             with col:
-                st.markdown(
-                    f"<style>div[data-testid='column']:has(#marker-track-{key}) "
-                    f"div[data-testid='stButton'] button {{"
-                    f"background:{t['bg']} !important; color:{t['color']} !important;"
-                    f"border:2px solid {t['color']} !important; width:100%; min-height:100px; "
-                    f"border-top:5px solid {t['color']} !important; "
-                    f"border-radius:12px; text-align:center; padding:16px 10px; font-weight:700; "
-                    f"font-size:14px; display:flex; align-items:center; justify-content:center; "
-                    f"white-space:normal; box-shadow:0 3px 10px {t['color']}22; "
-                    f"transition:transform 0.12s ease;}}"
-                    f"div[data-testid='column']:has(#marker-track-{key}) "
-                    f"div[data-testid='stButton'] button:hover {{"
-                    f"transform:translateY(-2px); box-shadow:0 6px 16px {t['color']}44;}}</style>"
-                    f"<span id='marker-track-{key}'></span>",
-                    unsafe_allow_html=True,
-                )
-                st.button(f"{t['icon']}  {t['name']}", key=f"track_{key}",
-                          use_container_width=True, on_click=go_track, args=(key,))
-                st.markdown(
-                    f'<div class="track-caption"><span class="track-dot" style="background:{t["color"]};"></span>'
-                    f'<b>{len(t["courses"])}</b> Capabilities</div>',
-                    unsafe_allow_html=True,
-                )
+                st.markdown(f"""
+                <div class="step-card">
+                    <div class="step-icon">{icon}</div>
+                    <div class="step-title">{title}</div>
+                    <div class="step-sub">{sub}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
         st.write("")
         st.markdown('<div class="section-title">Your AI Capability Journey</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-subtitle" style="margin:-6px 0 14px 0;">Pick a stage below to jump straight into that pathway.</div>', unsafe_allow_html=True)
 
         stages = [
             ("🌱", "FOUNDATION", "Build your basics", "#2f6fed",
@@ -561,35 +580,21 @@ def render_home():
                 st.markdown(
                     f"<style>div[data-testid='column']:has(#marker-stage-{track_key}) "
                     f"div[data-testid='stButton'] button {{"
-                    f"background:transparent !important; color:{color} !important; border:none !important;"
-                    f"min-height:unset !important; padding:2px 0 !important; font-size:12px !important;"
-                    f"font-weight:700 !important; text-align:center !important; justify-content:center !important;}}</style>"
+                    f"background:{color}12 !important; color:{color} !important; "
+                    f"border:1.5px solid {color}55 !important; border-radius:8px !important; "
+                    f"min-height:40px !important; height:40px !important; padding:6px 4px !important; "
+                    f"font-size:12px !important; font-weight:700 !important; "
+                    f"text-align:center !important; justify-content:center !important; "
+                    f"white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;}}"
+                    f"div[data-testid='column']:has(#marker-stage-{track_key}) "
+                    f"div[data-testid='stButton'] button:hover {{"
+                    f"background:{color} !important; color:white !important; border-color:{color} !important;}}</style>"
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
-                st.button(f"View {TRACKS[track_key]['name']} →", key=f"stage_{track_key}",
+                st.button("Explore →", key=f"stage_{track_key}",
                           use_container_width=True, on_click=go_track, args=(track_key,))
         st.markdown('</div>', unsafe_allow_html=True)
-
-        # ---------------- HOW YOU LEARN ----------------
-        st.markdown('<div class="section-title">How you learn</div>', unsafe_allow_html=True)
-        steps = [
-            ("📖", "1. LEARN", "Self-paced content (1-2 hrs)"),
-            ("👥", "2. WORKSHOP", "Instructor-led (2-4 hrs)"),
-            ("🧪", "3. SANDBOX LAB", "Guided hands-on (2-4 hrs)"),
-            ("⚙️", "4. BUILD", "Mini project / use case (½-1 day)"),
-            ("📊", "5. SHOWCASE", "Demo to community (15 mins)"),
-        ]
-        step_cols = st.columns(5)
-        for col, (icon, title, sub) in zip(step_cols, steps):
-            with col:
-                st.markdown(f"""
-                <div class="step-card">
-                    <div class="step-icon">{icon}</div>
-                    <div class="step-title">{title}</div>
-                    <div class="step-sub">{sub}</div>
-                </div>
-                """, unsafe_allow_html=True)
 
         st.write("")
     with right_col:
@@ -693,39 +698,40 @@ def render_capability_survey():
         <div class="page-hero-icon">📚</div>
         <div>
             <p class="page-hero-title">Capability Survey</p>
-            <p class="page-hero-sub">Rate your comfort level in each pathway to get a personalised starting point.</p>
+            <p class="page-hero-sub">Answer 6 quick questions — from complete beginner to expert — to get a personalised pathway recommendation.</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     with st.form("survey_form"):
-        for key, t in TRACKS.items():
+        for i, (track_key, question) in enumerate(SURVEY_QUESTIONS):
+            t = TRACKS[track_key]
             st.markdown(f"""
             <div class="survey-card">
-                <div class="survey-track-label" style="color:{t['color']};">{t['icon']} {t['name']}</div>
-                <div class="survey-track-sub">{len(t['courses'])} capabilities in this pathway</div>
+                <div class="survey-track-label" style="color:{t['color']};">{i+1}. {t['icon']} {question}</div>
             """, unsafe_allow_html=True)
-            level = st.select_slider(
-                f"Your level — {t['name']}",
+            st.radio(
+                f"q_{track_key}",
                 options=LEVELS,
-                value=LEVELS[st.session_state.survey_scores.get(key, 0)] if st.session_state.survey_scores.get(key, 0) else LEVELS[0],
-                key=f"survey_{key}",
+                index=st.session_state.survey_scores.get(track_key, 0),
+                key=f"survey_{track_key}",
+                horizontal=True,
                 label_visibility="collapsed",
             )
             st.markdown("</div>", unsafe_allow_html=True)
 
         submitted = st.form_submit_button("Get my recommendation →", use_container_width=True)
         if submitted:
-            for key in TRACKS:
-                st.session_state.survey_scores[key] = LEVELS.index(st.session_state[f"survey_{key}"])
+            for track_key, _ in SURVEY_QUESTIONS:
+                st.session_state.survey_scores[track_key] = LEVELS.index(st.session_state[f"survey_{track_key}"])
             st.session_state.survey_submitted = True
 
     if st.session_state.survey_submitted:
         st.write("")
         st.markdown('<div class="section-title">Your capability snapshot</div>', unsafe_allow_html=True)
         st.markdown('<div class="white-card">', unsafe_allow_html=True)
-        for key, t in TRACKS.items():
-            score = st.session_state.survey_scores.get(key, 0)
+        for track_key, t in TRACKS.items():
+            score = st.session_state.survey_scores.get(track_key, 0)
             pct = int((score / (len(LEVELS) - 1)) * 100)
             st.markdown(f"""
             <div class="result-row">
@@ -738,13 +744,22 @@ def render_capability_survey():
 
         lowest_key = min(st.session_state.survey_scores, key=st.session_state.survey_scores.get)
         lowest_t = TRACKS[lowest_key]
+        overall_avg = sum(st.session_state.survey_scores.values()) / len(st.session_state.survey_scores)
+
         st.write("")
+        if overall_avg <= 0.75:
+            headline = f"Recommended starting point: {lowest_t['name']}"
+            sub = "You're just getting going — this pathway builds the foundations everything else relies on."
+        else:
+            headline = f"Recommended next step: {lowest_t['name']}"
+            sub = "This was your lowest-confidence pathway — a great place to focus on next to round out your skills."
+
         st.markdown(f"""
         <div class="page-hero" style="background:{lowest_t['bg']};">
             <div class="page-hero-icon">{lowest_t['icon']}</div>
             <div>
-                <p class="page-hero-title" style="color:{lowest_t['color']};">Recommended next step: {lowest_t['name']}</p>
-                <p class="page-hero-sub">This pathway had your lowest confidence score — a great place to start building momentum.</p>
+                <p class="page-hero-title" style="color:{lowest_t['color']};">{headline}</p>
+                <p class="page-hero-sub">{sub}</p>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -760,41 +775,43 @@ def render_workshops_events():
         <div class="page-hero-icon">🗓️</div>
         <div>
             <p class="page-hero-title">Workshops & Events</p>
-            <p class="page-hero-sub">Instructor-led sessions to deepen your skills alongside the community.</p>
+            <p class="page-hero-sub">Upcoming instructor-led sessions — more dates are added regularly.</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    filter_options = ["All pathways"] + [t["name"] for t in TRACKS.values()]
-    choice = st.selectbox("Filter by pathway", filter_options, label_visibility="collapsed")
+    import datetime
+    def parse_date(d):
+        return datetime.datetime.strptime(d, "%d %B %Y")
 
-    name_to_key = {t["name"]: k for k, t in TRACKS.items()}
-    filtered = EVENTS if choice == "All pathways" else [e for e in EVENTS if e[3] == name_to_key[choice]]
+    sorted_events = sorted(EVENTS, key=lambda e: parse_date(e[2]))
 
-    st.write("")
-    cols = st.columns(2)
-    for i, (icon, title, date, track_key, level, mode) in enumerate(filtered):
+    st.markdown('<div class="white-card">', unsafe_allow_html=True)
+    for icon, title, date, track_key, level, mode in sorted_events:
         t = TRACKS[track_key]
-        with cols[i % 2]:
-            st.markdown(f"""
-            <div class="event-card" style="border-top:4px solid {t['color']};">
-                <div style="display:flex; align-items:flex-start; gap:12px;">
-                    <div class="event-icon" style="background:{t['bg']}; color:{t['color']}; width:38px; height:38px; font-size:16px;">{icon}</div>
-                    <div style="flex:1;">
-                        <div class="event-title" style="font-size:14px;">{title}</div>
-                        <div style="margin-top:6px;">
-                            <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
-                            <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-date" style="margin-top:10px;">📅 {date}</div>
+        dt = parse_date(date)
+        day = dt.strftime("%d")
+        mon = dt.strftime("%b").upper()
+        st.markdown(f"""
+        <div class="event-row">
+            <div style="width:52px; height:52px; border-radius:10px; background:{t['bg']};
+                        display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
+                <div style="font-size:16px; font-weight:800; color:{t['color']}; line-height:1;">{day}</div>
+                <div style="font-size:9.5px; font-weight:700; color:{t['color']}; letter-spacing:0.5px;">{mon}</div>
             </div>
-            """, unsafe_allow_html=True)
-            st.button("Register interest →", key=f"event_{i}", use_container_width=True)
+            <div style="flex:1;">
+                <div class="event-title">{icon} {title}</div>
+                <span class="badge" style="background:{t['bg']}; color:{t['color']};">{t['name']}</span>
+                <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    if not filtered:
-        st.info("No events found for this pathway yet — check back soon.")
+    st.markdown(
+        '<div class="page-subtitle" style="margin-top:14px;">📌 That\'s everything on the calendar for now — more workshops will be added here as they\'re scheduled.</div>',
+        unsafe_allow_html=True,
+    )
 
 
 # ============================================================================
@@ -831,6 +848,25 @@ def render_sandbox_labs():
 
 
 # ============================================================================
+# FAQ PAGE
+# ============================================================================
+def render_faq():
+    st.markdown("""
+    <div class="page-hero" style="background:#fef1e6;">
+        <div class="page-hero-icon">❓</div>
+        <div>
+            <p class="page-hero-title">Frequently Asked Questions</p>
+            <p class="page-hero-sub">Everything you need to know about using the Capability Journey board.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    for question, answer in FAQS:
+        with st.expander(question):
+            st.write(answer)
+
+
+# ============================================================================
 # ROUTER
 # ============================================================================
 page = st.session_state.get("page", "home")
@@ -843,6 +879,8 @@ elif page == "workshops":
     render_workshops_events()
 elif page == "sandbox":
     render_sandbox_labs()
+elif page == "faq":
+    render_faq()
 elif page in TRACKS:
     render_track_page(page)
 else:
