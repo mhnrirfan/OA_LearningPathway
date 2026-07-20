@@ -128,13 +128,289 @@ LABS = [
 
 LEVELS = ["New to this", "Beginner", "Comfortable", "Expert"]
 
+import datetime as _datetime
+def parse_event_date(d):
+    return _datetime.datetime.strptime(d, "%d %B %Y")
+
+# Full course-catalogue breakdown, mapped into whichever of the 6 pathways each course fits best.
+COURSE_BREAKDOWN = {
+    "fundamentals": [
+        {
+            "title": "Microsoft Azure AI Fundamentals (AI-901)",
+            "audience": "Everyone — leads into 'Develop AI Agents on Azure'",
+            "duration": "Self-paced",
+            "link": "Available on Degreed — search 'AI-901: Microsoft Azure AI Fundamentals'",
+            "outline": """
+**AI concepts for developers and technology professionals**
+- Introduction to AI concepts
+- Introduction to generative AI and agents
+- Introduction to natural language processing concepts
+- Introduction to AI speech concepts
+- Introduction to computer vision concepts
+- Introduction to AI-powered information extraction concepts
+
+**Get started with AI applications and agents on Azure**
+- Get started with AI in Azure
+- Get started with generative AI and agents in Azure
+- Get started with text analysis in Azure
+- Get started with speech in Azure
+- Get started with computer vision in Azure
+- Get started with AI-powered information extraction in Azure
+
+**Practice assessment for the AI-901 exam**
+""",
+        },
+        {
+            "title": "Intro to LLMs",
+            "audience": "Everyone (35 min core), optional technical extension (+16 min)",
+            "duration": "35–51 mins",
+            "link": "https://capgemini.udemy.com/course/intro-to-large-language-models-llms/",
+            "outline": """
+**Intro to LLMs** — 7 lectures (15 mins)
+
+**Getting started with GPT models** (20 mins)
+- What does GPT mean?
+- The development of ChatGPT
+- Setting up the environment (overview only, non-technical)
+- OpenAI API (conceptual overview)
+- Generating text
+- Customizing GPT output
+- Keyword text summarization
+
+**Optional — for a technical background/experience** (+16 mins)
+- Setting up the environment
+- Coding a simple chatbot
+- LangChain introduction
+- LangChain
+- Adding custom data to a chatbot
+""",
+        },
+    ],
+    "agentic": [
+        {
+            "title": "Intro to Agentic AI",
+            "audience": "Everyone",
+            "duration": "6 hrs",
+            "link": "https://degreed.com/pathway/v83jrwgqpx/pathway",
+            "outline": """
+- Ethics
+- Example
+- Multi-agent systems
+- Technical
+- Value measurements
+- Readiness
+""",
+        },
+        {
+            "title": "Get started with Microsoft 365 Agent",
+            "audience": "Everyone",
+            "duration": "48 mins",
+            "link": "https://learn.microsoft.com/en-us/training/modules/agent-365-get-started/",
+            "outline": """
+- Introduction to challenges for frontier firms
+- What is Microsoft Agent 365?
+- What are the benefits of using Microsoft Agent 365?
+- Explore agent observability
+- Implement governance across the agent lifecycle
+- Protect agents using security capability
+- Who uses Microsoft Agent 365?
+- Check your knowledge / Summary
+""",
+        },
+        {
+            "title": "Develop AI Agents on Azure",
+            "audience": "Technical background or experience",
+            "duration": "9 hrs 52 mins",
+            "link": "Microsoft Learn — 'Develop AI Agents on Azure' training path",
+            "outline": """
+- Develop AI agents with Microsoft Foundry and Visual Studio Code
+- Integrate custom tools into your agent
+- Integrate MCP tools with Azure AI Agents
+- Build knowledge-enhanced AI agents with Foundry IQ
+- Integrate your agent with Microsoft 365
+- Build agent-driven workflows using Microsoft Foundry
+- Develop an AI agent with Microsoft Agent Framework
+- Orchestrate a multi-agent solution using the Microsoft Agent Framework
+- Discover Azure AI Agents with A2A
+""",
+        },
+        {
+            "title": "LangGraph & Multi-Agent Systems",
+            "audience": "Technical background or experience — part of 'Production AI Agents with LangChain + LangGraph'",
+            "duration": "~6 hrs of a 17 hr course",
+            "link": "Udemy Business — 'Production AI Agents with LangChain + LangGraph [2026]'",
+            "outline": """
+**LangGraph — A Full Deep Dive**
+- Building your first graph, reducers and accumulating state
+- Message state, multi-node pipelines, chaining LLM calls
+- Edges, conditional edges and routing
+- Cycles/loops (e.g. self-correcting code writer)
+- Human in the loop, checkpointing
+
+**Multi-Agent Systems with LangGraph and LangChain**
+- ReAct pattern, tool-calling agents, custom tools with error handling
+- The Supervisor agent and agent handoffs
+- Map-reduce strategy, message passing and shared state
+- Hierarchical architecture
+- Final project: multi-agent research system, built from the ground up
+""",
+        },
+        {
+            "title": "Model Context Protocol & Claude Code",
+            "audience": "Technical background or experience — part of 'Complete Agentic AI Bootcamp'",
+            "duration": "~4 hrs of a 40+ hr bootcamp",
+            "link": "Udemy Business — 'Complete Agentic AI Bootcamp With LangGraph and LangChain'",
+            "outline": """
+**Model Context Protocol**
+- Introduction to MCP, its components and how they communicate
+- Demo of MCP with Claude Desktop, Cursor IDE setup, Smithery AI
+- Building MCP servers with tools and clients from scratch using LangChain
+
+**Claude Code**
+- Introduction to the Claude ecosystem, setup and working with Claude Code
+- Claude Code agents, agent views and agent teams
+- Hooks, skills and plugins in Claude Code
+
+**Building Deep Agents with LangChain**
+- Introduction and basics implementation, customization
+- Backends, Deep Agents vs Claude SDK
+- Context engineering and using skills for it
+- Sub-agents, and a full project implementing all features
+""",
+        },
+        {
+            "title": "End-to-End Agentic AI Projects",
+            "audience": "Technical background or experience — part of 'Complete Agentic AI Bootcamp'",
+            "duration": "~2 hrs of hands-on projects",
+            "link": "Udemy Business — 'Complete Agentic AI Bootcamp With LangGraph and LangChain'",
+            "outline": """
+- End-to-end agentic AI project with LangGraph (Streamlit front end, graph builder, node implementation, full pipeline & testing)
+- End-to-end agentic chatbot with web search functionality
+- AI News Summariser — end-to-end agentic AI project
+- End-to-end blog generation agentic AI app (with translation, FastAPI, LangGraph Studio debugging)
+""",
+        },
+        {
+            "title": "MCP Crash Course: Complete Model Context Protocol in a Day",
+            "audience": "Technical background or experience for most modules; highlighted areas suit everyone",
+            "duration": "8 hrs 29 mins",
+            "link": "https://capgemini.udemy.com/course/complete-mcp-bootcamp-build-next-gen-ai-agents-with-mcp/",
+            "outline": """
+- MCP fundamentals: introduction, components, communication between them
+- Getting started with Claude Desktop and Cursor IDE, and Smithery AI
+- Building your own MCP client using Python and the Google Gemini API
+- Building a Dockerised MCP server
+- LangChain MCP Adapters, and MCP with multiple-server support
+- MCP server and client using SSE, and deployment to AWS Cloud
+- Hands-on projects: Real-Time Weather Agent, Job Recommendation System, StoryForge Agent, Clinisight AI, and a full multi-agent app with MCP
+- Building an agent with Google's Agent Development Kit (ADK)
+""",
+        },
+    ],
+    "rag_data": [
+        {
+            "title": "LangChain Foundations & RAG",
+            "audience": "Technical background or experience — part of 'Production AI Agents with LangChain + LangGraph'",
+            "duration": "~5 hrs of a 17 hr course",
+            "link": "Udemy Business — 'Production AI Agents with LangChain + LangGraph [2026]'",
+            "outline": """
+**LangChain Foundations — A Deep Dive**
+- The LangChain ecosystem, LCEL and runnable chains
+- Batch execution, real-time streaming, schema inspection
+- Prompt templates & messages, output parsers and structured outputs
+- Project: Smart Q&A Bot
+
+**Chain Patterns**
+- Basic and parallel chains, passthrough runnables, chain branching, debugging
+
+**Document Loading, Chunking & Embeddings**
+- Document loaders (text, web, lazy, PDF)
+- Text splitting strategies (recursive, markdown, code) and why chunking matters
+- Embeddings overview, free embedding models
+- Vector stores: architecture, Chroma setup, similarity search, metadata filtering, persistence
+
+**RAG and Memory — A Comprehensive Dive**
+- Basic RAG pipeline through to advanced RAG (multi-query, contextual compression, hybrid search, parent document retriever)
+- Conversation memory (windowed, summary, multi-session)
+- Project: AI Research Assistant, built up in stages
+""",
+        },
+        {
+            "title": "LangChain Hands-On & Retrieval",
+            "audience": "Technical background or experience — part of 'Complete Agentic AI Bootcamp'",
+            "duration": "~6 hrs of a 40+ hr bootcamp",
+            "link": "Udemy Business — 'Complete Agentic AI Bootcamp With LangGraph and LangChain'",
+            "outline": """
+- LangChain hands-on: core components, document loaders, text splitters
+- Embeddings with OpenAI, Ollama and HuggingFace; vector stores with FAISS and ChromaDB
+- Getting started with OpenAI and Ollama: retrievers, chains, a simple GenAI app, and tracking with LangSmith
+- Building AI agents with conversation history: chat message history and vector store retrievers
+- RAG with LangGraph: agentic RAG, corrective RAG, adaptive RAG
+- Vectorless RAG: PageIndex and vectorless vs. traditional RAG approaches
+""",
+        },
+    ],
+    "llm_promptops": [
+        {
+            "title": "LLM Mastery: ChatGPT, Gemini, Claude, Llama, OpenAI & APIs",
+            "audience": "Technical background or experience",
+            "duration": "3 hrs 45 mins",
+            "link": "Available on Capgemini Udemy Business — search 'LLM Mastery'",
+            "outline": """
+- Closed-source LLMs and how to use them (2 hrs 51 mins)
+- APIs of closed-source LLMs (48 mins)
+""",
+        },
+        {
+            "title": "Understanding APIs and RESTful APIs Crash Course",
+            "audience": "Everyone (core, 12 mins); technical roles/experience (+25 mins)",
+            "duration": "12–37 mins",
+            "link": "https://capgemini.udemy.com/course/learn-and-understand-apis-and-restful-apis/",
+            "outline": """
+**Core (everyone)**
+- What is an API? The simplest way to think about it, and a real-life use case
+- What programming languages can we use?
+- Introduction to RESTful APIs and JSON
+
+**Extension (technical roles/experience)**
+- A real JavaScript API example
+- GET, POST, DELETE and PUT/PATCH requests
+- Consuming APIs: requests, responses, and common status codes
+- API security
+""",
+        },
+    ],
+    "governance": [
+        {
+            "title": "Agent Guardrails & Production Deployment",
+            "audience": "Technical background or experience — part of 'Production AI Agents with LangChain + LangGraph'",
+            "duration": "~3 hrs of a 17 hr course",
+            "link": "Udemy Business — 'Production AI Agents with LangChain + LangGraph [2026]'",
+            "outline": """
+**Production Deployment — Deploying AI Agents**
+- Observability with LangSmith
+- PII detection, prompt-injection defence, and the "LLM Guard" pattern
+- Testing: unit, integration, LLM-as-judge and regression testing
+- Resilience patterns: circuit breaker, fallback chain, retry with backoff
+- Cost control: semantic caching, token budgeting, model routing
+- Final project: a production-ready, secured and monitored agent API
+
+**Guardrails with LangChain**
+
+**LLM Gateways** — understanding and implementation
+""",
+        },
+    ],
+    "simulation": [],
+}
+
 SURVEY_QUESTIONS = [
-    ("fundamentals", "How well do you understand the basics of how AI and large language models work?"),
-    ("llm_promptops", "How comfortable are you writing prompts and working with tools like ChatGPT, Claude or Copilot?"),
-    ("rag_data", "How familiar are you with retrieval, vector search, or connecting AI to company data?"),
-    ("agentic", "How much experience do you have building AI agents that use tools or take multi-step actions?"),
-    ("governance", "How confident are you with AI governance, security, and responsible-use requirements?"),
-    ("simulation", "How much have you explored simulation, synthetic data, or open-weight/experimental AI models?"),
+    ("fundamentals", "How well do you understand the basics of how AI tools work?"),
+    ("llm_promptops", "How comfortable are you using AI chat tools day-to-day for tasks and writing?"),
+    ("rag_data", "How familiar are you with connecting AI to documents or company data?"),
+    ("agentic", "How much experience do you have with AI that can take actions or complete multi-step tasks on its own?"),
+    ("governance", "How confident are you with the rules and safe practices around using AI at work?"),
+    ("simulation", "How much have you explored newer or more experimental AI tools and techniques?"),
 ]
 
 FAQS = [
@@ -519,6 +795,20 @@ def render_track_page(key):
             st.button("Start course →", key=f"course_{key}_{i}", use_container_width=True)
             st.write("")
 
+    breakdown = COURSE_BREAKDOWN.get(key, [])
+    if breakdown:
+        st.write("")
+        st.markdown('<div class="section-title">📖 In-depth course content</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="page-subtitle" style="margin:-6px 0 14px 0;">Full syllabus for the training courses that map to this pathway.</div>',
+            unsafe_allow_html=True,
+        )
+        for course in breakdown:
+            with st.expander(f"{course['title']}  ·  {course['duration']}"):
+                st.markdown(f"**Audience:** {course['audience']}")
+                st.markdown(f"**Where to find it:** {course['link']}")
+                st.markdown(course["outline"])
+
 
 # ============================================================================
 # HOME PAGE
@@ -637,18 +927,25 @@ def render_home():
             'Upcoming Workshops & Events</span></div>',
             unsafe_allow_html=True,
         )
+        upcoming = sorted(EVENTS, key=lambda e: parse_event_date(e[2]))[:3]
         rows_html = ""
-        for icon, title, date, track_key, level, mode in EVENTS[:3]:
+        for icon, title, date, track_key, level, mode in upcoming:
             t = TRACKS[track_key]
+            dt = parse_event_date(date)
+            day = dt.strftime("%d")
+            mon = dt.strftime("%b").upper()
             rows_html += f"""
             <div class="event-row">
-                <div class="event-icon" style="background:{t['bg']}; color:{t['color']};">{icon}</div>
+                <div style="width:46px; height:46px; border-radius:9px; background:{t['bg']};
+                            display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
+                    <div style="font-size:14px; font-weight:800; color:{t['color']}; line-height:1;">{day}</div>
+                    <div style="font-size:8.5px; font-weight:700; color:{t['color']}; letter-spacing:0.4px;">{mon}</div>
+                </div>
                 <div style="flex:1;">
-                    <div class="event-title">{title}</div>
+                    <div class="event-title">{icon} {title}</div>
                     <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
                     <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
                 </div>
-                <div class="event-date">{date}</div>
             </div>
             """
         st.markdown(f'<div class="white-card">{rows_html}</div>', unsafe_allow_html=True)
@@ -705,10 +1002,9 @@ def render_capability_survey():
 
     with st.form("survey_form"):
         for i, (track_key, question) in enumerate(SURVEY_QUESTIONS):
-            t = TRACKS[track_key]
             st.markdown(f"""
             <div class="survey-card">
-                <div class="survey-track-label" style="color:{t['color']};">{i+1}. {t['icon']} {question}</div>
+                <div class="survey-track-label" style="color:#12163a;">{i+1}. {question}</div>
             """, unsafe_allow_html=True)
             st.radio(
                 f"q_{track_key}",
@@ -775,43 +1071,42 @@ def render_workshops_events():
         <div class="page-hero-icon">🗓️</div>
         <div>
             <p class="page-hero-title">Workshops & Events</p>
-            <p class="page-hero-sub">Upcoming instructor-led sessions — more dates are added regularly.</p>
+            <p class="page-hero-sub">Instructor-led sessions to deepen your skills alongside the community.</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    import datetime
-    def parse_date(d):
-        return datetime.datetime.strptime(d, "%d %B %Y")
+    filter_options = ["All pathways"] + [t["name"] for t in TRACKS.values()]
+    choice = st.selectbox("Filter by pathway", filter_options, label_visibility="collapsed")
 
-    sorted_events = sorted(EVENTS, key=lambda e: parse_date(e[2]))
+    name_to_key = {t["name"]: k for k, t in TRACKS.items()}
+    filtered = EVENTS if choice == "All pathways" else [e for e in EVENTS if e[3] == name_to_key[choice]]
+    filtered = sorted(filtered, key=lambda e: parse_event_date(e[2]))
 
-    st.markdown('<div class="white-card">', unsafe_allow_html=True)
-    for icon, title, date, track_key, level, mode in sorted_events:
+    st.write("")
+    cols = st.columns(2)
+    for i, (icon, title, date, track_key, level, mode) in enumerate(filtered):
         t = TRACKS[track_key]
-        dt = parse_date(date)
-        day = dt.strftime("%d")
-        mon = dt.strftime("%b").upper()
-        st.markdown(f"""
-        <div class="event-row">
-            <div style="width:52px; height:52px; border-radius:10px; background:{t['bg']};
-                        display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
-                <div style="font-size:16px; font-weight:800; color:{t['color']}; line-height:1;">{day}</div>
-                <div style="font-size:9.5px; font-weight:700; color:{t['color']}; letter-spacing:0.5px;">{mon}</div>
+        with cols[i % 2]:
+            st.markdown(f"""
+            <div class="event-card" style="border-top:4px solid {t['color']};">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <div class="event-icon" style="background:{t['bg']}; color:{t['color']}; width:38px; height:38px; font-size:16px;">{icon}</div>
+                    <div style="flex:1;">
+                        <div class="event-title" style="font-size:14px;">{title}</div>
+                        <div style="margin-top:6px;">
+                            <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
+                            <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-date" style="margin-top:10px;">📅 {date}</div>
             </div>
-            <div style="flex:1;">
-                <div class="event-title">{icon} {title}</div>
-                <span class="badge" style="background:{t['bg']}; color:{t['color']};">{t['name']}</span>
-                <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
+            st.button("Register interest →", key=f"event_{i}", use_container_width=True)
 
-    st.markdown(
-        '<div class="page-subtitle" style="margin-top:14px;">📌 That\'s everything on the calendar for now — more workshops will be added here as they\'re scheduled.</div>',
-        unsafe_allow_html=True,
-    )
+    if not filtered:
+        st.info("No events found for this pathway yet — check back soon.")
 
 
 # ============================================================================
