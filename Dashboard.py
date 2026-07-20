@@ -537,7 +537,6 @@ def render_home():
                 unsafe_allow_html=True
             )
 
-        st.caption("These links currently point to Microsoft AI resources. Replace with OA intranet URLs when available.")
     # ---------------- EVENTS + LABS ----------------
     ev_col, lab_col = st.columns(2, gap="large")
 
