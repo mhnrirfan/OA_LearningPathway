@@ -296,46 +296,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ============================================================================
-# SIDEBAR
-# ============================================================================
-
-with st.sidebar:
-
-    st.markdown(
-        '<div class="sidebar-logo">'
-        '<span class="logo-icon">🔷</span>'
-        '<span>OA AI Capability Journey</span>'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown("""
-    <style>
-
-    div[data-testid="stButton"] button {
-        width:100%;
-        border:none !important;
-        text-align:left;
-        background:white !important;
-        padding:10px 12px !important;
-        font-size:15px !important;
-        font-weight:600 !important;
-        color:#12163a !important;
-        border-radius:8px !important;
-    }
-
-    div[data-testid="stButton"] button p {
-        color:#12163a !important;
-    }
-
-    div[data-testid="stButton"] button:hover {
-        background:#eef2ff !important;
-        color:#12163a !important;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
 
 # ============================================================================
 # HEADER (shared)
@@ -345,144 +305,69 @@ with h1:
     st.markdown('<div class="page-title">OA AI Capability Journey</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
     # ============================================================
-    # Dashboard Toggles
+    # Dashboard Feature Cards
     # ============================================================
 
-    toggle1, toggle2, toggle3 = st.columns(3)
+    c1, c2, c3 = st.columns(3)
 
 
-    # ---------------- Capability Survey ----------------
+    with c1:
 
-    with toggle1:
-
-        with st.expander("📚 Capability Assessment"):
-
-            st.markdown("### Discover your AI level")
-
-            st.caption(
-                "Complete this quick assessment to get a recommended learning pathway."
-            )
-
-            ai_score = st.slider(
-                "AI experience level",
-                0,
-                10,
-                3,
-                help="0 = New to AI | 10 = Advanced AI builder",
-                key="ai_score"
-            )
+        st.markdown("""
+        <div class="feature-card">
+            <h3>📚 Capability Assessment</h3>
+            <p>Discover your AI level and receive a personalised learning pathway.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
-            capability = st.radio(
-                "AI confidence",
-                [
-                    "Beginner",
-                    "Developing",
-                    "Confident",
-                    "Advanced",
-                    "Expert"
-                ],
-                horizontal=True,
-                key="capability_level"
-            )
-
-
-            goal = st.selectbox(
-                "Your goal",
-                [
-                    "Understand AI fundamentals",
-                    "Use AI in my daily work",
-                    "Build AI solutions",
-                    "Create AI agents",
-                    "Lead AI adoption"
-                ],
-                key="learning_goal"
-            )
-
-
-            if st.button(
-                "Generate Learning Path →",
-                use_container_width=True,
-                key="generate_path"
-            ):
-
-                score = ai_score
-
-                if capability in ["Advanced", "Expert"]:
-                    score += 5
-
-
-                if score >= 12:
-                    recommended = "agentic"
-
-                elif score >= 7:
-                    recommended = "rag_data"
-
-                else:
-                    recommended = "fundamentals"
-
-
-                st.success(
-                    f"Recommended: **{TRACKS[recommended]['name']}**"
-                )
-
-
-                st.session_state.page = recommended
-                st.rerun()
+        if st.button(
+            "Open Assessment →",
+            key="open_survey",
+            use_container_width=True
+        ):
+            st.session_state.page = "capability_survey"
+            st.rerun()
 
 
 
-    # ---------------- AI Guide ----------------
+    with c2:
 
-    with toggle2:
+        st.markdown("""
+        <div class="feature-card">
+            <h3>📄 AI Capability Guide</h3>
+            <p>Explore AI pathways, courses and capability levels.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        with st.expander("📄 AI Capability Guide"):
 
-            st.markdown(
-                """
-                ### AI Capability Journey
-
-                Explore pathways covering:
-
-                - AI Fundamentals
-                - Generative AI
-                - RAG & Data
-                - AI Agents
-                - Governance
-                - Simulation
-                """
-            )
-
-            st.info(
-                "Choose a pathway to start building your capability."
-            )
+        if st.button(
+            "Open Guide →",
+            key="open_guide",
+            use_container_width=True
+        ):
+            st.session_state.page = "capability_guide"
+            st.rerun()
 
 
 
-    # ---------------- Feedback ----------------
+    with c3:
 
-    with toggle3:
-
-        with st.expander("💬 Share Feedback"):
-
-            st.markdown(
-                "### Help us improve the journey"
-            )
-
-            feedback = st.text_area(
-                "Your feedback",
-                placeholder="What would make this experience better?"
-            )
+        st.markdown("""
+        <div class="feature-card">
+            <h3>💬 Feedback</h3>
+            <p>Share ideas and help improve the journey.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
-            if st.button(
-                "Submit Feedback",
-                key="feedback_submit"
-            ):
-                st.success(
-                    "Thanks for your feedback!"
-                )
-
+        if st.button(
+            "Share Feedback →",
+            key="open_feedback",
+            use_container_width=True
+        ):
+            st.session_state.page = "feedback"
+            st.rerun()
 # ============================================================================
 # TRACK DETAIL PAGE
 # ============================================================================
@@ -722,6 +607,44 @@ def render_home():
 # ============================================================================
 # ROUTER
 # ============================================================================
+
+
+def render_capability_guide():
+
+    st.markdown(
+        '<h1 class="page-title">AI Capability Guide</h1>',
+        unsafe_allow_html=True
+    )
+
+    st.write(
+        """
+        Explore the AI learning journey:
+
+        - AI Fundamentals
+        - Generative AI
+        - RAG & Data
+        - Agentic AI
+        - Governance
+        """
+    )
+
+
+
+def render_feedback():
+
+    st.markdown(
+        '<h1 class="page-title">Feedback</h1>',
+        unsafe_allow_html=True
+    )
+
+    feedback = st.text_area(
+        "Your feedback"
+    )
+
+    if st.button("Submit"):
+        st.success("Thank you for your feedback!")
+
+
 page = st.session_state.get("page", "home")
 
 
@@ -731,14 +654,14 @@ if page == "home":
 elif page == "capability_survey":
     render_capability_survey()
 
-elif page == "workshops":
-    render_workshops_events()
+elif page == "capability_guide":
+    render_capability_guide()
 
-elif page == "sandbox":
-    render_sandbox_labs()
+elif page == "feedback":
+    render_feedback()
 
 elif page in TRACKS:
     render_track_page(page)
-else:
-    render_track_page(st.session_state.page)
+
+
 
