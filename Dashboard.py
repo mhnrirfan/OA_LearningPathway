@@ -85,7 +85,6 @@ STAGE_TO_TRACK = {
     "INNOVATION LAB": "simulation",
 }
 
-# Tool -> official documentation link
 TOOL_LINKS = {
     "Azure AI Search": ("🔷", "https://learn.microsoft.com/en-us/azure/search/"),
     "Redis": ("🟥", "https://redis.io/docs/latest/"),
@@ -109,13 +108,35 @@ TOOL_LINKS = {
     "W&B": ("⚖️", "https://docs.wandb.ai/"),
 }
 
+EVENTS = [
+    ("📗", "Building with RAG on Azure AI Search", "29 October 2026", "rag_data", "Practitioner", "Virtual"),
+    ("📘", "Multi-Agent Orchestration with LangGraph", "5 December 2026", "agentic", "Advanced", "In-person"),
+    ("🧠", "Prompt Engineering Fundamentals", "12 September 2026", "fundamentals", "Beginner", "Virtual"),
+    ("🛡️", "Governance & Guardrails Workshop", "3 November 2026", "governance", "Practitioner", "In-person"),
+    ("🚀", "Simulating with Digital Twins", "18 December 2026", "simulation", "Advanced", "Virtual"),
+    ("💡", "Working with Claude 3.x & Gemini", "22 September 2026", "llm_promptops", "Beginner", "Virtual"),
+]
+
+LABS = [
+    ("🧪", "RAG Lab", "Build a company knowledge assistant", "rag_data", "Intermediate"),
+    ("🤖", "Agent Builder Lab", "Create your first AI agent", "agentic", "Intermediate"),
+    ("🌊", "Prompt Flow Lab", "Test, evaluate and improve prompts", "llm_promptops", "Beginner"),
+    ("🧬", "Synthetic Data Lab", "Generate data for AI & analytics", "simulation", "Advanced"),
+    ("🛡️", "Guardrails Sandbox", "Practice building safe AI approval flows", "governance", "Intermediate"),
+    ("🏆", "Foundations Playground", "Warm up with core LLM concepts", "fundamentals", "Beginner"),
+]
+
+LEVELS = ["New to this", "Getting started", "Comfortable", "Confident"]
+
 # ============================================================================
 # STATE
 # ============================================================================
 if "page" not in st.session_state:
     st.session_state.page = "home"
-if "feedback_sent" not in st.session_state:
-    st.session_state.feedback_sent = False
+if "survey_scores" not in st.session_state:
+    st.session_state.survey_scores = {k: 0 for k in TRACKS}
+if "survey_submitted" not in st.session_state:
+    st.session_state.survey_submitted = False
 
 
 def go_home():
@@ -123,6 +144,10 @@ def go_home():
 
 
 def go_track(key):
+    st.session_state.page = key
+
+
+def go_page(key):
     st.session_state.page = key
 
 
@@ -146,16 +171,29 @@ st.markdown("""
     section[data-testid="stSidebar"] * { color: #d7dbf0 !important; }
     .sidebar-logo {
         display: flex; align-items: center; gap: 10px;
-        padding: 4px 0 20px 0; font-weight: 800; font-size: 16.5px; color: white !important;
+        padding: 4px 0 22px 0; font-weight: 800; font-size: 16.5px; color: white !important;
         line-height: 1.3;
     }
     .sidebar-logo .logo-icon { font-size: 24px; flex-shrink: 0; }
-    .nav-item {
-        display: flex; align-items: center; gap: 12px;
-        padding: 9px 12px; border-radius: 8px; margin-bottom: 2px;
-        font-size: 13.8px; font-weight: 500; color: #c7cbe6; line-height: 1.3;
+
+    /* secondary (inactive) nav buttons */
+    section[data-testid="stSidebar"] div[data-testid="stButton"] button[kind="secondary"] {
+        background: transparent !important; border: 1px solid transparent !important;
+        text-align: left !important; justify-content: flex-start !important;
+        padding: 9px 12px !important; font-size: 13.8px !important; font-weight: 500 !important;
+        color: #c7cbe6 !important; min-height: unset !important; border-radius: 8px !important;
     }
-    .nav-item.active { background-color: #2b3570; color: white !important; font-weight: 600; }
+    section[data-testid="stSidebar"] div[data-testid="stButton"] button[kind="secondary"]:hover {
+        background: #1c2450 !important; color: white !important; border-color: transparent !important;
+    }
+    /* primary (active) nav button */
+    section[data-testid="stSidebar"] div[data-testid="stButton"] button[kind="primary"] {
+        background: linear-gradient(90deg, #5b3df0, #2f6fed) !important;
+        border: none !important; text-align: left !important; justify-content: flex-start !important;
+        padding: 9px 12px !important; font-size: 13.8px !important; font-weight: 700 !important;
+        color: white !important; min-height: unset !important; border-radius: 8px !important;
+        box-shadow: 0 3px 10px rgba(91,61,240,0.35) !important;
+    }
     .quote-box {
         background-color: #1c2450; border-radius: 10px; padding: 16px 16px 12px 16px;
         margin-top: 22px; font-size: 12.5px; line-height: 1.55; color: #b8bde0;
@@ -180,7 +218,6 @@ st.markdown("""
         border: 1px solid #d7dae3; background-color: white; color: #2c3050;
         padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
     }
-    .purple-btn button { background-color: #5b3df0 !important; color: white !important; border: none !important; }
 
     /* ---------- Section headers ---------- */
     .section-title { font-size: 18px; font-weight: 800; color: #12163a; margin: 6px 0 12px 0; line-height: 1.3; }
@@ -188,14 +225,9 @@ st.markdown("""
     .section-link { font-size: 12.5px; font-weight: 700; color: #2f6fed; text-decoration: none; white-space: nowrap; }
 
     /* ---------- Track cards (clickable pathway buttons) ---------- */
-    div[data-testid="stButton"] > button.track-btn,
-    .track-marker + div[data-testid="stButton"] button {
-        width: 100%; min-height: 96px; border-radius: 12px; text-align: left;
-        padding: 14px 14px; font-weight: 700; font-size: 14px;
-        display: flex; align-items: flex-start; white-space: normal;
-    }
-    .track-caption { font-size: 12px; color: #6b7086; margin: -8px 2px 14px 2px; line-height: 1.4; }
+    .track-caption { font-size: 12px; color: #6b7086; margin: 8px 2px 14px 2px; line-height: 1.4; text-align: center; }
     .track-caption b { color: #12163a; }
+    .track-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:middle; }
 
     /* ---------- Journey ---------- */
     .journey-wrap {
@@ -236,7 +268,7 @@ st.markdown("""
     }
     .event-title { font-weight: 600; font-size: 13px; color: #16193b; line-height: 1.35; }
     .event-date { font-size: 11px; color: #6b7086; white-space: nowrap; flex-shrink: 0; }
-    .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 4px; }
+    .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 4px; margin-right:6px;}
 
     .lab-card {
         border-radius: 12px; padding: 15px; min-height: 140px;
@@ -245,7 +277,6 @@ st.markdown("""
     .lab-title { font-weight: 700; font-size: 13.5px; margin-bottom: 4px; line-height: 1.3; }
     .lab-desc { font-size: 11.5px; color: #454868; line-height: 1.4; }
 
-    /* Tool chips are now real links */
     a.tool-chip {
         display: flex; align-items: center; gap: 7px; background: #f7f8fb;
         border: 1px solid #edeef4; border-radius: 8px; padding: 8px 9px;
@@ -293,9 +324,71 @@ st.markdown("""
         border: none; background: transparent; color: #2f6fed; font-weight: 700;
         font-size: 13.5px; padding: 4px 0; min-height: unset;
     }
+
+    /* ---------- Generic page hero ---------- */
+    .page-hero {
+        border-radius: 14px; padding: 22px 24px; margin-bottom: 22px;
+        display: flex; align-items: center; gap: 14px;
+    }
+    .page-hero-icon {
+        width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.55);
+        display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;
+    }
+    .page-hero-title { font-size: 21px; font-weight: 800; margin: 0; color: #12163a; line-height: 1.25; }
+    .page-hero-sub { font-size: 13px; margin-top: 3px; color: #454868; }
+
+    /* survey */
+    .survey-card {
+        background: white; border-radius: 12px; border: 1px solid #e7e9f2;
+        padding: 16px 18px; margin-bottom: 14px;
+    }
+    .survey-track-label { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .survey-track-sub { font-size: 11.5px; color: #6b7086; margin-bottom: 10px; }
+    .result-bar-bg { background: #eef0f6; border-radius: 8px; height: 14px; width: 100%; overflow: hidden; }
+    .result-bar-fill { height: 14px; border-radius: 8px; }
+    .result-row { display:flex; align-items:center; gap:12px; margin-bottom: 12px; }
+    .result-label { width: 190px; font-size: 12.5px; font-weight: 700; color:#12163a; flex-shrink:0; }
+    .result-pct { width: 40px; font-size: 11.5px; font-weight: 700; color:#6b7086; text-align:right; flex-shrink:0; }
+
+    /* events */
+    .event-card { background: white; border-radius: 12px; border: 1px solid #e7e9f2; padding: 16px; margin-bottom: 12px; }
 </style>
 """, unsafe_allow_html=True)
 
+# ============================================================================
+# SIDEBAR
+# ============================================================================
+with st.sidebar:
+    st.markdown(
+        '<div class="sidebar-logo"><span class="logo-icon">🔷</span>'
+        '<span>OA AI Capability Journey</span></div>',
+        unsafe_allow_html=True,
+    )
+    nav_items = [
+        ("🏠", "Home", "home"),
+        ("📚", "Capability Survey", "capability_survey"),
+        ("🗓️", "Workshops & Events", "workshops"),
+        ("🧪", "Sandbox Labs", "sandbox"),
+    ]
+
+    current_page = st.session_state.get("page", "home")
+    for icon, label, page_key in nav_items:
+        active = current_page == page_key or (page_key == "home" and current_page in TRACKS)
+        st.button(
+            f"{icon}  {label}",
+            key=f"nav_{page_key}",
+            use_container_width=True,
+            type="primary" if active else "secondary",
+            on_click=go_page,
+            args=(page_key,),
+        )
+
+    st.markdown("""
+    <div class="quote-box">
+        "The best way to predict the future is to build it."
+        <div class="quote-attr">— Learning & Capability Team</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================================================
 # HEADER (shared)
@@ -304,70 +397,67 @@ h1, h2 = st.columns([3, 2])
 with h1:
     st.markdown('<div class="page-title">OA AI Capability Journey</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
-    # ============================================================
-    # Dashboard Feature Cards
-    # ============================================================
+with h2:
+    b1, b2, b3 = st.columns(3, gap="medium")
 
-    c1, c2, c3 = st.columns(3)
+    with b1:
+        with st.popover("How to use this board", use_container_width=True):
+            st.markdown("## How to use this board")
+            st.markdown("""
+            **Getting around the board**
+            - Pick a **pathway** to see every course in that track.
+            - Follow the **Journey** left to right — each stage builds on the last.
+            - Use the learning loop:
+            **Learn → Workshop → Sandbox → Build → Showcase → Badge**
+            - Take the **Capability Survey** to get a personalised starting point.
+            - Explore **Sandbox Labs** for hands-on practice.
+            - Use **Tools We Work With** for official documentation.
+            """)
+    with b2:
+        with st.popover("AI Capability Guide", use_container_width=True):
+            st.markdown("## AI Capability Guide")
+            st.markdown("""
+            This board maps six AI capability pathways:
+            - AI Fundamentals
+            - Generative AI
+            - Agentic Systems
+            - RAG & Data
+            - Governance
+            - Simulation
+            Start with Fundamentals if you are new,
+            or jump directly to the pathway that matches your project.
+            """)
+    with b3:
+        with st.popover("Share feedback", use_container_width=True):
+            st.markdown("## Share feedback")
+            st.markdown("""
+            Help us improve the board.
+            Tell us:
+            - What works well
+            - What is unclear
+            - What content is missing
+            - What would improve your experience
+            """)
+            fb = st.text_area(
+                "Your feedback",
+                placeholder="What would make this board more useful?",
+                label_visibility="collapsed",
+                key="fb_text"
+            )
+            if st.button("Submit feedback", key="fb_submit"):
+                st.success("Thanks — your feedback has been noted.")
+    st.markdown("""
+    <style>
+    div[data-testid="stPopover"] button {
+        height: 70px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+st.write("")
 
 
-    with c1:
-
-        st.markdown("""
-        <div class="feature-card">
-            <h3>📚 Capability Assessment</h3>
-            <p>Discover your AI level and receive a personalised learning pathway.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-        if st.button(
-            "Open Assessment →",
-            key="open_survey",
-            use_container_width=True
-        ):
-            st.session_state.page = "capability_survey"
-            st.rerun()
-
-
-
-    with c2:
-
-        st.markdown("""
-        <div class="feature-card">
-            <h3>📄 AI Capability Guide</h3>
-            <p>Explore AI pathways, courses and capability levels.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-        if st.button(
-            "Open Guide →",
-            key="open_guide",
-            use_container_width=True
-        ):
-            st.session_state.page = "capability_guide"
-            st.rerun()
-
-
-
-    with c3:
-
-        st.markdown("""
-        <div class="feature-card">
-            <h3>💬 Feedback</h3>
-            <p>Share ideas and help improve the journey.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-        if st.button(
-            "Share Feedback →",
-            key="open_feedback",
-            use_container_width=True
-        ):
-            st.session_state.page = "feedback"
-            st.rerun()
 # ============================================================================
 # TRACK DETAIL PAGE
 # ============================================================================
@@ -419,16 +509,23 @@ def render_home():
                     f"<style>div[data-testid='column']:has(#marker-track-{key}) "
                     f"div[data-testid='stButton'] button {{"
                     f"background:{t['bg']} !important; color:{t['color']} !important;"
-                    f"border:1.5px solid {t['color']}44 !important; width:100%; min-height:96px; "
-                    f"border-radius:12px; text-align:left; padding:14px; font-weight:700; "
-                    f"font-size:14px; display:flex; align-items:flex-start; white-space:normal;}}</style>"
+                    f"border:2px solid {t['color']} !important; width:100%; min-height:100px; "
+                    f"border-top:5px solid {t['color']} !important; "
+                    f"border-radius:12px; text-align:center; padding:16px 10px; font-weight:700; "
+                    f"font-size:14px; display:flex; align-items:center; justify-content:center; "
+                    f"white-space:normal; box-shadow:0 3px 10px {t['color']}22; "
+                    f"transition:transform 0.12s ease;}}"
+                    f"div[data-testid='column']:has(#marker-track-{key}) "
+                    f"div[data-testid='stButton'] button:hover {{"
+                    f"transform:translateY(-2px); box-shadow:0 6px 16px {t['color']}44;}}</style>"
                     f"<span id='marker-track-{key}'></span>",
                     unsafe_allow_html=True,
                 )
                 st.button(f"{t['icon']}  {t['name']}", key=f"track_{key}",
                           use_container_width=True, on_click=go_track, args=(key,))
                 st.markdown(
-                    f'<div class="track-caption">Track · <b>{len(t["courses"])} Capabilities</b></div>',
+                    f'<div class="track-caption"><span class="track-dot" style="background:{t["color"]};"></span>'
+                    f'<b>{len(t["courses"])}</b> Capabilities</div>',
                     unsafe_allow_html=True,
                 )
 
@@ -450,6 +547,7 @@ def render_home():
              ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
         ]
 
+        st.markdown('<div class="journey-wrap">', unsafe_allow_html=True)
         circ_cols = st.columns(6)
         for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
             with col:
@@ -469,7 +567,9 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
-            st.markdown('</div>', unsafe_allow_html=True)
+                st.button(f"View {TRACKS[track_key]['name']} →", key=f"stage_{track_key}",
+                          use_container_width=True, on_click=go_track, args=(track_key,))
+        st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
         st.markdown('<div class="section-title">How you learn</div>', unsafe_allow_html=True)
@@ -529,67 +629,48 @@ def render_home():
     with ev_col:
         st.markdown(
             '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-            'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
+            'Upcoming Workshops & Events</span></div>',
             unsafe_allow_html=True,
         )
-        events = [
-            ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
-                ("Practitioner", "#e9f8ee", "#2f9e5c")),
-            ("📘", "#f2edfe", "#8b5cf6", "Multi-Agent Orchestration with LangGraph", "5 December 2026",
-                ("Advanced", "#f2edfe", "#8b5cf6")),
-        ]
         rows_html = ""
-        for icon, ibg, icolor, title, date, badge in events:
-            badge_html = ""
-            if badge:
-                btxt, bbg, bcolor = badge
-                badge_html = f'<span class="badge" style="background:{bbg}; color:{bcolor};">{btxt}</span>'
+        for icon, title, date, track_key, level, mode in EVENTS[:3]:
+            t = TRACKS[track_key]
             rows_html += f"""
             <div class="event-row">
-                <div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>
+                <div class="event-icon" style="background:{t['bg']}; color:{t['color']};">{icon}</div>
                 <div style="flex:1;">
                     <div class="event-title">{title}</div>
-                    {badge_html}
+                    <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
+                    <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
                 </div>
                 <div class="event-date">{date}</div>
             </div>
             """
-        st.markdown(rows_html, unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="white-card">{rows_html}</div>', unsafe_allow_html=True)
+        st.write("")
+        st.button("View all events →", key="view_all_events", on_click=go_page, args=("workshops",))
 
     with lab_col:
         st.markdown(
             '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-            'Sandbox Labs</span><a class="section-link" href="#">Open Lab Environment →</a></div>',
+            'Sandbox Labs</span></div>',
             unsafe_allow_html=True,
         )
-        labs = [
-            ("RAG Lab", "Build a company knowledge assistant", "#eaf1ff", "#2f6fed"),
-            ("Agent Builder Lab", "Create your first AI agent", "#e9f8ee", "#2f9e5c"),
-            ("Prompt Flow Lab", "Test, evaluate and improve prompts", "#f2edfe", "#8b5cf6"),
-            ("Synthetic Data Lab", "Generate data for AI & analytics", "#fef1e6", "#e8781f"),
-        ]
         lc = st.columns(4)
-        for col, (title, desc, bg, color) in zip(lc, labs):
+        for col, (icon, title, desc, track_key, level) in zip(lc, LABS[:4]):
+            t = TRACKS[track_key]
             with col:
                 st.markdown(f"""
-                <div class="lab-card" style="background:{bg};">
+                <div class="lab-card" style="background:{t['bg']};">
                     <div>
-                        <div class="lab-title" style="color:{color};">{title}</div>
+                        <div style="font-size:18px; margin-bottom:4px;">{icon}</div>
+                        <div class="lab-title" style="color:{t['color']};">{title}</div>
                         <div class="lab-desc">{desc}</div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
-                st.markdown(
-                    f"<style>div[data-testid='column']:has(#marker-lab-{title.replace(' ', '')}) "
-                    f"div[data-testid='stButton'] button {{"
-                    f"background:transparent !important; color:{color} !important; border:none !important;"
-                    f"font-size:12px !important; font-weight:700 !important; padding:2px 0 !important; "
-                    f"min-height:unset !important; text-align:left !important;}}</style>"
-                    f"<span id='marker-lab-{title.replace(' ', '')}'></span>",
-                    unsafe_allow_html=True,
-                )
-                st.button("Start Lab →", key=f"lab_{title}", use_container_width=True)
+        st.write("")
+        st.button("Open Lab Environment →", key="view_all_labs", on_click=go_page, args=("sandbox",))
 
     st.write("")
     st.markdown("""
@@ -603,65 +684,167 @@ def render_home():
     """, unsafe_allow_html=True)
 
 
+# ============================================================================
+# CAPABILITY SURVEY PAGE
+# ============================================================================
+def render_capability_survey():
+    st.markdown("""
+    <div class="page-hero" style="background:#eaf1ff;">
+        <div class="page-hero-icon">📚</div>
+        <div>
+            <p class="page-hero-title">Capability Survey</p>
+            <p class="page-hero-sub">Rate your comfort level in each pathway to get a personalised starting point.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    with st.form("survey_form"):
+        for key, t in TRACKS.items():
+            st.markdown(f"""
+            <div class="survey-card">
+                <div class="survey-track-label" style="color:{t['color']};">{t['icon']} {t['name']}</div>
+                <div class="survey-track-sub">{len(t['courses'])} capabilities in this pathway</div>
+            """, unsafe_allow_html=True)
+            level = st.select_slider(
+                f"Your level — {t['name']}",
+                options=LEVELS,
+                value=LEVELS[st.session_state.survey_scores.get(key, 0)] if st.session_state.survey_scores.get(key, 0) else LEVELS[0],
+                key=f"survey_{key}",
+                label_visibility="collapsed",
+            )
+            st.markdown("</div>", unsafe_allow_html=True)
+
+        submitted = st.form_submit_button("Get my recommendation →", use_container_width=True)
+        if submitted:
+            for key in TRACKS:
+                st.session_state.survey_scores[key] = LEVELS.index(st.session_state[f"survey_{key}"])
+            st.session_state.survey_submitted = True
+
+    if st.session_state.survey_submitted:
+        st.write("")
+        st.markdown('<div class="section-title">Your capability snapshot</div>', unsafe_allow_html=True)
+        st.markdown('<div class="white-card">', unsafe_allow_html=True)
+        for key, t in TRACKS.items():
+            score = st.session_state.survey_scores.get(key, 0)
+            pct = int((score / (len(LEVELS) - 1)) * 100)
+            st.markdown(f"""
+            <div class="result-row">
+                <div class="result-label">{t['icon']} {t['name']}</div>
+                <div class="result-bar-bg"><div class="result-bar-fill" style="width:{pct}%; background:{t['color']};"></div></div>
+                <div class="result-pct">{pct}%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        lowest_key = min(st.session_state.survey_scores, key=st.session_state.survey_scores.get)
+        lowest_t = TRACKS[lowest_key]
+        st.write("")
+        st.markdown(f"""
+        <div class="page-hero" style="background:{lowest_t['bg']};">
+            <div class="page-hero-icon">{lowest_t['icon']}</div>
+            <div>
+                <p class="page-hero-title" style="color:{lowest_t['color']};">Recommended next step: {lowest_t['name']}</p>
+                <p class="page-hero-sub">This pathway had your lowest confidence score — a great place to start building momentum.</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.button(f"Go to {lowest_t['name']} track →", key="survey_cta", on_click=go_track, args=(lowest_key,))
+
+
+# ============================================================================
+# WORKSHOPS & EVENTS PAGE
+# ============================================================================
+def render_workshops_events():
+    st.markdown("""
+    <div class="page-hero" style="background:#e9f8ee;">
+        <div class="page-hero-icon">🗓️</div>
+        <div>
+            <p class="page-hero-title">Workshops & Events</p>
+            <p class="page-hero-sub">Instructor-led sessions to deepen your skills alongside the community.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    filter_options = ["All pathways"] + [t["name"] for t in TRACKS.values()]
+    choice = st.selectbox("Filter by pathway", filter_options, label_visibility="collapsed")
+
+    name_to_key = {t["name"]: k for k, t in TRACKS.items()}
+    filtered = EVENTS if choice == "All pathways" else [e for e in EVENTS if e[3] == name_to_key[choice]]
+
+    st.write("")
+    cols = st.columns(2)
+    for i, (icon, title, date, track_key, level, mode) in enumerate(filtered):
+        t = TRACKS[track_key]
+        with cols[i % 2]:
+            st.markdown(f"""
+            <div class="event-card" style="border-top:4px solid {t['color']};">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <div class="event-icon" style="background:{t['bg']}; color:{t['color']}; width:38px; height:38px; font-size:16px;">{icon}</div>
+                    <div style="flex:1;">
+                        <div class="event-title" style="font-size:14px;">{title}</div>
+                        <div style="margin-top:6px;">
+                            <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
+                            <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-date" style="margin-top:10px;">📅 {date}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.button("Register interest →", key=f"event_{i}", use_container_width=True)
+
+    if not filtered:
+        st.info("No events found for this pathway yet — check back soon.")
+
+
+# ============================================================================
+# SANDBOX LABS PAGE
+# ============================================================================
+def render_sandbox_labs():
+    st.markdown("""
+    <div class="page-hero" style="background:#f2edfe;">
+        <div class="page-hero-icon">🧪</div>
+        <div>
+            <p class="page-hero-title">Sandbox Labs</p>
+            <p class="page-hero-sub">Hands-on, guided environments to practise before you build for real.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    cols = st.columns(3)
+    for i, (icon, title, desc, track_key, level) in enumerate(LABS):
+        t = TRACKS[track_key]
+        with cols[i % 3]:
+            st.markdown(f"""
+            <div class="lab-card" style="background:{t['bg']}; border-top:5px solid {t['color']}; min-height:170px;">
+                <div>
+                    <div style="font-size:22px; margin-bottom:6px;">{icon}</div>
+                    <div class="lab-title" style="color:{t['color']}; font-size:15px;">{title}</div>
+                    <div class="lab-desc">{desc}</div>
+                    <span class="badge" style="background:white; color:{t['color']}; margin-top:8px;">{level}</span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            if st.button("Launch Lab →", key=f"lab_launch_{i}", use_container_width=True):
+                st.toast(f"Launching {title}... (demo environment)", icon="🧪")
+            st.write("")
+
 
 # ============================================================================
 # ROUTER
 # ============================================================================
-
-
-def render_capability_guide():
-
-    st.markdown(
-        '<h1 class="page-title">AI Capability Guide</h1>',
-        unsafe_allow_html=True
-    )
-
-    st.write(
-        """
-        Explore the AI learning journey:
-
-        - AI Fundamentals
-        - Generative AI
-        - RAG & Data
-        - Agentic AI
-        - Governance
-        """
-    )
-
-
-
-def render_feedback():
-
-    st.markdown(
-        '<h1 class="page-title">Feedback</h1>',
-        unsafe_allow_html=True
-    )
-
-    feedback = st.text_area(
-        "Your feedback"
-    )
-
-    if st.button("Submit"):
-        st.success("Thank you for your feedback!")
-
-
 page = st.session_state.get("page", "home")
-
 
 if page == "home":
     render_home()
-
 elif page == "capability_survey":
     render_capability_survey()
-
-elif page == "capability_guide":
-    render_capability_guide()
-
-elif page == "feedback":
-    render_feedback()
-
+elif page == "workshops":
+    render_workshops_events()
+elif page == "sandbox":
+    render_sandbox_labs()
 elif page in TRACKS:
     render_track_page(page)
-
-
-
+else:
+    st.session_state.page = "home"
+    render_home()
