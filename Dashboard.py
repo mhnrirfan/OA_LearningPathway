@@ -313,13 +313,6 @@ with st.sidebar:
     for icon, label, active in nav_items:
         cls = "nav-item active" if active else "nav-item"
         st.markdown(f'<div class="{cls}">{icon} &nbsp;{label}</div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="quote-box">
-        "We connect AI models to our foundational tools and semantics layers —
-        enabling agents to read, reason and act across data and models."
-        <div class="quote-attr">— OA AI Team</div>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ============================================================================
 # HEADER (shared)
