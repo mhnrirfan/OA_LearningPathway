@@ -177,17 +177,10 @@ st.markdown("""
     div[data-testid="stButton"] > button:hover { border-color: #2f6fed; color: #2f6fed; }
     div[data-testid="stPopover"] > button {
         border-radius: 8px; font-weight: 600; font-size: 13px;
-        border: 1px solid transparent; background-image: linear-gradient(135deg, #5b3df0, #2f6fed);
-        color: white; padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
+        border: 1px solid #d7dae3; background-color: white; color: #2c3050;
+        padding: 8px 12px; white-space: normal; line-height: 1.3; min-height: 40px;
     }
-    div[data-testid="stPopover"] > button:hover {
-        filter: brightness(1.05); border-color: transparent; color: white;
-    }
-    .purple-btn button {
-        background-image: linear-gradient(135deg, #8b5cf6, #5b3df0) !important;
-        color: white !important; border: none !important;
-        box-shadow: 0 8px 18px rgba(95, 67, 255, 0.12) !important;
-    }
+    .purple-btn button { background-color: #5b3df0 !important; color: white !important; border: none !important; }
 
     /* ---------- Section headers ---------- */
     .section-title { font-size: 18px; font-weight: 800; color: #12163a; margin: 6px 0 12px 0; line-height: 1.3; }
@@ -329,39 +322,132 @@ with h1:
     st.markdown('<div class="page-title">OA AI Capability Journey</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
 with h2:
-    b1, b2, b3 = st.columns(3)
+    b1, b2, b3 = st.columns(3, gap="medium")
+    button_style = (
+        "height:90px;"
+        "width:100%;"
+        "border-radius:14px;"
+        "color:white;"
+        "font-size:22px;"
+        "font-weight:700;"
+        "display:flex;"
+        "align-items:center;"
+        "justify-content:center;"
+        "text-align:center;"
+        "margin-bottom:12px;"
+    )
+
     with b1:
-        with st.popover("ℹ️ How to use this board", use_container_width=True):
-            st.markdown("**Getting around the board**")
+        st.markdown(
+            f"""
+            <div style="
+                background:linear-gradient(135deg,#6a11cb,#2575fc);
+                {button_style}">
+                ℹ️ How to use this board
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        with st.popover("Open guide", use_container_width=True):
+            st.markdown("## ℹ️ How to use this board")
             st.markdown(
-                "- Pick a **pathway** to see every course in that track.\n"
-                "- Follow the **Journey** left to right — each stage builds on the last.\n"
-                "- Use **How you learn** as your loop for every capability: "
-                "Learn → Workshop → Sandbox → Build → Showcase → Badge.\n"
-                "- Check **Sandbox Labs** for hands-on practice any time.\n"
-                "- **Tools We Work With** links straight out to the official docs."
+                """
+                **Getting around the board**
+
+                - Pick a **pathway** to see every course in that track.
+                - Follow the **Journey** from left to right — each stage builds on the last.
+                - Use the learning loop for every capability:
+
+                **Learn → Workshop → Sandbox → Build → Showcase → Badge**
+
+                - Explore **Sandbox Labs** for hands-on practice at any time.
+                - Use **Tools We Work With** to access official documentation.
+                - Revisit pathways regularly as new courses, examples and capabilities are added.
+                """
             )
+
     with b2:
-        with st.popover("📄 Capability Guide", use_container_width=True):
-            st.markdown("**AI Capability Guide**")
+        st.markdown(
+            f"""
+            <div style="
+                background:linear-gradient(135deg,#ff7e5f,#feb47b);
+                {button_style}">
+                📄 AI Capability Guide
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        with st.popover("Open guide", use_container_width=True):
+            st.markdown("## 📄 AI Capability Guide")
             st.markdown(
-                "This board maps six pathways, from AI fundamentals through to "
-                "agentic systems, RAG & data, governance, and simulation. Start "
-                "at **Fundamentals** if you're new, or jump to the pathway that "
-                "matches what you're building right now."
+                """
+                This board maps six AI capability pathways, taking you from
+                foundational knowledge through to advanced AI systems.
+
+                **Pathways include:**
+
+                - 🧠 **AI Fundamentals**  
+                Core concepts, terminology and essential AI principles.
+
+                - ✨ **Generative AI**  
+                Prompting, workflows and practical AI applications.
+
+                - 🤖 **Agentic Systems**  
+                Designing AI agents and autonomous workflows.
+
+                - 🔎 **RAG & Data**  
+                Connecting AI systems to trusted information sources.
+
+                - 🛡️ **AI Governance**  
+                Responsible, secure and compliant AI adoption.
+
+                - 🎮 **Simulation & Advanced Applications**  
+                Testing, modelling and next-generation AI experiences.
+
+                Start with **Fundamentals** if you are new to AI,
+                or jump directly into the pathway that matches what you are building.
+                """
             )
-            st.caption("Ask in the Community channel if you want the full PDF guide.")
+            st.caption(
+                "Ask in the Community channel if you would like the complete PDF guide."
+            )
+
     with b3:
-        st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
-        with st.popover("💬 Share feedback", use_container_width=True):
-            st.markdown("**Tell us what's working (or not)**")
-            fb = st.text_area("Your feedback", label_visibility="collapsed",
-                               placeholder="What would make this board more useful?", key="fb_text")
+        st.markdown(
+            f"""
+            <div style="
+                background:linear-gradient(135deg,#36d1dc,#5b86e5);
+                {button_style}">
+                💬 Share feedback
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        with st.popover("Open feedback form", use_container_width=True):
+            st.markdown("## 💬 Tell us what's working (or not)")
+            st.markdown(
+                """
+                Help us improve the board.
+
+                Share:
+                - What you found useful
+                - Anything that was unclear
+                - Missing courses or resources
+                - Ideas for improving the learning journey
+                """
+            )
+            fb = st.text_area(
+                "Your feedback",
+                label_visibility="collapsed",
+                placeholder="What would make this board more useful?",
+                key="fb_text"
+            )
             if st.button("Submit feedback", key="fb_submit"):
                 st.session_state.feedback_sent = True
-            if st.session_state.feedback_sent:
-                st.success("Thanks — your feedback has been noted for this session.")
-        st.markdown('</div>', unsafe_allow_html=True)
+            if st.session_state.get("feedback_sent"):
+                st.success(
+                    "Thanks — your feedback has been noted for this session."
+                )
 
 st.write("")
 
@@ -467,6 +553,7 @@ def render_home():
                     f"<span id='marker-stage-{track_key}'></span>",
                     unsafe_allow_html=True,
                 )
+                st.button("Explore track →", key=f"stage_{track_key}", use_container_width=True, on_click=go_track, args=(track_key,))
         st.markdown('</div>', unsafe_allow_html=True)
 
         # ---------------- HOW YOU LEARN ----------------
