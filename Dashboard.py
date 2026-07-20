@@ -856,7 +856,6 @@ def render_home():
              ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
         ]
 
-        st.markdown('<div class="journey-wrap">', unsafe_allow_html=True)
         circ_cols = st.columns(6)
         for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
             with col:
@@ -929,10 +928,10 @@ def render_home():
 
         upcoming = sorted(EVENTS, key=lambda e: parse_event_date(e[2]))[:3]
 
-        rows_html = ""
+        rows_html = '<div class="events-container">'
+
         for icon, title, date, track_key, level, mode in upcoming:
             t = TRACKS[track_key]
-            dt = parse_event_date(date)
 
             rows_html += f"""
             <div class="event-row">
@@ -940,21 +939,25 @@ def render_home():
                     {icon}
                 </div>
 
-                <div style="flex:1;">
+                <div class="event-info" style="flex:1;">
                     <div class="event-title">{title}</div>
+
                     <span class="badge" style="background:{t['bg']}; color:{t['color']};">
                         {level}
                     </span>
+
                     <span class="badge" style="background:#f0f1f6; color:#6b7086;">
                         {mode}
                     </span>
                 </div>
 
                 <div class="event-date">
-                    {dt.strftime("%d %B %Y")}
+                    {date}
                 </div>
             </div>
             """
+
+        rows_html += "</div>"
 
         st.markdown(rows_html, unsafe_allow_html=True)
 
