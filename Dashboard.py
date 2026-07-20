@@ -323,38 +323,52 @@ with h1:
     st.markdown('<div class="page-subtitle">Learn. Build. Apply. Lead.</div>', unsafe_allow_html=True)
 with h2:
     b1, b2, b3 = st.columns(3)
+    # Make the three info boxes equal height and use gradient styles
+    box_style = (
+        "height:220px; padding:16px; border-radius:12px; color:#fff;"
+        "display:flex; flex-direction:column; justify-content:flex-start;"
+    )
     with b1:
-        with st.popover("ℹ️ How to use this board", use_container_width=True):
-            st.markdown("**Getting around the board**")
+        with st.container():
             st.markdown(
-                "- Pick a **pathway** to see every course in that track.\n"
-                "- Follow the **Journey** left to right — each stage builds on the last.\n"
-                "- Use **How you learn** as your loop for every capability: "
-                "Learn → Workshop → Sandbox → Build → Showcase → Badge.\n"
-                "- Check **Sandbox Labs** for hands-on practice any time.\n"
-                "- **Tools We Work With** links straight out to the official docs."
+                f"<div style=\"background:linear-gradient(135deg,#6a11cb,#2575fc);{box_style}\">"
+                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">ℹ️ How to use this board</div>"
+                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95;\">"
+                "- Pick a <strong>pathway</strong> to see every course in that track.<br>"
+                "- Follow the <strong>Journey</strong> left to right — each stage builds on the last.<br>"
+                "- Use <strong>How you learn</strong> as your loop for every capability: Learn → Workshop → Sandbox → Build → Showcase → Badge.<br>"
+                "- Check <strong>Sandbox Labs</strong> for hands-on practice any time.<br>"
+                "- <strong>Tools We Work With</strong> links straight out to the official docs."
+                "</div></div>",
+                unsafe_allow_html=True,
             )
     with b2:
-        with st.popover("📄 Capability Guide", use_container_width=True):
-            st.markdown("**AI Capability Guide**")
+        with st.container():
             st.markdown(
-                "This board maps six pathways, from AI fundamentals through to "
-                "agentic systems, RAG & data, governance, and simulation. Start "
-                "at **Fundamentals** if you're new, or jump to the pathway that "
-                "matches what you're building right now."
+                f"<div style=\"background:linear-gradient(135deg,#ff7e5f,#feb47b);{box_style}\">"
+                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">📄 Capability Guide</div>"
+                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95;\">"
+                "This board maps six pathways, from AI fundamentals through to agentic systems, RAG & data, governance, and simulation. Start at <strong>Fundamentals</strong> if you're new, or jump to the pathway that matches what you're building right now."
+                "</div>"
+                "<div style=\"margin-top:auto; font-size:12px; opacity:0.9;\">Ask in the Community channel if you want the full PDF guide.</div>"
+                "</div>",
+                unsafe_allow_html=True,
             )
-            st.caption("Ask in the Community channel if you want the full PDF guide.")
     with b3:
-        st.markdown('<div class="purple-btn">', unsafe_allow_html=True)
-        with st.popover("💬 Share feedback", use_container_width=True):
-            st.markdown("**Tell us what's working (or not)**")
+        with st.container():
+            st.markdown(
+                f"<div style=\"background:linear-gradient(135deg,#36d1dc,#5b86e5);{box_style}\">"
+                "<div style=\"font-weight:600; font-size:16px; margin-bottom:8px;\">💬 Share feedback</div>"
+                "<div style=\"font-size:13px; line-height:1.4; opacity:0.95; margin-bottom:8px;\">Tell us what's working (or not)</div>"
+            , unsafe_allow_html=True)
             fb = st.text_area("Your feedback", label_visibility="collapsed",
                                placeholder="What would make this board more useful?", key="fb_text")
             if st.button("Submit feedback", key="fb_submit"):
                 st.session_state.feedback_sent = True
-            if st.session_state.feedback_sent:
+            if st.session_state.get("feedback_sent"):
                 st.success("Thanks — your feedback has been noted for this session.")
-        st.markdown('</div>', unsafe_allow_html=True)
+            # close the gradient box visually by adding a small spacer
+            st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
 st.write("")
 
