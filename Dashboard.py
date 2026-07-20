@@ -866,6 +866,7 @@ def render_home():
              ["Synthetic Data Generation", "Digital Twins (Unreal Engine)", "Mistral & LLAMA", "Simulation & Sandbox"]),
         ]
 
+        st.markdown('<div class="journey-wrap">', unsafe_allow_html=True)
         circ_cols = st.columns(6)
         for col, (icon, title, sub, color, items) in zip(circ_cols, stages):
             with col:
@@ -942,16 +943,16 @@ def render_home():
             if badge:
                 btxt, bbg, bcolor = badge
                 badge_html = f'<span class="badge" style="background:{bbg}; color:{bcolor};">{btxt}</span>'
-            rows_html += f"""
-            <div class="event-row">
-                <div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>
-                <div style="flex:1;">
-                    <div class="event-title">{title}</div>
-                    {badge_html}
-                </div>
-                <div class="event-date">{date}</div>
-            </div>
-            """
+            rows_html += (
+                '<div class="event-row">'
+                f'<div class="event-icon" style="background:{ibg}; color:{icolor};">{icon}</div>'
+                '<div style="flex:1;">'
+                f'<div class="event-title">{title}</div>'
+                f'{badge_html}'
+                '</div>'
+                f'<div class="event-date">{date}</div>'
+                '</div>'
+            )
         st.markdown(f'<div class="white-card">{rows_html}</div>', unsafe_allow_html=True)
         st.write("")
         st.button("View all events →", key="view_all_events", on_click=go_page, args=("workshops",))
