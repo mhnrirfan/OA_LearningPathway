@@ -306,9 +306,8 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     nav_items = [
-        ("🏠", "Home", True), ("🎯", "Learning Pathways", False), ("🗺️", "Capability Map", False),
-        ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), ("🛠️", "Tools & Guides", False),
-        ("📁", "Use Cases", False), ("📝", "Surveys & Feedback", False), ("👥", "Community", False),
+        ("🏠", "Home", True), ("📚", "Capability Survey", False)
+        ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), 
         ("❓", "Help & Support", False),
     ]
     for icon, label, active in nav_items:
