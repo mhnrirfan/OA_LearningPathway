@@ -306,7 +306,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     nav_items = [
-        ("🏠", "Home", True), ("📚", "Capability Survey", False),
+        ("🏠", "Home", True), 
         ("🗓️", "Workshops & Events", False), ("🧪", "Sandbox Labs", False), 
         ("❓", "Help & Support", False),
     ]
