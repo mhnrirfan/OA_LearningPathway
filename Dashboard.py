@@ -920,37 +920,43 @@ def render_home():
 
     # ---------------- EVENTS + LABS ----------------
     ev_col, lab_col = st.columns(2, gap="large")
-
     with ev_col:
         st.markdown(
             '<div class="section-title-row"><span class="section-title" style="margin:0;">'
-            'Upcoming Workshops & Events</span></div>',
+            'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
             unsafe_allow_html=True,
         )
+
         upcoming = sorted(EVENTS, key=lambda e: parse_event_date(e[2]))[:3]
+
         rows_html = ""
         for icon, title, date, track_key, level, mode in upcoming:
             t = TRACKS[track_key]
             dt = parse_event_date(date)
-            day = dt.strftime("%d")
-            mon = dt.strftime("%b").upper()
+
             rows_html += f"""
             <div class="event-row">
-                <div style="width:46px; height:46px; border-radius:9px; background:{t['bg']};
-                            display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
-                    <div style="font-size:14px; font-weight:800; color:{t['color']}; line-height:1;">{day}</div>
-                    <div style="font-size:8.5px; font-weight:700; color:{t['color']}; letter-spacing:0.4px;">{mon}</div>
+                <div class="event-icon" style="background:{t['bg']}; color:{t['color']};">
+                    {icon}
                 </div>
+
                 <div style="flex:1;">
-                    <div class="event-title">{icon} {title}</div>
-                    <span class="badge" style="background:{t['bg']}; color:{t['color']};">{level}</span>
-                    <span class="badge" style="background:#f0f1f6; color:#6b7086;">{mode}</span>
+                    <div class="event-title">{title}</div>
+                    <span class="badge" style="background:{t['bg']}; color:{t['color']};">
+                        {level}
+                    </span>
+                    <span class="badge" style="background:#f0f1f6; color:#6b7086;">
+                        {mode}
+                    </span>
+                </div>
+
+                <div class="event-date">
+                    {dt.strftime("%d %B %Y")}
                 </div>
             </div>
             """
-        st.markdown(f'<div class="white-card">{rows_html}</div>', unsafe_allow_html=True)
-        st.write("")
-        st.button("View all events →", key="view_all_events", on_click=go_page, args=("workshops",))
+
+        st.markdown(rows_html, unsafe_allow_html=True)
 
     with lab_col:
         st.markdown(
