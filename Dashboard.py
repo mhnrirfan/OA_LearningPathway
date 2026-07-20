@@ -524,7 +524,6 @@ def render_home():
             'Upcoming Workshops & Events</span><a class="section-link" href="#">View calendar →</a></div>',
             unsafe_allow_html=True,
         )
-        st.markdown('<div class="white-card">', unsafe_allow_html=True)
         events = [
             ("📗", "#e9f8ee", "#2f9e5c", "Building with RAG on Azure AI Search", "29 October 2026",
                 ("Practitioner", "#e9f8ee", "#2f9e5c")),
